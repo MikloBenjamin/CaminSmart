@@ -1,0 +1,95 @@
+﻿@model IEnumerable<AplicatieCamine.Models.Student>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Nume)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Prenume)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Facultate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Varsta)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Adresa)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.An)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StatusCazare)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DataCazare)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DataDecazare)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdCameraNavigation)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nume)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Prenume)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Facultate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Varsta)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Adresa)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.An)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StatusCazare)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DataCazare)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DataDecazare)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdCameraNavigation.Descriere)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.IdStudent">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.IdStudent">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.IdStudent">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
