@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "QBs5WOjHT26ABR5Dl7UWKLSDhbwSex+g+NYDK3+T4c/NHxKs9QU9qA6w94iVhzVkhhIY4bBdsy9ef/bzcs6tHQ==",
+  "dgSpecHash": "iDKnE8PL24vTvCqK/xpMTYmcoOHytnjf/8Ix8pGWhfaRpPV4ROitfwy9MLhLlzAP6tsFdxMtFsYF7yYRz843xA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Benjamin\\Documents\\GitHub\\PC\\AplicatieCamine\\AplicatieCamine.csproj",
+  "projectFilePath": "C:\\Users\\Benjamin\\Documents\\GitHub\\CaminSmart\\AplicatieCamine\\AplicatieCamine.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Benjamin\\.nuget\\packages\\microsoft.aspnetcore.authentication.azuread.ui\\3.1.13\\microsoft.aspnetcore.authentication.azuread.ui.3.1.13.nupkg.sha512",
     "C:\\Users\\Benjamin\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\3.1.13\\microsoft.aspnetcore.authentication.jwtbearer.3.1.13.nupkg.sha512",

@@ -5782,11 +5782,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Benjamin\\Documents\\GitHub\\PC\\AplicatieCamine\\AplicatieCamine.csproj",
+      "projectUniqueName": "C:\\Users\\Benjamin\\Documents\\GitHub\\CaminSmart\\AplicatieCamine\\AplicatieCamine.csproj",
       "projectName": "AplicatieCamine",
-      "projectPath": "C:\\Users\\Benjamin\\Documents\\GitHub\\PC\\AplicatieCamine\\AplicatieCamine.csproj",
+      "projectPath": "C:\\Users\\Benjamin\\Documents\\GitHub\\CaminSmart\\AplicatieCamine\\AplicatieCamine.csproj",
       "packagesPath": "C:\\Users\\Benjamin\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Benjamin\\Documents\\GitHub\\PC\\AplicatieCamine\\obj\\",
+      "outputPath": "C:\\Users\\Benjamin\\Documents\\GitHub\\CaminSmart\\AplicatieCamine\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Benjamin\\AppData\\Roaming\\NuGet\\NuGet.Config",
