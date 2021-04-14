@@ -11,7 +11,7 @@
 using System;
 using System.Reflection;
 
-[assembly: Microsoft.Extensions.Configuration.UserSecrets.UserSecretsIdAttribute("aspnet-AplicatieCamine-7940462D-C34E-4048-A68A-994F857B9D45")]
+[assembly: Microsoft.Extensions.Configuration.UserSecrets.UserSecretsIdAttribute("aspnet-AplicatieCamine-1817FA93-FA5B-41AD-8D92-91DC69454B41")]
 [assembly: System.Reflection.AssemblyCompanyAttribute("AplicatieCamine")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
