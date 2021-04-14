@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Benjamin\\Documents\\GitHub\\CaminSmart\\AplicatieCamine\\AplicatieCamine.csproj": {}
+    "C:\\Users\\flori\\OneDrive\\Desktop\\PC\\AplicatieCamine\\AplicatieCamine.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Benjamin\\Documents\\GitHub\\CaminSmart\\AplicatieCamine\\AplicatieCamine.csproj": {
+    "C:\\Users\\flori\\OneDrive\\Desktop\\PC\\AplicatieCamine\\AplicatieCamine.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Benjamin\\Documents\\GitHub\\CaminSmart\\AplicatieCamine\\AplicatieCamine.csproj",
+        "projectUniqueName": "C:\\Users\\flori\\OneDrive\\Desktop\\PC\\AplicatieCamine\\AplicatieCamine.csproj",
         "projectName": "AplicatieCamine",
-        "projectPath": "C:\\Users\\Benjamin\\Documents\\GitHub\\CaminSmart\\AplicatieCamine\\AplicatieCamine.csproj",
-        "packagesPath": "C:\\Users\\Benjamin\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Benjamin\\Documents\\GitHub\\CaminSmart\\AplicatieCamine\\obj\\",
+        "projectPath": "C:\\Users\\flori\\OneDrive\\Desktop\\PC\\AplicatieCamine\\AplicatieCamine.csproj",
+        "packagesPath": "C:\\Users\\flori\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\flori\\OneDrive\\Desktop\\PC\\AplicatieCamine\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Benjamin\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\flori\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -53,10 +53,6 @@
             "Microsoft.EntityFrameworkCore.SqlServer": {
               "target": "Package",
               "version": "[3.1.13, )"
-            },
-            "Microsoft.IdentityModel.Tokens": {
-              "target": "Package",
-              "version": "[6.10.0, )"
             }
           },
           "imports": [
