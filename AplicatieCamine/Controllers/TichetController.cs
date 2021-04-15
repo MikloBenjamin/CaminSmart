@@ -9,23 +9,23 @@ using AplicatieCamine.Models;
 
 namespace AplicatieCamine
 {
-    public class CamereController : Controller
+    public class TichetController : Controller
     {
         private readonly DBSistemContext _context;
 
-        public CamereController(DBSistemContext context)
+        public TichetController(DBSistemContext context)
         {
             _context = context;
         }
 
-        // GET: Cameres
+        // GET: Tichets
         public async Task<IActionResult> Index()
         {
-            var dBSistemContext = _context.Camere.Include(c => c.IdCaminNavigation);
+            var dBSistemContext = _context.Tichet.Include(t => t.IdStudentNavigation);
             return View(await dBSistemContext.ToListAsync());
         }
 
-        // GET: Cameres/Details/5
+        // GET: Tichets/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -33,42 +33,42 @@ namespace AplicatieCamine
                 return NotFound();
             }
 
-            var camere = await _context.Camere
-                .Include(c => c.IdCaminNavigation)
-                .FirstOrDefaultAsync(m => m.IdCamera == id);
-            if (camere == null)
+            var tichet = await _context.Tichet
+                .Include(t => t.IdStudentNavigation)
+                .FirstOrDefaultAsync(m => m.IdTichet == id);
+            if (tichet == null)
             {
                 return NotFound();
             }
 
-            return View(camere);
+            return View(tichet);
         }
 
-        // GET: Cameres/Create
+        // GET: Tichets/Create
         public IActionResult Create()
         {
-            ViewData["IdCamin"] = new SelectList(_context.Camine, "IdCamin", "IdCamin");
+            ViewData["IdStudent"] = new SelectList(_context.Student, "IdStudent", "Adresa");
             return View();
         }
 
-        // POST: Cameres/Create
+        // POST: Tichets/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("IdCamera,IdCamin,LimitaNrStudenti,NrStudentiCazati,Descriere,TipCamera")] Camere camere)
+        public async Task<IActionResult> Create([Bind("IdTichet,IdStudent,DataEmitere,DateRezolvare,StatusTichet,Detalii,TipTichet")] Tichet tichet)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(camere);
+                _context.Add(tichet);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["IdCamin"] = new SelectList(_context.Camine, "IdCamin", "IdCamin", camere.IdCamin);
-            return View(camere);
+            ViewData["IdStudent"] = new SelectList(_context.Student, "IdStudent", "Adresa", tichet.IdStudent);
+            return View(tichet);
         }
 
-        // GET: Cameres/Edit/5
+        // GET: Tichets/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -76,23 +76,23 @@ namespace AplicatieCamine
                 return NotFound();
             }
 
-            var camere = await _context.Camere.FindAsync(id);
-            if (camere == null)
+            var tichet = await _context.Tichet.FindAsync(id);
+            if (tichet == null)
             {
                 return NotFound();
             }
-            ViewData["IdCamin"] = new SelectList(_context.Camine, "IdCamin", "IdCamin", camere.IdCamin);
-            return View(camere);
+            ViewData["IdStudent"] = new SelectList(_context.Student, "IdStudent", "Adresa", tichet.IdStudent);
+            return View(tichet);
         }
 
-        // POST: Cameres/Edit/5
+        // POST: Tichets/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("IdCamera,IdCamin,LimitaNrStudenti,NrStudentiCazati,Descriere,TipCamera")] Camere camere)
+        public async Task<IActionResult> Edit(int id, [Bind("IdTichet,IdStudent,DataEmitere,DateRezolvare,StatusTichet,Detalii,TipTichet")] Tichet tichet)
         {
-            if (id != camere.IdCamera)
+            if (id != tichet.IdTichet)
             {
                 return NotFound();
             }
@@ -101,12 +101,12 @@ namespace AplicatieCamine
             {
                 try
                 {
-                    _context.Update(camere);
+                    _context.Update(tichet);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!CamereExists(camere.IdCamera))
+                    if (!TichetExists(tichet.IdTichet))
                     {
                         return NotFound();
                     }
@@ -117,11 +117,11 @@ namespace AplicatieCamine
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["IdCamin"] = new SelectList(_context.Camine, "IdCamin", "IdCamin", camere.IdCamin);
-            return View(camere);
+            ViewData["IdStudent"] = new SelectList(_context.Student, "IdStudent", "Adresa", tichet.IdStudent);
+            return View(tichet);
         }
 
-        // GET: Cameres/Delete/5
+        // GET: Tichets/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -129,31 +129,31 @@ namespace AplicatieCamine
                 return NotFound();
             }
 
-            var camere = await _context.Camere
-                .Include(c => c.IdCaminNavigation)
-                .FirstOrDefaultAsync(m => m.IdCamera == id);
-            if (camere == null)
+            var tichet = await _context.Tichet
+                .Include(t => t.IdStudentNavigation)
+                .FirstOrDefaultAsync(m => m.IdTichet == id);
+            if (tichet == null)
             {
                 return NotFound();
             }
 
-            return View(camere);
+            return View(tichet);
         }
 
-
+        // POST: Tichets/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var camere = await _context.Camere.FindAsync(id);
-            _context.Camere.Remove(camere);
+            var tichet = await _context.Tichet.FindAsync(id);
+            _context.Tichet.Remove(tichet);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool CamereExists(int id)
+        private bool TichetExists(int id)
         {
-            return _context.Camere.Any(e => e.IdCamera == id);
+            return _context.Tichet.Any(e => e.IdTichet == id);
         }
     }
 }

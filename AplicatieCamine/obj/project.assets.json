@@ -8570,7 +8570,7 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Benjamin\\.nuget\\packages\\": {}
+    "C:\\Users\\flori\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
@@ -8582,7 +8582,7 @@
       "outputPath": "C:\\Users\\Benjamin\\Documents\\GitHub\\CaminSmart\\CaminSmart\\AplicatieCamine\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Benjamin\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\flori\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [

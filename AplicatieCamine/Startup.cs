@@ -38,7 +38,7 @@ namespace AplicatieCamine
                 options.Filters.Add(new AuthorizeFilter(policy));
             });
             services.AddRazorPages();
-            services.AddSingleton<Models.DBSistemContext>();
+            services.AddTransient<Models.DBSistemContext>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
