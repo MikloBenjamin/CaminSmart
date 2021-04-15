@@ -13,6 +13,9 @@
     <thead>
         <tr>
             <th>
+                @Html.DisplayNameFor(model => model.IdStudent)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.Nume)
             </th>
             <th>
@@ -52,6 +55,9 @@
 @foreach (var item in Model) {
         <tr>
             <td>
+                @Html.DisplayFor(modelItem => item.IdStudent)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.Nume)
             </td>
             <td>
@@ -73,7 +79,7 @@
                 @Html.DisplayFor(modelItem => item.An)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.StatusCazare)
+                @Html.DisplayFor(modelItem => (item.StatusCazare == 0 ? "Pending" : item.StatusCazare == 1 ? "Cazat" : "Refuzat"))
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.DataCazare)
@@ -82,7 +88,7 @@
                 @Html.DisplayFor(modelItem => item.DataDecazare)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.IdCameraNavigation.Descriere)
+                @Html.DisplayFor(modelItem => item.IdCameraNavigation.IdCamera)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.IdStudent">Edit</a> |

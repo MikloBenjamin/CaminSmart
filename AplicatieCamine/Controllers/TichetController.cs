@@ -47,7 +47,7 @@ namespace AplicatieCamine
         // GET: Tichets/Create
         public IActionResult Create()
         {
-            ViewData["IdStudent"] = new SelectList(_context.Student, "IdStudent", "Adresa");
+            ViewData["IdStudent"] = new SelectList(_context.Student, "IdStudent", "IdStudent");
             return View();
         }
 
@@ -64,7 +64,7 @@ namespace AplicatieCamine
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["IdStudent"] = new SelectList(_context.Student, "IdStudent", "Adresa", tichet.IdStudent);
+            ViewData["IdStudent"] = new SelectList(_context.Student, "IdStudent", "IdStudent", tichet.IdStudent);
             return View(tichet);
         }
 
@@ -81,7 +81,7 @@ namespace AplicatieCamine
             {
                 return NotFound();
             }
-            ViewData["IdStudent"] = new SelectList(_context.Student, "IdStudent", "Adresa", tichet.IdStudent);
+            ViewData["IdStudent"] = new SelectList(_context.Student, "IdStudent", "IdStudent", tichet.IdStudent);
             return View(tichet);
         }
 
@@ -117,7 +117,7 @@ namespace AplicatieCamine
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["IdStudent"] = new SelectList(_context.Student, "IdStudent", "Adresa", tichet.IdStudent);
+            ViewData["IdStudent"] = new SelectList(_context.Student, "IdStudent", "IdStudent", tichet.IdStudent);
             return View(tichet);
         }
 

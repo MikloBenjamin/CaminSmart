@@ -13,6 +13,9 @@
     <thead>
         <tr>
             <th>
+                @Html.DisplayNameFor(model => model.IdAdmin)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.Nume)
             </th>
             <th>
@@ -37,6 +40,9 @@
 @foreach (var item in Model) {
         <tr>
             <td>
+                @Html.DisplayFor(modelItem => item.IdAdmin)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.Nume)
             </td>
             <td>
@@ -49,7 +55,7 @@
                 @Html.DisplayFor(modelItem => item.Email)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.TipAdmin)
+                @Html.DisplayFor(modelItem => item.TipAdmin ? "Admin Camin" : "Admin Secretar")
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.IdCaminNavigation.Adresa)

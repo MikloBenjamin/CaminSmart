@@ -47,7 +47,7 @@ namespace AplicatieCamine
         // GET: Student/Create
         public IActionResult Create()
         {
-            ViewData["IdCamera"] = new SelectList(_context.Camere, "IdCamera", "Descriere");
+            ViewData["IdCamera"] = new SelectList(_context.Camere, "IdCamera", "IdCamera");
             return View();
         }
 
@@ -64,7 +64,7 @@ namespace AplicatieCamine
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["IdCamera"] = new SelectList(_context.Camere, "IdCamera", "Descriere", student.IdCamera);
+            ViewData["IdCamera"] = new SelectList(_context.Camere, "IdCamera", "IdCamera", student.IdCamera);
             return View(student);
         }
 
@@ -81,7 +81,7 @@ namespace AplicatieCamine
             {
                 return NotFound();
             }
-            ViewData["IdCamera"] = new SelectList(_context.Camere, "IdCamera", "Descriere", student.IdCamera);
+            ViewData["IdCamera"] = new SelectList(_context.Camere, "IdCamera", "IdCamera", student.IdCamera);
             return View(student);
         }
 
@@ -117,7 +117,7 @@ namespace AplicatieCamine
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["IdCamera"] = new SelectList(_context.Camere, "IdCamera", "Descriere", student.IdCamera);
+            ViewData["IdCamera"] = new SelectList(_context.Camere, "IdCamera", "IdCamera", student.IdCamera);
             return View(student);
         }
 

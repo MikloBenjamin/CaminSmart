@@ -13,6 +13,9 @@
     <thead>
         <tr>
             <th>
+                @Html.DisplayNameFor(model => model.IdTichet)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.DataEmitere)
             </th>
             <th>
@@ -37,6 +40,9 @@
 @foreach (var item in Model) {
         <tr>
             <td>
+                @Html.DisplayFor(modelItem => item.IdTichet)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.DataEmitere)
             </td>
             <td>
@@ -52,7 +58,7 @@
                 @Html.DisplayFor(modelItem => item.TipTichet)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.IdStudentNavigation.Adresa)
+                @Html.DisplayFor(modelItem => item.IdStudentNavigation.IdStudent)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.IdTichet">Edit</a> |

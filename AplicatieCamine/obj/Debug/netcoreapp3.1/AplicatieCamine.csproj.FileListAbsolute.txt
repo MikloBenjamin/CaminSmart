@@ -256,11 +256,6 @@ C:\Users\Benjamin\Documents\GitHub\CaminSmart\CaminSmart\AplicatieCamine\obj\Deb
 C:\Users\Benjamin\Documents\GitHub\CaminSmart\CaminSmart\AplicatieCamine\obj\Debug\netcoreapp3.1\Razor\Views\Student\Details.cshtml.g.cs
 C:\Users\Benjamin\Documents\GitHub\CaminSmart\CaminSmart\AplicatieCamine\obj\Debug\netcoreapp3.1\Razor\Views\Student\Edit.cshtml.g.cs
 C:\Users\Benjamin\Documents\GitHub\CaminSmart\CaminSmart\AplicatieCamine\obj\Debug\netcoreapp3.1\Razor\Views\Student\Index.cshtml.g.cs
-C:\Users\Benjamin\Documents\GitHub\CaminSmart\CaminSmart\AplicatieCamine\obj\Debug\netcoreapp3.1\Razor\Views\Tichets\Create.cshtml.g.cs
-C:\Users\Benjamin\Documents\GitHub\CaminSmart\CaminSmart\AplicatieCamine\obj\Debug\netcoreapp3.1\Razor\Views\Tichets\Delete.cshtml.g.cs
-C:\Users\Benjamin\Documents\GitHub\CaminSmart\CaminSmart\AplicatieCamine\obj\Debug\netcoreapp3.1\Razor\Views\Tichets\Details.cshtml.g.cs
-C:\Users\Benjamin\Documents\GitHub\CaminSmart\CaminSmart\AplicatieCamine\obj\Debug\netcoreapp3.1\Razor\Views\Tichets\Edit.cshtml.g.cs
-C:\Users\Benjamin\Documents\GitHub\CaminSmart\CaminSmart\AplicatieCamine\obj\Debug\netcoreapp3.1\Razor\Views\Tichets\Index.cshtml.g.cs
 C:\Users\Benjamin\Documents\GitHub\CaminSmart\CaminSmart\AplicatieCamine\obj\Debug\netcoreapp3.1\Razor\Views\Tichet\Create.cshtml.g.cs
 C:\Users\Benjamin\Documents\GitHub\CaminSmart\CaminSmart\AplicatieCamine\obj\Debug\netcoreapp3.1\Razor\Views\Tichet\Delete.cshtml.g.cs
 C:\Users\Benjamin\Documents\GitHub\CaminSmart\CaminSmart\AplicatieCamine\obj\Debug\netcoreapp3.1\Razor\Views\Tichet\Details.cshtml.g.cs

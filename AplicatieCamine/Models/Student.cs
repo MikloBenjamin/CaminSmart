@@ -22,7 +22,7 @@ namespace AplicatieCamine.Models
         public string Adresa { get; set; }
         public string Email { get; set; }
         public int An { get; set; }
-        public int StatusCazare { get; set; }
+        public int StatusCazare { get; set; } // 0 -> PENDING, 1 -> Acceptat, 2 -> Refuzat
         public int? IdCamera { get; set; }
         public DateTime? DataCazare { get; set; }
         public DateTime? DataDecazare { get; set; }
