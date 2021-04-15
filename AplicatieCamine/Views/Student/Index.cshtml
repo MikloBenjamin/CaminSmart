@@ -53,6 +53,7 @@
     </thead>
     <tbody>
 @foreach (var item in Model) {
+        var statusCazare = item.StatusCazare == 0 ? "Pending" : item.StatusCazare == 1 ? "Cazat" : "Refuzat";
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.IdStudent)
@@ -79,7 +80,7 @@
                 @Html.DisplayFor(modelItem => item.An)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => (item.StatusCazare == 0 ? "Pending" : item.StatusCazare == 1 ? "Cazat" : "Refuzat"))
+                @Html.DisplayFor(modelItem => (statusCazare))
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.DataCazare)

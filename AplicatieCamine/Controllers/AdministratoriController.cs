@@ -47,7 +47,7 @@ namespace AplicatieCamine
         // GET: Administratori/Create
         public IActionResult Create()
         {
-            ViewData["IdCamin"] = new SelectList(_context.Camine, "IdCamin", "Adresa");
+            ViewData["IdCamin"] = new SelectList(_context.Camine, "IdCamin", "IdCamin");
             return View();
         }
 
@@ -64,7 +64,7 @@ namespace AplicatieCamine
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["IdCamin"] = new SelectList(_context.Camine, "IdCamin", "Adresa", administratori.IdCamin);
+            ViewData["IdCamin"] = new SelectList(_context.Camine, "IdCamin", "IdCamin", administratori.IdCamin);
             return View(administratori);
         }
 
@@ -81,7 +81,7 @@ namespace AplicatieCamine
             {
                 return NotFound();
             }
-            ViewData["IdCamin"] = new SelectList(_context.Camine, "IdCamin", "Adresa", administratori.IdCamin);
+            ViewData["IdCamin"] = new SelectList(_context.Camine, "IdCamin", "IdCamin", administratori.IdCamin);
             return View(administratori);
         }
 
@@ -117,7 +117,7 @@ namespace AplicatieCamine
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["IdCamin"] = new SelectList(_context.Camine, "IdCamin", "Adresa", administratori.IdCamin);
+            ViewData["IdCamin"] = new SelectList(_context.Camine, "IdCamin", "IdCamin", administratori.IdCamin);
             return View(administratori);
         }
 

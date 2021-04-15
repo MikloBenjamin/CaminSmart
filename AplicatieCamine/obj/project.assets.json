@@ -8575,11 +8575,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Benjamin\\Documents\\GitHub\\CaminSmart\\CaminSmart\\AplicatieCamine\\AplicatieCamine.csproj",
+      "projectUniqueName": "C:\\Users\\flori\\OneDrive\\Desktop\\PC\\CaminSmart\\AplicatieCamine\\AplicatieCamine.csproj",
       "projectName": "AplicatieCamine",
-      "projectPath": "C:\\Users\\Benjamin\\Documents\\GitHub\\CaminSmart\\CaminSmart\\AplicatieCamine\\AplicatieCamine.csproj",
-      "packagesPath": "C:\\Users\\Benjamin\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Benjamin\\Documents\\GitHub\\CaminSmart\\CaminSmart\\AplicatieCamine\\obj\\",
+      "projectPath": "C:\\Users\\flori\\OneDrive\\Desktop\\PC\\CaminSmart\\AplicatieCamine\\AplicatieCamine.csproj",
+      "packagesPath": "C:\\Users\\flori\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\flori\\OneDrive\\Desktop\\PC\\CaminSmart\\AplicatieCamine\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\flori\\AppData\\Roaming\\NuGet\\NuGet.Config",
