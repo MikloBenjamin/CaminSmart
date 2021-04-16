@@ -1,8 +1,51 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
-
+<style>
+    .button {
+        border: none;
+        color: white;
+        background-color: #008CBA;
+        padding: 15px 30px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;
+        border-radius: 10px;
+    }
+</style>
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<table align="center">
+    <tr>
+        <td>
+            <form action=" https://localhost:44383/Camere">
+                <input class="button" type="submit" value="Camere" />
+            </form>
+        </td>
+        <td>
+            <form action=" https://localhost:44383/Camine">
+                <input class="button" type="submit" value="Cămine" />
+            </form>
+        </td>
+        <td>
+            <form action=" https://localhost:44383/Student">
+                <input class="button" type="submit" value="Studenți" />
+            </form>
+        </td>
+        <td>
+            <form action=" https://localhost:44383/Tichet">
+                <input class="button" type="submit" value="Tichete" />
+            </form>
+        </td>
+        <td>
+            <form action=" https://localhost:44383/Administratori">
+                <input class="button" type="submit" value="Administratori" />
+            </form>
+        </td>
+    </tr>
+</table>
 </div>
