@@ -8570,19 +8570,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Nemeth Timea Sarah\\.nuget\\packages\\": {}
+    "C:\\Users\\Benjamin\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Nemeth Timea Sarah\\Documents\\AN2\\PC\\CaminSmart-main\\AplicatieCamine\\AplicatieCamine.csproj",
+      "projectUniqueName": "C:\\Users\\Benjamin\\Documents\\GitHub\\SmartCamin\\CaminSmart\\AplicatieCamine\\AplicatieCamine.csproj",
       "projectName": "AplicatieCamine",
-      "projectPath": "C:\\Users\\Nemeth Timea Sarah\\Documents\\AN2\\PC\\CaminSmart-main\\AplicatieCamine\\AplicatieCamine.csproj",
-      "packagesPath": "C:\\Users\\Nemeth Timea Sarah\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Nemeth Timea Sarah\\Documents\\AN2\\PC\\CaminSmart-main\\AplicatieCamine\\obj\\",
+      "projectPath": "C:\\Users\\Benjamin\\Documents\\GitHub\\SmartCamin\\CaminSmart\\AplicatieCamine\\AplicatieCamine.csproj",
+      "packagesPath": "C:\\Users\\Benjamin\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Benjamin\\Documents\\GitHub\\SmartCamin\\CaminSmart\\AplicatieCamine\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Nemeth Timea Sarah\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Benjamin\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
