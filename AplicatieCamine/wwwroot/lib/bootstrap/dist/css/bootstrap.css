@@ -2027,7 +2027,7 @@ textarea.form-control {
 .form-check-input {
   position: absolute;
   margin-top: 0.3rem;
-  margin-left: 20px;
+  margin-left: -1.25rem;
 }
 
 .form-check-input:disabled ~ .form-check-label {
@@ -2035,8 +2035,7 @@ textarea.form-control {
 }
 
 .form-check-label {
-    position: relative;
-    margin-bottom: 0;
+  margin-bottom: 0;
 }
 
 .form-check-inline {

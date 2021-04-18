@@ -1,23 +1,69 @@
 ﻿@using System.Security.Principal
 
-<ul class="navbar-nav">
-@if (User.Identity.IsAuthenticated)
-{
-    string u = User.Identity.Name;
-    string[] utilizator = u.Split(new char[] {'.','0','1','2','3','4','5','6','7','8','9','@'});
-    string nume = (utilizator[1] + ' ' + utilizator[0]).ToUpper();
+<style>
+    .button2 {
+        border: none;
+        color: black;
+        background-color: white;
+        padding: 15px 25px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 18px;
+        margin: 4px 2px;
+        cursor: pointer;
+        transition-duration: 0.4s;
+    }
 
+        .button2:hover {
+            background-color: #e7e7e7;
+        }
+        .nume{
+            font-size: 20px;
+            position: relative;
+            color: black;
+            right: 50px;
+            top: 30px;
+        }
+        .unde{
+            position: relative;
+            top: 20px;
+            right:70px;
+        }
+</style>
+<ul class="navbar-nav">
+    @if (User.Identity.IsAuthenticated)
+    {
+        string u = User.Identity.Name;
+        string[] utilizator = u.Split(new char[] { '.', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '@' });
+        string nume = (utilizator[1] + ' ' + utilizator[0]).ToUpper();
+    <li class="nav-item">
+        <table>
+            <tr>
+                <td class="unde">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+                        <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
+                        <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z" />
+                    </svg>
+                </td>
+                <td>
+                    <p class="nume">@nume</p>
+                </td>
+            </tr>
+        </table>
+    </li>
         <li class="nav-item">
-            <span class="navbar-text text-dark">@nume</span>
+            <button class="button2"> 
+                <a class="nav-link text-dark" asp-area="AzureAD" asp-controller="Account" asp-action="SignOut"> Sign Out </a> 
+            </button>
         </li>
+    }
+    else
+    {
         <li class="nav-item">
-            <a class="nav-link text-dark" asp-area="AzureAD" asp-controller="Account" asp-action="SignOut">Sign out</a>
+            <button class="button2">
+                <a class="nav-link text-dark" asp-area="AzureAD" asp-controller="Account" asp-action="SignIn">Sign in</a>
+             </button>
         </li>
-}
-else
-{
-        <li class="nav-item">
-            <a class="nav-link text-dark" asp-area="AzureAD" asp-controller="Account" asp-action="SignIn">Sign in</a>
-        </li>
-}
+    }
 </ul>
