@@ -1,4 +1,5 @@
 ﻿@using System.Security.Principal
+@using System
 
 <style>
     .button2 {
@@ -35,7 +36,7 @@
     @if (User.Identity.IsAuthenticated)
     {
         string u = User.Identity.Name;
-        string[] utilizator = u.Split(new char[] { '.', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '@' });
+        string[] utilizator = u.Split(new char[] { '.', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '@'});
         string nume = (utilizator[1] + ' ' + utilizator[0]).ToUpper();
     <li class="nav-item">
         <table>
