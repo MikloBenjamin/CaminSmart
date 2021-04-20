@@ -72,8 +72,6 @@ namespace AplicatieCamine.Models
                     .HasMaxLength(50)
                     .IsUnicode(false);
 
-                entity.Property(e => e.TipAdmin).HasColumnName("tip_admin");
-
                 entity.HasOne(d => d.IdCaminNavigation)
                     .WithMany(p => p.Administratori)
                     .HasForeignKey(d => d.IdCamin)

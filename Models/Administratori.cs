@@ -15,8 +15,6 @@ namespace AplicatieCamine.Models
         public string Adresa { get; set; }
         public string NrTelefon { get; set; }
         public string Email { get; set; }
-        public bool TipAdmin { get; set; }
-
         public virtual Camine IdCaminNavigation { get; set; }
     }
 }
