@@ -56,7 +56,7 @@ namespace AplicatieCamine
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("IdAdmin,IdCamin,Nume,Adresa,NrTelefon,Email,TipAdmin")] Administratori administratori)
+        public async Task<IActionResult> Create([Bind("IdAdmin,IdCamin,Nume,Adresa,NrTelefon,Email")] Administratori administratori)
         {
             if (ModelState.IsValid)
             {
@@ -90,7 +90,7 @@ namespace AplicatieCamine
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("IdAdmin,IdCamin,Nume,Adresa,NrTelefon,Email,TipAdmin")] Administratori administratori)
+        public async Task<IActionResult> Edit(int id, [Bind("IdAdmin,IdCamin,Nume,Adresa,NrTelefon,Email")] Administratori administratori)
         {
             if (id != administratori.IdAdmin)
             {
