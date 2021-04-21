@@ -22,7 +22,8 @@ namespace AplicatieCamine.Models
         public int NrLocuriErasmus { get; set; }
         public int NrLocuriSocial { get; set; }
         public string Facultate { get; set; }
-
+        public string Descriere { get; set; }
+        //public string Images { get; set; }
         public virtual ICollection<Administratori> Administratori { get; set; }
         public virtual ICollection<Camere> Camere { get; set; }
     }

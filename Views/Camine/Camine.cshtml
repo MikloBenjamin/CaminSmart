@@ -1,0 +1,51 @@
+﻿@model IEnumerable<AplicatieCamine.Models.Camine>
+@using System;
+<style>
+	body{
+		width: 100vw;
+		height: auto;
+	}
+	*{
+		box-sizing: border-box;
+	}
+	.row {
+		width: 100%;
+		border: 0 2px 0 2px solid black;
+		float: left;
+	}
+
+	.row::after {
+		content: "";
+		clear: both;
+		display: inline-block;
+	}
+	.column {
+		float: left;
+		width: 47%;
+		margin-left: 2%;
+		text-align: center;
+	}
+
+	.column img {
+		width: 100%;
+		height: 300px;
+	}
+</style>
+@{
+	ViewData["Title"] = "Lista Camine";
+	int count = System.IO.Directory.EnumerateFiles(@"wwwroot/Images/camine").Count<string>();
+	<h1 align ="center">Numar poze camine: @count</h1>
+	Random r = new Random();
+		<div class="row">
+			@foreach (var item in Model)
+			{
+				string random_nr = r.Next(1, count).ToString();
+				string rand = "Images/camine/" + @random_nr + ".jpg";
+				<div class="column">
+					rnr: @random_nr Camin @Html.DisplayFor(modelItem => item.IdCamin)<br />
+					<img src="@rand" />
+					<p>Facilitati: @Html.DisplayFor(modelItem => item.Descriere)</p>
+				</div>
+			}
+		</div>
+}

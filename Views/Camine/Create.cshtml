@@ -10,47 +10,57 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="IdCamin" class="control-label"></label>
-                <input asp-for="IdCamin" class="form-control" />
-                <span asp-validation-for="IdCamin" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Adresa" class="control-label"></label>
-                <input asp-for="Adresa" class="form-control" />
-                <span asp-validation-for="Adresa" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="NrCamere" class="control-label"></label>
-                <input asp-for="NrCamere" class="form-control" />
-                <span asp-validation-for="NrCamere" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="NrLocuriNormale" class="control-label"></label>
-                <input asp-for="NrLocuriNormale" class="form-control" />
-                <span asp-validation-for="NrLocuriNormale" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="NrLocuriErasmus" class="control-label"></label>
-                <input asp-for="NrLocuriErasmus" class="form-control" />
-                <span asp-validation-for="NrLocuriErasmus" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="NrLocuriSocial" class="control-label"></label>
-                <input asp-for="NrLocuriSocial" class="form-control" />
-                <span asp-validation-for="NrLocuriSocial" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Facultate" class="control-label"></label>
-                <input asp-for="Facultate" class="form-control" />
-                <span asp-validation-for="Facultate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+		<form asp-action="Create">
+			<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+			<div class="form-group">
+				<label asp-for="IdCamin" class="control-label"></label>
+				<input asp-for="IdCamin" class="form-control" />
+				<span asp-validation-for="IdCamin" class="text-danger"></span>
+			</div>
+			<div class="form-group">
+				<label asp-for="Adresa" class="control-label"></label>
+				<input asp-for="Adresa" class="form-control" />
+				<span asp-validation-for="Adresa" class="text-danger"></span>
+			</div>
+			<div class="form-group">
+				<label asp-for="NrCamere" class="control-label"></label>
+				<input asp-for="NrCamere" class="form-control" />
+				<span asp-validation-for="NrCamere" class="text-danger"></span>
+			</div>
+			<div class="form-group">
+				<label asp-for="NrLocuriNormale" class="control-label"></label>
+				<input asp-for="NrLocuriNormale" class="form-control" />
+				<span asp-validation-for="NrLocuriNormale" class="text-danger"></span>
+			</div>
+			<div class="form-group">
+				<label asp-for="NrLocuriErasmus" class="control-label"></label>
+				<input asp-for="NrLocuriErasmus" class="form-control" />
+				<span asp-validation-for="NrLocuriErasmus" class="text-danger"></span>
+			</div>
+			<div class="form-group">
+				<label asp-for="NrLocuriSocial" class="control-label"></label>
+				<input asp-for="NrLocuriSocial" class="form-control" />
+				<span asp-validation-for="NrLocuriSocial" class="text-danger"></span>
+			</div>
+			<div class="form-group">
+				<label asp-for="Facultate" class="control-label"></label>
+				<input asp-for="Facultate" class="form-control" />
+				<span asp-validation-for="Facultate" class="text-danger"></span>
+			</div>
+			<div class="form-group">
+				<label asp-for="Descriere" class="control-label"></label>
+				<input asp-for="Descriere" class="form-control" />
+				<span asp-validation-for="Descriere" class="text-danger"></span>
+			</div>
+			@*			<div class="form-group">
+			<label asp-for="Images" class="control-label">Image:</label>
+			<input asp-for="Images" type = "file" class="form-control-file" />
+			<span asp-validation-for="Images" class="text-danger"></span>
+		</div>*@
+			<div class="form-group">
+				<input type="submit" value="Create" class="btn btn-primary" />
+			</div>
+		</form>
     </div>
 </div>
 

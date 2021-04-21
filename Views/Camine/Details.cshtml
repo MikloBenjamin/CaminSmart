@@ -9,44 +9,56 @@
 <div>
     <h4>Camine</h4>
     <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Adresa)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Adresa)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.NrCamere)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.NrCamere)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.NrLocuriNormale)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.NrLocuriNormale)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.NrLocuriErasmus)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.NrLocuriErasmus)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.NrLocuriSocial)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.NrLocuriSocial)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Facultate)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Facultate)
-        </dd>
-    </dl>
+	<dl class="row">
+		<dt class="col-sm-2">
+			@Html.DisplayNameFor(model => model.Adresa)
+		</dt>
+		<dd class="col-sm-10">
+			@Html.DisplayFor(model => model.Adresa)
+		</dd>
+		<dt class="col-sm-2">
+			@Html.DisplayNameFor(model => model.NrCamere)
+		</dt>
+		<dd class="col-sm-10">
+			@Html.DisplayFor(model => model.NrCamere)
+		</dd>
+		<dt class="col-sm-2">
+			@Html.DisplayNameFor(model => model.NrLocuriNormale)
+		</dt>
+		<dd class="col-sm-10">
+			@Html.DisplayFor(model => model.NrLocuriNormale)
+		</dd>
+		<dt class="col-sm-2">
+			@Html.DisplayNameFor(model => model.NrLocuriErasmus)
+		</dt>
+		<dd class="col-sm-10">
+			@Html.DisplayFor(model => model.NrLocuriErasmus)
+		</dd>
+		<dt class="col-sm-2">
+			@Html.DisplayNameFor(model => model.NrLocuriSocial)
+		</dt>
+		<dd class="col-sm-10">
+			@Html.DisplayFor(model => model.NrLocuriSocial)
+		</dd>
+		<dt class="col-sm-2">
+			@Html.DisplayNameFor(model => model.Facultate)
+		</dt>
+		<dd class="col-sm-10">
+			@Html.DisplayFor(model => model.Facultate)
+		</dd>
+		<dt class="col-sm-2">
+			@Html.DisplayNameFor(model => model.Descriere)
+		</dt>
+		<dd class="col-sm-10">
+			@Html.DisplayFor(model => model.Descriere)
+		</dd>
+		@*		<dt class="col-sm-2">
+			@Html.DisplayNameFor(model => model.Images)
+		</dt>
+		<dd class="col-sm-10">
+			@Html.DisplayFor(model => model.Images)
+		</dd>*@
+	</dl>
 </div>
 <div>
     <a asp-action="Edit" asp-route-id="@Model.IdCamin">Edit</a> |
