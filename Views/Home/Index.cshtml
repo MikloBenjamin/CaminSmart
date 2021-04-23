@@ -101,8 +101,8 @@
 		height: 200px;
 	}
 </style>
-@*if (isAdmin) pentru Student*@
-@if (User.IsInRole("admin"))
+@*if (isAdmin)// pentru Student*@
+@if (isAdmin)// (User.IsInRole("admin"))
 {
 	<h2 align="center">Hi i am an admin!</h2>
 	<div class="text-center">
@@ -140,16 +140,23 @@
 			</tr>
 		</table>
 	</div>
-}
+}	
 else
 {
 	<div class = "text-center">
 		<table align="center">
-			<td>
-				<form action=" https://localhost:44383/Camine" method="post">
-					<input class="button" type="submit" value="Structura Camine" />
-				</form>
-			</td>
+			<tr>
+				<td>
+					<form action=" https://localhost:44383/Camine" method="post">
+						<input class="button" type="submit" value="Structura Camine" />
+					</form>
+				</td>
+				<td>
+					<form action=" https://localhost:44383/Tichet" method="post">
+						<input class="button" type="submit" value="Tichete" />
+					</form>
+				</td>
+			</tr>
 		</table>
 	</div>
 }

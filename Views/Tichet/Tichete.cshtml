@@ -1,0 +1,77 @@
+﻿@model IEnumerable<AplicatieCamine.Models.Tichet>
+
+@{ ViewData["Title"] = "Tichete"; }
+
+<h1>Tichete</h1>
+
+<form asp-action = "CreateTichetST" method="get">
+	<input type="submit" value="Creeaza un tichet nou" class="button" name="Student_Create"/>
+</form>
+<table class="table">
+	<thead>
+		<tr>
+			<th>
+				@Html.DisplayNameFor(model => model.IdTichet)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.DataEmitere)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.DateRezolvare)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.StatusTichet)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.Detalii)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.IdCamera)
+			</th>
+			<th>
+				Importanta
+			</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+	@if(Model.Count() == 0) { 
+		<tr>
+			<td>
+				You have no active tichets!
+			</td>
+		</tr>
+	} else { 	
+		@foreach (var item in Model)
+		{
+			string importanta = (item.TipTichet ? "DA" : "NU");
+	<tr>
+		<td>
+			@Html.DisplayFor(modelItem => item.IdTichet)
+		</td>
+		<td>
+			@Html.DisplayFor(modelItem => item.DataEmitere)
+		</td>
+		<td>
+			@Html.DisplayFor(modelItem => item.DateRezolvare)
+		</td>
+		<td>
+			@Html.DisplayFor(modelItem => item.StatusTichet)
+		</td>
+		<td>
+			@Html.DisplayFor(modelItem => item.Detalii)
+		</td>
+		<td>
+			@Html.DisplayFor(modelItem => item.IdCamera)
+		</td>
+		<td>
+			@importanta
+		</td>
+		<td>
+			<a asp-action="Details" asp-route-id="@item.IdTichet">Details</a> |
+		</td>
+	</tr>
+		}
+	}
+	</tbody>
+</table>

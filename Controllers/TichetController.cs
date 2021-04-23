@@ -12,19 +12,49 @@ namespace AplicatieCamine
     public class TichetController : Controller
     {
         private readonly DBSistemContext _context;
+        int id_tichet = 1;
+        int stud_id = 1;
 
         public TichetController(DBSistemContext context)
         {
             _context = context;
+            var tichets = _context.Tichet.Select(a => a).AsEnumerable();
+            id_tichet = 1;
+            if(tichets.Count() > 0)
+			{
+                id_tichet = tichets.SkipLast(1).Last().IdTichet;
+			}
+        }
+
+        private void AddTichet(Tichet tichet)
+		{
+            _context.Add(tichet);
         }
 
         // GET: Tichets
+        [HttpGet]
         public async Task<IActionResult> Index()
         {
             var dBSistemContext = _context.Tichet.Include(t => t.IdStudentNavigation);
             return View(await dBSistemContext.ToListAsync());
         }
-
+        [HttpPost]
+        public async Task<IActionResult> Index(string x = "")
+        {
+            return await Tichete();
+        }
+        [HttpPost]
+        public async Task<IActionResult> Tichete()
+        {
+            var stid = _context.Student.Where(a => a.Email == User.Identity.Name).Select(a => a.IdStudent).AsEnumerable();
+            var model = _context.Tichet.AsEnumerable();
+            if(stid.Count() > 0)
+			{
+                stud_id = stid.First();
+                model = _context.Tichet.Where(a => a.IdStudent == stid.First()).Select(a => a).AsEnumerable();
+			}
+            return View("Tichete", model);
+        }
         // GET: Tichets/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -44,11 +74,71 @@ namespace AplicatieCamine
             return View(tichet);
         }
 
+        public async Task<IActionResult> StudentTichetDetails(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var tichet = await _context.Tichet
+                .Include(t => t.IdStudentNavigation)
+                .FirstOrDefaultAsync(m => m.IdTichet == id);
+            if (tichet == null)
+            {
+                return NotFound();
+            }
+
+            return View(tichet);
+        }
+
         // GET: Tichets/Create
+        [HttpGet]
         public IActionResult Create()
         {
             ViewData["IdStudent"] = new SelectList(_context.Student, "IdStudent", "IdStudent");
             return View();
+        }
+
+        [HttpGet]
+        public IActionResult CreateTichetST()
+        {
+            ViewData["IdStudent"] = new SelectList(_context.Student, "IdStudent", "IdStudent");
+            return View("CreateTichetST");
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CreateTichetST([Bind("IdTichet,IdStudent,DataEmitere,DateRezolvare,StatusTichet,Detalii,TipTichet,IdCamera")] Tichet tichet)
+        {
+            if (ModelState.IsValid)
+            {
+                tichet.IdTichet = ++id_tichet;
+                tichet.IdStudent = stud_id;
+                tichet.DataEmitere = DateTime.Now;
+                tichet.DateRezolvare = null;
+                tichet.StatusTichet = false;
+                tichet.Detalii = Request.Form["Detalii"];
+                tichet.TipTichet = (Request.Form["TipTichet"].Count() == 0 ? false : true);
+                var stid = _context.Student.Where(a => a.Email == User.Identity.Name).Select(a => a.IdStudent).AsEnumerable();
+                if (stid.Count() > 0)
+                {
+                    var x = _context.Tichet.Where(a => a.IdStudent == stid.First()).Select(a => a.IdCamera).AsEnumerable();
+                    tichet.IdCamera = x.First();
+                }
+                else
+				{
+                    tichet.IdCamera = -1;
+				}
+                if(tichet.Detalii != null && tichet.IdCamera != -1)
+				{
+                    AddTichet(tichet);
+                    await _context.SaveChangesAsync();
+				}
+                return await Tichete();
+            }
+            ViewData["IdStudent"] = new SelectList(_context.Student, "IdStudent", "IdStudent", tichet.IdStudent);
+            return View(tichet);
         }
 
         // POST: Tichets/Create
@@ -56,11 +146,12 @@ namespace AplicatieCamine
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("IdTichet,IdStudent,DataEmitere,DateRezolvare,StatusTichet,Detalii,TipTichet")] Tichet tichet)
+        public async Task<IActionResult> Create([Bind("IdTichet,IdStudent,DataEmitere,DateRezolvare,StatusTichet,Detalii,TipTichet,IdCamera")] Tichet tichet)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(tichet);
+                tichet.IdTichet = ++id_tichet;
+                AddTichet(tichet);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
@@ -90,7 +181,7 @@ namespace AplicatieCamine
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("IdTichet,IdStudent,DataEmitere,DateRezolvare,StatusTichet,Detalii,TipTichet")] Tichet tichet)
+        public async Task<IActionResult> Edit(int id, [Bind("IdTichet,IdStudent,DataEmitere,DateRezolvare,StatusTichet,Detalii,TipTichet,IdCamera")] Tichet tichet)
         {
             if (id != tichet.IdTichet)
             {
@@ -148,6 +239,8 @@ namespace AplicatieCamine
             var tichet = await _context.Tichet.FindAsync(id);
             _context.Tichet.Remove(tichet);
             await _context.SaveChangesAsync();
+            var tichets = _context.Tichet.Select(a => a).AsEnumerable();
+            id_tichet = (tichets.Count() > 0 ? tichets.Last().IdTichet : 0) + 1;
             return RedirectToAction(nameof(Index));
         }
 
