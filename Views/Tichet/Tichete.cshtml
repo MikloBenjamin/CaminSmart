@@ -1,6 +1,10 @@
-﻿@model IEnumerable<AplicatieCamine.Models.Tichet>
+﻿@model dynamic
 
-@{ ViewData["Title"] = "Tichete"; }
+@{ 
+	ViewData["Title"] = "Tichete";
+	var tichete = Model.Tichet;
+	var nr_camera = Model.Camera;
+}
 
 <h1>Tichete</h1>
 
@@ -11,61 +15,68 @@
 	<thead>
 		<tr>
 			<th>
-				@Html.DisplayNameFor(model => model.IdTichet)
+				IdTichet
 			</th>
 			<th>
-				@Html.DisplayNameFor(model => model.DataEmitere)
+				DataEmitere
 			</th>
 			<th>
-				@Html.DisplayNameFor(model => model.DateRezolvare)
+				DateRezolvare
 			</th>
 			<th>
-				@Html.DisplayNameFor(model => model.StatusTichet)
+				StatusTichet
 			</th>
 			<th>
-				@Html.DisplayNameFor(model => model.Detalii)
+				Detalii
 			</th>
 			<th>
-				@Html.DisplayNameFor(model => model.IdCamera)
+				NrCamera
 			</th>
 			<th>
 				Importanta
+			</th>
+			<th>
+				Feedback
 			</th>
 			<th></th>
 		</tr>
 	</thead>
 	<tbody>
-	@if(Model.Count() == 0) { 
+	@if(Enumerable.Count(tichete) == 0) { 
 		<tr>
 			<td>
 				You have no active tichets!
 			</td>
 		</tr>
 	} else { 	
-		@foreach (var item in Model)
+		@foreach (var item in tichete)
 		{
 			string importanta = (item.TipTichet ? "DA" : "NU");
 	<tr>
 		<td>
-			@Html.DisplayFor(modelItem => item.IdTichet)
+			@item.IdTichet
 		</td>
 		<td>
-			@Html.DisplayFor(modelItem => item.DataEmitere)
+			@item.DataEmitere
 		</td>
 		<td>
-			@Html.DisplayFor(modelItem => item.DateRezolvare)
+			@item.DateRezolvare
 		</td>
 		<td>
-			@Html.DisplayFor(modelItem => item.StatusTichet)
+			@item.StatusTichet
 		</td>
 		<td>
-			@Html.DisplayFor(modelItem => item.Detalii)
+			@item.Detalii
 		</td>
 		<td>
-			@Html.DisplayFor(modelItem => item.IdCamera)
+			@nr_camera
 		</td>
 		<td>
 			@importanta
+		</td>
+		@*if ... *@
+		<td>
+			Administratorul nu a dat niciun feedback
 		</td>
 		<td>
 			<a asp-action="Details" asp-route-id="@item.IdTichet">Details</a> |

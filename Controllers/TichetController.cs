@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using AplicatieCamine.Models;
+using System.Dynamic;
 
 namespace AplicatieCamine
 {
@@ -22,7 +23,7 @@ namespace AplicatieCamine
             id_tichet = 1;
             if(tichets.Count() > 0)
 			{
-                id_tichet = tichets.SkipLast(1).Last().IdTichet;
+                id_tichet = tichets.Last().IdTichet;
 			}
         }
 
@@ -48,12 +49,18 @@ namespace AplicatieCamine
         {
             var stid = _context.Student.Where(a => a.Email == User.Identity.Name).Select(a => a.IdStudent).AsEnumerable();
             var model = _context.Tichet.AsEnumerable();
+            dynamic modell = new ExpandoObject();
+            modell.Tichet = model;
+            modell.Camera = -1;
             if(stid.Count() > 0)
 			{
                 stud_id = stid.First();
-                model = _context.Tichet.Where(a => a.IdStudent == stid.First()).Select(a => a).AsEnumerable();
-			}
-            return View("Tichete", model);
+                var cid = _context.Student.Where(a => a.IdStudent == stud_id).Select(a => a.IdCamera).First();
+                var nrc = _context.Camere.Where(a => a.IdCamera == cid).Select(a => a.NrCamera).First();
+                modell.Tichet = _context.Tichet.Where(a => a.IdStudent == stud_id).Select(a => a).AsEnumerable();
+                modell.Camera = nrc;
+            }
+            return View("Tichete", modell);
         }
         // GET: Tichets/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -113,13 +120,15 @@ namespace AplicatieCamine
         {
             if (ModelState.IsValid)
             {
+                //id_tichet += 1;
+                //System.Diagnostics.Debug.WriteLine(id_tichet);
                 tichet.IdTichet = ++id_tichet;
                 tichet.IdStudent = stud_id;
                 tichet.DataEmitere = DateTime.Now;
                 tichet.DateRezolvare = null;
                 tichet.StatusTichet = false;
                 tichet.Detalii = Request.Form["Detalii"];
-                tichet.TipTichet = (Request.Form["TipTichet"].Count() == 0 ? false : true);
+                tichet.TipTichet = (Request.Form["TipTichet"].Count() != 0);
                 var stid = _context.Student.Where(a => a.Email == User.Identity.Name).Select(a => a.IdStudent).AsEnumerable();
                 if (stid.Count() > 0)
                 {
@@ -150,7 +159,6 @@ namespace AplicatieCamine
         {
             if (ModelState.IsValid)
             {
-                tichet.IdTichet = ++id_tichet;
                 AddTichet(tichet);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -194,6 +202,7 @@ namespace AplicatieCamine
                 {
                     _context.Update(tichet);
                     await _context.SaveChangesAsync();
+                    //Aici trimitem Email la student
                 }
                 catch (DbUpdateConcurrencyException)
                 {

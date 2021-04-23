@@ -17,7 +17,16 @@ namespace AplicatieCamine
         {
             _context = context;
         }
-
+        public async Task<IActionResult> Camere()
+        {
+			if (Request.Form.ContainsKey("cnr"))
+			{
+                int id = Int32.Parse(Request.Form["cnr"]);
+                var nrc = _context.Camere.Where(a => a.IdCamin == id).Select(a => a).AsEnumerable();
+                return View("CamereCamin", nrc);
+			}
+            return RedirectToAction(nameof(Index));
+        }
         // GET: Camine
         [HttpGet]
         public async Task<IActionResult> Index()

@@ -41,7 +41,10 @@
 				string random_nr = r.Next(1, count).ToString();
 				string rand = "Images/camine/" + @random_nr + ".jpg";
 				<div class="column">
-					Camin @Html.DisplayFor(modelItem => item.IdCamin)<br />
+					<form asp-action = "Camere">
+						<input type = "number" name="cnr" value="@Html.DisplayFor(modelItem => item.IdCamin)"  style="display: none;" />
+						<input type = "submit" name = "cid" value="Camin @Html.DisplayFor(modelItem => item.IdCamin)" />
+					</form>
 					<img src="@rand" />
 					<p>Facilitati: @Html.DisplayFor(modelItem => item.Descriere)</p>
 				</div>
