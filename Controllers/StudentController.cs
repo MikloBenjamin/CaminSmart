@@ -12,7 +12,7 @@ namespace AplicatieCamine
     public class StudentController : Controller
     {
         private readonly DBSistemContext _context;
-
+        int id_student = 1;
         public StudentController(DBSistemContext context)
         {
             _context = context;
@@ -64,6 +64,7 @@ namespace AplicatieCamine
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            id_student++;
             ViewData["IdCamera"] = new SelectList(_context.Camere, "IdCamera", "IdCamera", student.IdCamera);
             return View(student);
         }
@@ -120,6 +121,14 @@ namespace AplicatieCamine
             ViewData["IdCamera"] = new SelectList(_context.Camere, "IdCamera", "IdCamera", student.IdCamera);
             return View(student);
         }
+
+        //Aceasta actiune va fi apelat din formul de la CreateStudent din partea de Student
+        //
+        public void Inscriere()
+		{
+
+            id_student++;
+		}
 
         // GET: Student/Delete/5
         public async Task<IActionResult> Delete(int? id)

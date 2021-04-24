@@ -1,4 +1,5 @@
 ﻿using System;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
@@ -101,9 +102,9 @@ namespace AplicatieCamine.Models
 
                 entity.Property(e => e.NrStudentiCazati).HasColumnName("nr_studenti_cazati");
 
-                entity.Property(e => e.TipCamera)
+                entity.Property(e => e.NrCamera)
                     .IsRequired()
-                    .HasColumnName("tip_camera")
+                    .HasColumnName("nr_camera")
                     .HasMaxLength(20)
                     .IsUnicode(false);
 
@@ -138,11 +139,8 @@ namespace AplicatieCamine.Models
 
                 entity.Property(e => e.NrCamere).HasColumnName("nr_camere");
 
-                entity.Property(e => e.NrLocuriErasmus).HasColumnName("nr_locuri_erasmus");
+                entity.Property(e => e.NrLocuri).HasColumnName("nr_locuri");
 
-                entity.Property(e => e.NrLocuriNormale).HasColumnName("nr_locuri_normale");
-
-                entity.Property(e => e.NrLocuriSocial).HasColumnName("nr_locuri_social");
             });
 
             modelBuilder.Entity<Student>(entity =>
@@ -239,10 +237,14 @@ namespace AplicatieCamine.Models
 
                 entity.Property(e => e.TipTichet).HasColumnName("tip_tichet");
 
+                entity.Property(e => e.IdCamera).HasColumnName("id_camera");
+
                 entity.HasOne(d => d.IdStudentNavigation)
                     .WithMany(p => p.Tichet)
                     .HasForeignKey(d => d.IdStudent)
                     .HasConstraintName("FK__TICHET__id_stude__7C4F7684");
+
+                //entity.HasOne(d => d.IdCameraNavigation).WithMany(p => p.).HasForeignKey(d => d.IdCamera).HasConstraintName("camera_constr");
             });
 
             OnModelCreatingPartial(modelBuilder);

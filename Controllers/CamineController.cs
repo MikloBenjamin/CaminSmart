@@ -17,13 +17,32 @@ namespace AplicatieCamine
         {
             _context = context;
         }
-
+        public async Task<IActionResult> Camere()
+        {
+			if (Request.Form.ContainsKey("cnr"))
+			{
+                int id = Int32.Parse(Request.Form["cnr"]);
+                var nrc = _context.Camere.Where(a => a.IdCamin == id).Select(a => a).AsEnumerable();
+                return View("CamereCamin", nrc);
+			}
+            return RedirectToAction(nameof(Index));
+        }
         // GET: Camine
+        [HttpGet]
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Camine.ToListAsync());
+            return View("Index", await _context.Camine.ToListAsync());
         }
-
+        [HttpPost]
+        public async Task<IActionResult> Index(string x = "")
+        {
+            return await Camine();
+        }
+        public async Task<IActionResult> Camine()
+        {
+            var model = _context.Camine.AsEnumerable();
+            return View("Camine", model);
+        }
         // GET: Camine/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -49,14 +68,13 @@ namespace AplicatieCamine
         }
 
         // POST: Camine/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("IdCamin,Adresa,NrCamere,NrLocuriNormale,NrLocuriErasmus,NrLocuriSocial,Facultate")] Camine camine)
+        public async Task<IActionResult> Create([Bind("IdCamin,Adresa,NrCamere,NrLocuri,Facultate,Descriere")] Camine camine)
         {
             if (ModelState.IsValid)
             {
+                //camine.Images = "This should be a path";
                 _context.Add(camine);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -85,7 +103,7 @@ namespace AplicatieCamine
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("IdCamin,Adresa,NrCamere,NrLocuriNormale,NrLocuriErasmus,NrLocuriSocial,Facultate")] Camine camine)
+        public async Task<IActionResult> Edit(int id, [Bind("IdCamin,Adresa,NrCamere,NrLocuri,Facultate,Descriere")] Camine camine)
         {
             if (id != camine.IdCamin)
             {

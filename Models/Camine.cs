@@ -18,11 +18,9 @@ namespace AplicatieCamine.Models
         public int IdCamin { get; set; }
         public string Adresa { get; set; }
         public int NrCamere { get; set; }
-        public int NrLocuriNormale { get; set; }
-        public int NrLocuriErasmus { get; set; }
-        public int NrLocuriSocial { get; set; }
+        public int NrLocuri { get; set; }
         public string Facultate { get; set; }
-
+        public string Descriere { get; set; }
         public virtual ICollection<Administratori> Administratori { get; set; }
         public virtual ICollection<Camere> Camere { get; set; }
     }

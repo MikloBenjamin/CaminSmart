@@ -19,8 +19,7 @@ namespace AplicatieCamine.Models
         public int LimitaNrStudenti { get; set; }
         public int NrStudentiCazati { get; set; }
         public string Descriere { get; set; }
-        public string TipCamera { get; set; }
-
+        public int NrCamera { get; set; }
         public virtual Camine IdCaminNavigation { get; set; }
         public virtual ICollection<Student> Student { get; set; }
     }

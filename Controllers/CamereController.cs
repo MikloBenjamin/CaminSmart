@@ -25,6 +25,13 @@ namespace AplicatieCamine
             return View(await dBSistemContext.ToListAsync());
         }
 
+
+        public async Task<IActionResult> CamereCamin(int id)
+        {
+            var camere = _context.Camere.Where(c => c.IdCamin == id).Select(a => a).AsEnumerable();
+            return View("CamereCamin", camere);
+        }
+
         // GET: Cameres/Details/5
         public async Task<IActionResult> Details(int? id)
         {
