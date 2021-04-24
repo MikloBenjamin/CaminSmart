@@ -27,136 +27,310 @@
 
 
 <style>
-	* {
-		box-sizing: border-box;
-	}
+    * {
+        box-sizing: border-box;
+    }
 
-	.prop {
-		position: relative;
-		top: 100px;
-	}
+    .prop {
+        position: relative;
+        top: 20px;
+    }
 
-	.button {
-		position: relative;
-		top: 150px;
-		border: none;
-		color: white;
-		background-color: #008CBA;
-		padding: 40px 55px;
-		text-align: center;
-		text-decoration: none;
-		display: inline-block;
-		font-size: 25px;
-		margin: 4px 2px;
-		cursor: pointer;
-		border-radius: 30px;
-		transition-duration: 0.6s;
-	}
+    .button {
+        position: relative;
+        top: 150px;
+        border: none;
+        color: white;
+        background-color: #008CBA;
+        padding: 40px 55px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 25px;
+        margin: 4px 2px;
+        cursor: pointer;
+        border-radius: 30px;
+        transition-duration: 0.6s;
+    }
+        .button:hover {
+            background-color: white;
+            color: black;
+            border: 2px solid #008CBA;
+        }
+    .bb {
+        position: relative;
+        top: 150px;
+        border: none;
+        color: white;
+        background-color: #008CBA;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        margin: 4px 2px;
+        cursor: pointer;
+        transition-duration: 0.6s;
+        width: 180px;
+        height: 50px;
+        font-size: 20px;
+        top: 100px;
+    }
+    .bb:hover {
+        background-color: white;
+        color: black;
+        border: 2px solid #008CBA;
+    }
 
-		.button:hover {
-			background-color: white;
-			color: black;
-			border: 2px solid #008CBA;
-		}
+    .buttonsa {
+        position: relative;
+        left: 300px;
+    }
 
-	.buttonsa {
-		position: relative;
-		left: 300px;
-	}
+    .row::after {
+        content: "";
+        clear: both;
+        display: table;
+    }
 
-	.row::after {
-		content: "";
-		clear: both;
-		display: table;
-	}
+    [class*="col-"] {
+        float: left;
+        padding: 5px;
+        border: 1px solid red;
+    }
 
-	[class*="col-"] {
-		float: left;
-		padding: 5px;
-		border: 1px solid red;
-	}
+    .col-1 {
+        width: 20%;
+    }
 
-	.col-1 {
-		width: 20%;
-	}
+    .col-2 {
+        width: 40%;
+    }
 
-	.col-2 {
-		width: 40%;
-	}
+    .col-3 {
+        width: 60%;
+    }
 
-	.col-3 {
-		width: 60%;
-	}
+    .col-4 {
+        width: 80%;
+    }
 
-	.col-4 {
-		width: 80%;
-	}
+    .col-5 {
+        width: 100%;
+    }
 
-	.col-5 {
-		width: 100%;
-	}
+    [class*="col-"] img {
+        width: 100%;
+        height: 200px;
+    }
 
-	[class*="col-"] img {
-		width: 100%;
-		height: 200px;
-	}
+    .admin {
+        background-color: #e7e7e7;
+        color: black;
+        text-align: center;
+        font-size: 16px;
+        margin: 4px 2px;
+        position: relative;
+        bottom: 110px;
+        left: 1140px;
+        box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+        border: none;
+        padding: 15px 32px;
+        text-decoration: none;
+        display: inline-block;
+        cursor: pointer;
+    }
+
+    con {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        display: inline-block;
+    }
+
+    .con:after {
+        content: "";
+        background: url("../Images/camine/5.jpg");
+        opacity: 0.4;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        position: absolute;
+        z-index: -1;
+        background-repeat: no-repeat;
+        background-position: 50% 0;
+        background-size: cover;
+        background-attachment: fixed;
+    }
+
+    .tab {
+        align-content: center;
+        position: relative;
+        bottom: 60px;
+    }
+    .tabstud {
+        left: 200px;
+    }
+    .b1 {
+        position: relative;
+        right: 100px;
+        display: inline-block;
+        border-style: solid;
+        border-radius: 10px;
+        background-color: white;
+        border: none;
+        width: 320px;
+        height: 420px;
+        border: 1px solid;
+        padding: 10px;
+        box-shadow: 5px 10px 18px #888888;
+    }
+    .b1:hover {
+        box-shadow: 0 12px 16px 0 rgba(0,0,0,1),0 17px 50px 0 rgba(0,0,0,0.60);
+    }
+    .b2 {
+        position: relative;
+        right: 40px;
+        display: inline-block;
+        border-style: solid;
+        background-color: white;
+        border-radius: 10px;
+        border: none;
+        width: 320px;
+        height: 420px;
+        border: 1px solid;
+        padding: 10px;
+        box-shadow: 5px 10px 18px #888888;
+    }
+    .b2:hover {
+        box-shadow: 0 12px 16px 0 rgba(0,0,0,1),0 17px 50px 0 rgba(0,0,0,0.60);
+    }
+    .b3 {
+        position: relative;
+        left: 20px;
+        display: inline-block;
+        border-style: solid;
+        border-radius: 10px;
+        background-color: white;
+        border: none;
+        width: 320px;
+        height: 420px;
+        border: 1px solid;
+        padding: 10px;
+        box-shadow: 5px 10px 18px #888888;
+    }
+    .b3:hover {
+        box-shadow: 0 12px 16px 0 rgba(0,0,0,1),0 17px 50px 0 rgba(0,0,0,0.60);
+    }
+    .d {
+        position: relative;
+        top: 80px;
+        left: 40px;
+    }
+    .pr {
+        position: relative;
+        top: 40px;
+        font-size: 30px;
+        text-align: center;
+        font-family:Garamond, serif;
+    }
+    .pp{
+        top: 60px;
+        font-size: 24px;
+    }
+    .ic{
+        position: relative;
+        top: 60px;
+    }
 </style>
 @*if (isAdmin)// pentru Student*@
-@if (isAdmin)//(User.IsInRole("admin"))
+@if (!(User.IsInRole("admin")))
 {
-	<h2 align="center">Hi i am an admin!</h2>
-	<div class="text-center">
-		<div class="prop">
-			<h1 class="display-4">Selectează</h1>
-			<p>pentru a vizualiza, a adăuga, a șterge și pentru a edita datele</p>
-		</div>
-		<table align="center">
-			<tr>
-				<td>
-					<form action=" https://localhost:44383/Camere">
-						<input class="button" type="submit" value="Camere" />
-					</form>
-				</td>
-				<td>
-					<form action=" https://localhost:44383/Camine">
-						<input class="button" type="submit" value="Cămine" />
-					</form>
-				</td>
-				<td>
-					<form action=" https://localhost:44383/Student">
-						<input class="button" type="submit" value="Studenți" />
-					</form>
-				</td>
-				<td>
-					<form action=" https://localhost:44383/Tichet">
-						<input class="button" type="submit" value="Tichete" />
-					</form>
-				</td>
-				<td>
-					<form action=" https://localhost:44383/Administratori">
-						<input class="button" type="submit" value="Administratori" />
-					</form>
-				</td>
-			</tr>
-		</table>
-	</div>
-}	
+    <button class="admin">Admin</button>
+    <div class="text-center">
+        <div class="prop">
+            <h1 class="display-4">Selectează</h1>
+            <p>pentru a vizualiza, a adăuga, a șterge și pentru a edita datele</p>
+        </div>
+        <table class="tab">
+            <tr>
+                <td>
+                    <form action=" https://localhost:44383/Camere">
+                        <input class="button" type="submit" value="Camere" />
+                    </form>
+                </td>
+                <td>
+                    <form action=" https://localhost:44383/Camine">
+                        <input class="button" type="submit" value="Cămine" />
+                    </form>
+                </td>
+                <td>
+                    <form action=" https://localhost:44383/Student">
+                        <input class="button" type="submit" value="Studenți" />
+                    </form>
+                </td>
+                <td>
+                    <form action=" https://localhost:44383/Tichet">
+                        <input class="button" type="submit" value="Tichete" />
+                    </form>
+                </td>
+                <td>
+                    <form action=" https://localhost:44383/Administratori">
+                        <input class="button" type="submit" value="Administratori" />
+                    </form>
+                </td>
+            </tr>
+        </table>
+    </div>
+}
 else
 {
-	<div class = "text-center">
-		<table align="center">
-			<tr>
-				<td>
-					<form action=" https://localhost:44383/Camine" method="post">
-						<input class="button" type="submit" value="Structura Camine" />
-					</form>
-				</td>
-				<td>
-					<form action=" https://localhost:44383/Tichet" method="post">
-						<input class="button" type="submit" value="Tichete" />
-					</form>
-				</td>
-			</tr>
-		</table>
-	</div>
+    <div class="text-center">
+        <div class="con">
+            <div class="prop">
+            </div>
+            <div class="d">
+                <div class="b1">
+                    <b><p class="pr">Structură Cămine</p></b>
+                    <p class="pr pp">Vizualizare structură cămine.   Poți vedea informațiile despre fiecare cămin. </p>
+                    <p class="ic">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-building" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M14.763.075A.5.5 0 0 1 15 .5v15a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5V14h-1v1.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V10a.5.5 0 0 1 .342-.474L6 7.64V4.5a.5.5 0 0 1 .276-.447l8-4a.5.5 0 0 1 .487.022zM6 8.694 1 10.36V15h5V8.694zM7 15h2v-1.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 .5.5V15h2V1.309l-7 3.5V15z" />
+                            <path d="M2 11h1v1H2v-1zm2 0h1v1H4v-1zm-2 2h1v1H2v-1zm2 0h1v1H4v-1zm4-4h1v1H8V9zm2 0h1v1h-1V9zm-2 2h1v1H8v-1zm2 0h1v1h-1v-1zm2-2h1v1h-1V9zm0 2h1v1h-1v-1zM8 7h1v1H8V7zm2 0h1v1h-1V7zm2 0h1v1h-1V7zM8 5h1v1H8V5zm2 0h1v1h-1V5zm2 0h1v1h-1V5zm0-2h1v1h-1V3z" />
+                        </svg>
+                    </p>
+                    <form action=" https://localhost:44383/Camine" method="post">
+                        <input class="bb" type="submit" value="Click!" />
+                    </form>
+                </div>
+                <div class="b2">
+                    <b><p class="pr">Am o problemă!</p></b>
+                    <p class="pr pp">Trimite tichet pentru a remedia problema sau vizualizază statusul tichetelor tale. </p>
+                    <p class="ic">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-exclamation-triangle-fill" viewBox="0 0 16 16">
+                            <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
+                        </svg>
+                    </p>
+                    <form action=" https://localhost:44383/Tichet" method="post">
+                        <input class="bb" type="submit" value="Click!" />
+                    </form>
+                </div>
+                <div class="b3">
+                    <b><p class="pr">Vreau un loc în cămin!</p></b>
+                    <p class="pr pp">
+                        Nu ești înscris?
+                        Înscrie-te pe pagină și ocupă locul în căminul dorit.
+                    </p>
+                    <p class="ic">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-bookmark-check" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M10.854 5.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 7.793l2.646-2.647a.5.5 0 0 1 .708 0z" />
+                            <path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z" />
+                        </svg>
+                    </p>
+                    <form action=" https://localhost:44383/Tichet" method="post">
+                        <input class="bb" type="submit" value="Click!" />
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 }
