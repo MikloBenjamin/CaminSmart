@@ -1,53 +1,74 @@
 ﻿@model IEnumerable<AplicatieCamine.Models.Camine>
 @using System;
+@{
+	var cimages = Url.Content("~/Images/camine/");
+}
+@section Styles{
+    <link rel="stylesheet" type="text/css" href="~/css/styleCamine.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+}
 <style>
-	body{
-		width: 100vw;
-		height: auto;
-	}
-	*{
-		box-sizing: border-box;
-	}
-	.row {
-		width: 100%;
-		border: 0 2px 0 2px solid black;
-		float: left;
-	}
-
-	.row::after {
-		content: "";
-		clear: both;
-		display: inline-block;
-	}
-	.column {
-		float: left;
-		width: 47%;
-		margin-left: 2%;
-		text-align: center;
-	}
-
-	.column img {
-		width: 100%;
-		height: 300px;
+	.con::after {
+		background: url("@Url.Content("~/Images/camine/5.jpg")");
+		background-size: cover;
+		background-attachment: fixed;
+        background-repeat: no-repeat;
 	}
 </style>
 @{
 	ViewData["Title"] = "Lista Camine";
 	int count = System.IO.Directory.EnumerateFiles(@"wwwroot/Images/camine").Count<string>();
 	Random r = new Random();
-		<div class="row">
-			@foreach (var item in Model)
-			{
-				string random_nr = r.Next(1, count).ToString();
-				string rand = "Images/camine/" + @random_nr + ".jpg";
-				<div class="column">
-					<form asp-action = "Camere">
-						<input type = "number" name="cnr" value="@Html.DisplayFor(modelItem => item.IdCamin)"  style="display: none;" />
-						<input type = "submit" name = "cid" value="Camin @Html.DisplayFor(modelItem => item.IdCamin)" />
-					</form>
-					<img src="@rand" />
-					<p>Facilitati: @Html.DisplayFor(modelItem => item.Descriere)</p>
-				</div>
-			}
-		</div>
+    <div class="con">
+        <div class="row">
+            @foreach (var item in Model)
+            {
+                string random_nr = r.Next(1, count).ToString();
+                string rand = cimages + @random_nr + ".jpg";
+                string myModal = "myModal" + @item.IdCamin;
+                <div class="col-lg-4">
+                    <br>
+                    <div class="col text-center">
+                        <form asp-action="Camere">
+                            <input type="number" name="cnr" value="@Html.DisplayFor(modelItem => item.IdCamin)" style="display: none;" />
+                            <input type="submit" class="btn btn-light" name="cid" value="Camin @Html.DisplayFor(modelItem => item.IdCamin)" />
+                        </form>
+                    </div>
+                    <br>
+                    <div class="container" style="width:400px; height:300px;">
+                        <img src="@rand" class="img-thumbnail rounded w-100 h-100 shadow-2-strong" />
+                    </div>
+                    <br>
+                    <div class="col text-center">
+                        <button type="button" class="btn btn-dark mr-2" data-toggle="modal" data-target="#@myModal">
+                            Facilitati
+                        </button>
+                    </div>
+                    <br>
+                    <!-- The Modal -->
+                    <div class="modal fade" id="@myModal">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <!-- Modal Header -->
+                                <div class="modal-header text-center">
+                                    <h4 class="modal-title w-100"> Camin @Html.DisplayFor(modelItem => item.IdCamin) </h4>
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                </div>
+                                <!-- Modal body -->
+                                <div class="modal-body">
+                                    <p> @Html.DisplayFor(modelItem => item.Descriere)</p>
+                                </div>
+                                <!-- Modal footer -->
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Inchide</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br>
+            }
+        </div>
+    </div>
 }

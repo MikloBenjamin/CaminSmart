@@ -1,0 +1,33 @@
+﻿con {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: inline-block;
+}
+
+.con::after {
+    content: "";
+    opacity: 0.4;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    position: absolute;
+    z-index: -1;
+}
+
+body {
+    width: 100vw;
+    height: auto;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+.column {
+    float: left;
+    width: 31%;
+    margin-left: 2%;
+    text-align: center;
+}

@@ -1,0 +1,51 @@
+﻿@model AplicatieCamine.Models.Student
+@{
+	ViewData["Title"] = "Inscriere";
+}
+
+@section Styles{ 
+	<link rel="stylesheet" type="text/css" href="@Url.Content("~/css/selfDesign.css")" />
+}
+
+<h1 align ="center" class="testClass"><u><i>Inscrie-te acum!</i></u></h1>
+
+<form asp-action="Inscriere" method="post">
+	<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+	<div class="form-group">
+		<label asp-for="Nume" class="control-label"></label>
+		<input asp-for="Nume" class="form-control" />
+		<span asp-validation-for="Nume" class="text-danger"></span>
+	</div>
+	<div class="form-group">
+		<label asp-for="Prenume" class="control-label"></label>
+		<input asp-for="Prenume" class="form-control" />
+		<span asp-validation-for="Prenume" class="text-danger"></span>
+	</div>
+	<div class="form-group">
+		<label asp-for="Facultate" class="control-label"></label>
+		<input asp-for="Facultate" class="form-control" />
+		<span asp-validation-for="Facultate" class="text-danger"></span>
+	</div>
+	<div class="form-group">
+		<label asp-for="Varsta" class="control-label"></label>
+		<input asp-for="Varsta" class="form-control" />
+		<span asp-validation-for="Varsta" class="text-danger"></span>
+	</div>
+	<div class="form-group">
+		<label asp-for="Adresa" class="control-label"></label>
+		<input asp-for="Adresa" class="form-control" />
+		<span asp-validation-for="Adresa" class="text-danger"></span>
+	</div>
+	<div class="form-group">
+		<label asp-for="An" class="control-label"></label>
+		<input asp-for="An" class="form-control" />
+		<span asp-validation-for="An" class="text-danger"></span>
+	</div>
+	<div class="form-group">
+		<label></label>
+		<input type="file" name="fisier_inscriere" value="FISIER_INSCRIERE" accept="application/pdf"/>
+	</div>
+	<div class="form-group">
+		<input type="submit" value="Inscrie" class="btn btn-primary" />
+	</div>
+</form>

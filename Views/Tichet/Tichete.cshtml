@@ -52,6 +52,7 @@
 		@foreach (var item in tichete)
 		{
 			string importanta = (item.TipTichet ? "DA" : "NU");
+			string rezolvat = (item.StatusTichet ? "Rezolvat" : "Nerezolvat");
 	<tr>
 		<td>
 			@item.IdTichet
@@ -63,7 +64,7 @@
 			@item.DateRezolvare
 		</td>
 		<td>
-			@item.StatusTichet
+			@rezolvat
 		</td>
 		<td>
 			@item.Detalii
@@ -74,9 +75,8 @@
 		<td>
 			@importanta
 		</td>
-		@*if ... *@
 		<td>
-			Administratorul nu a dat niciun feedback
+			@item.Feedback
 		</td>
 		<td>
 			<a asp-action="Details" asp-route-id="@item.IdTichet">Details</a> |
