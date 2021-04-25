@@ -1,22 +1,6 @@
 ﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
 for details on configuring this project to bundle and minify static web assets. */
 
-main::after{
-    content: "";
-    background: url("..//Images/camine/5.jpg");
-    opacity: 0.4;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    position: absolute;
-    z-index: -1;
-    background-repeat: no-repeat;
-    background-position: 50% 0;
-    background-size: cover;
-    background-attachment: fixed;
-}
-
 a.navbar-brand {
   background:url("../../img/CamineUVT.jpg");
   width: 30px;
@@ -82,7 +66,7 @@ body {
   /* Margin bottom by footer height */
   margin-bottom: 60px;
 }
-.footer {
+footer {
   position: absolute;
   bottom: 0;
   width: 100%;
