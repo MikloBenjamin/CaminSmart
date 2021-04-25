@@ -1,0 +1,52 @@
+﻿@model IEnumerable<AplicatieCamine.Models.Camere>
+@{
+	ViewData["Title"] = "Camere Camin";
+	var el = Model.First();
+	string [] t = { el.LimitaNrStudenti.ToString(), el.IdCamin.ToString(), el.Descriere };
+}
+<style>
+	.ocupat{
+		background: black;
+		color: white;
+		font-size: 16px;
+	}
+	.liber{
+		font-size: 16px;
+	}
+</style>
+<h2>Nr. Studenti intr-o camera: @t[0]</h2>
+<h2>Id Camin: @t[1]</h2>
+<h2>Descriere: @t[2]</h2>
+
+<table class="table">
+	<thead>
+		<tr>
+			<th>
+				@Html.DisplayNameFor(model => model.IdCamera)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.NrStudentiCazati)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.NrCamera)
+			</th>
+		</tr>
+	</thead>
+	<tbody>
+@foreach (var item in Model)
+{
+	var ocupat = (item.NrStudentiCazati == item.LimitaNrStudenti ? "ocupat" : "liber");
+	<tr class = "@ocupat">
+		<td>
+			@Html.DisplayFor(modelItem => item.IdCamera)
+		</td>
+		<td>
+			@Html.DisplayFor(modelItem => item.NrStudentiCazati)
+		</td>
+		<td>
+			@Html.DisplayFor(modelItem => item.NrCamera)
+		</td>
+	</tr>
+}
+	</tbody>
+</table>

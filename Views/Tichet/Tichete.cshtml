@@ -1,0 +1,88 @@
+﻿@model dynamic
+
+@{ 
+	ViewData["Title"] = "Tichete";
+	var tichete = Model.Tichet;
+	var nr_camera = Model.Camera;
+}
+
+<h1>Tichete</h1>
+
+<form asp-action = "CreateTichetST" method="get">
+	<input type="submit" value="Creeaza un tichet nou" class="button" name="Student_Create"/>
+</form>
+<table class="table">
+	<thead>
+		<tr>
+			<th>
+				IdTichet
+			</th>
+			<th>
+				DataEmitere
+			</th>
+			<th>
+				DateRezolvare
+			</th>
+			<th>
+				StatusTichet
+			</th>
+			<th>
+				Detalii
+			</th>
+			<th>
+				NrCamera
+			</th>
+			<th>
+				Importanta
+			</th>
+			<th>
+				Feedback
+			</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+	@if(Enumerable.Count(tichete) == 0) { 
+		<tr>
+			<td>
+				You have no active tichets!
+			</td>
+		</tr>
+	} else { 	
+		@foreach (var item in tichete)
+		{
+			string importanta = (item.TipTichet ? "DA" : "NU");
+	<tr>
+		<td>
+			@item.IdTichet
+		</td>
+		<td>
+			@item.DataEmitere
+		</td>
+		<td>
+			@item.DateRezolvare
+		</td>
+		<td>
+			@item.StatusTichet
+		</td>
+		<td>
+			@item.Detalii
+		</td>
+		<td>
+			@nr_camera
+		</td>
+		<td>
+			@importanta
+		</td>
+		@*if ... *@
+		<td>
+			Administratorul nu a dat niciun feedback
+		</td>
+		<td>
+			<a asp-action="Details" asp-route-id="@item.IdTichet">Details</a> |
+		</td>
+	</tr>
+		}
+	}
+	</tbody>
+</table>
