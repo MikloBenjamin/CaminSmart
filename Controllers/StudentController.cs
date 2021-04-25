@@ -25,6 +25,20 @@ namespace AplicatieCamine
             return View(await dBSistemContext.ToListAsync());
         }
 
+        public async Task<IActionResult> Inscriere()
+		{
+			if (Request.HasFormContentType)
+			{
+                var form = Request.Form;
+                System.Diagnostics.Debug.WriteLine("Inside Inscriere in Student Controller");
+			    if (form.ContainsKey("Cerere"))
+			    {
+                    return View();
+			    }
+			}
+            return View();
+		}
+
         // GET: Student/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -122,13 +136,6 @@ namespace AplicatieCamine
             return View(student);
         }
 
-        //Aceasta actiune va fi apelat din formul de la CreateStudent din partea de Student
-        //
-        public void Inscriere()
-		{
-
-            id_student++;
-		}
 
         // GET: Student/Delete/5
         public async Task<IActionResult> Delete(int? id)

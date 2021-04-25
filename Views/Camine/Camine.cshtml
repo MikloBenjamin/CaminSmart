@@ -39,7 +39,7 @@
 			@foreach (var item in Model)
 			{
 				string random_nr = r.Next(1, count).ToString();
-				string rand = "Images/camine/" + @random_nr + ".jpg";
+				string rand = Url.Content("~/Images/camine/") + @random_nr + ".jpg";
 				<div class="column">
 					<form asp-action = "Camere">
 						<input type = "number" name="cnr" value="@Html.DisplayFor(modelItem => item.IdCamin)"  style="display: none;" />

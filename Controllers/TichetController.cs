@@ -37,6 +37,7 @@ namespace AplicatieCamine
         public async Task<IActionResult> Index()
         {
             var dBSistemContext = _context.Tichet.Include(t => t.IdStudentNavigation);
+            System.Diagnostics.Debug.WriteLine(dBSistemContext);
             return View(await dBSistemContext.ToListAsync());
         }
         [HttpPost]
@@ -44,11 +45,11 @@ namespace AplicatieCamine
         {
             return await Tichete();
         }
-        [HttpPost]
         public async Task<IActionResult> Tichete()
         {
             var stid = _context.Student.Where(a => a.Email == User.Identity.Name).Select(a => a.IdStudent).AsEnumerable();
             var model = _context.Tichet.AsEnumerable();
+            _context.Tichet.Select(a => a.Feedback);
             dynamic modell = new ExpandoObject();
             modell.Tichet = model;
             modell.Camera = -1;
@@ -57,7 +58,7 @@ namespace AplicatieCamine
                 stud_id = stid.First();
                 var cid = _context.Student.Where(a => a.IdStudent == stud_id).Select(a => a.IdCamera).First();
                 var nrc = _context.Camere.Where(a => a.IdCamera == cid).Select(a => a.NrCamera).First();
-                modell.Tichet = _context.Tichet.Where(a => a.IdStudent == stud_id).Select(a => a).AsEnumerable();
+                modell.Tichet = _context.Tichet.Where(a => a.IdStudent == stud_id).Select(a => a).OrderBy(a => !a.StatusTichet).AsEnumerable();
                 modell.Camera = nrc;
             }
             return View("Tichete", modell);
@@ -116,7 +117,7 @@ namespace AplicatieCamine
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CreateTichetST([Bind("IdTichet,IdStudent,DataEmitere,DateRezolvare,StatusTichet,Detalii,TipTichet,IdCamera")] Tichet tichet)
+        public async Task<IActionResult> CreateTichetST([Bind("IdTichet,IdStudent,DataEmitere,DateRezolvare,StatusTichet,Detalii,TipTichet,IdCamera,Feedback")] Tichet tichet)
         {
             if (ModelState.IsValid)
             {
@@ -155,7 +156,7 @@ namespace AplicatieCamine
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("IdTichet,IdStudent,DataEmitere,DateRezolvare,StatusTichet,Detalii,TipTichet,IdCamera")] Tichet tichet)
+        public async Task<IActionResult> Create([Bind("IdTichet,IdStudent,DataEmitere,DateRezolvare,StatusTichet,Detalii,TipTichet,IdCamera,Feedback")] Tichet tichet)
         {
             if (ModelState.IsValid)
             {
@@ -189,7 +190,7 @@ namespace AplicatieCamine
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("IdTichet,IdStudent,DataEmitere,DateRezolvare,StatusTichet,Detalii,TipTichet,IdCamera")] Tichet tichet)
+        public async Task<IActionResult> Edit(int id, [Bind("IdTichet,IdStudent,DataEmitere,DateRezolvare,StatusTichet,Detalii,TipTichet,IdCamera,Feedback")] Tichet tichet)
         {
             if (id != tichet.IdTichet)
             {
@@ -203,6 +204,7 @@ namespace AplicatieCamine
                     _context.Update(tichet);
                     await _context.SaveChangesAsync();
                     //Aici trimitem Email la student
+
                 }
                 catch (DbUpdateConcurrencyException)
                 {

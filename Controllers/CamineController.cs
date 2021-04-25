@@ -27,6 +27,12 @@ namespace AplicatieCamine
 			}
             return RedirectToAction(nameof(Index));
         }
+
+        public async Task<IActionResult> Base()
+		{
+            return await Index();
+		}
+
         // GET: Camine
         [HttpGet]
         public async Task<IActionResult> Index()
