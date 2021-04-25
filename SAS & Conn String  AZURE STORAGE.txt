@@ -1,0 +1,5 @@
+CSTRING = BlobEndpoint=https://camineuvtstorage.blob.core.windows.net/;QueueEndpoint=https://camineuvtstorage.queue.core.windows.net/;FileEndpoint=https://camineuvtstorage.file.core.windows.net/;TableEndpoint=https://camineuvtstorage.table.core.windows.net/;SharedAccessSignature=sv=2020-02-10&ss=b&srt=co&sp=rwdlacx&se=2021-04-26T04:03:40Z&st=2021-04-25T20:03:40Z&spr=https&sig=knHqp%2BVf8D5b4snW8ENjt%2F62FDl1XuHoCzsYrjKeGyA%3D
+SAS token = ?sv=2020-02-10&ss=b&srt=co&sp=rwdlacx&se=2021-04-26T04:03:40Z&st=2021-04-25T20:03:40Z&spr=https&sig=knHqp%2BVf8D5b4snW8ENjt%2F62FDl1XuHoCzsYrjKeGyA%3D
+Blob Service SAS URL = https://camineuvtstorage.blob.core.windows.net/?sv=2020-02-10&ss=b&srt=co&sp=rwdlacx&se=2021-04-26T04:03:40Z&st=2021-04-25T20:03:40Z&spr=https&sig=knHqp%2BVf8D5b4snW8ENjt%2F62FDl1XuHoCzsYrjKeGyA%3D
+https://elcamino.cloud/articles/2020-03-30-azure-storage-blobs-net-sdk-v12-upgrade-guide-and-tips.html
+Conn String = DefaultEndpointsProtocol=https;AccountName=camineuvtstorage;AccountKey=s9ifIu1cH0Y9KXCFhQTNED+VmEy1eECvG5HAFrUHWtmsO5zLC9eV1V+vj4rG2yJPntm7gOHE0baigX5YW8dQ/A==;EndpointSuffix=core.windows.net

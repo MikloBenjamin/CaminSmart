@@ -1,10 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Azure;
+using Azure.Storage.Blobs;
+using Azure.Storage.Blobs.Models;
 using AplicatieCamine.Models;
 
 namespace AplicatieCamine
@@ -27,7 +31,14 @@ namespace AplicatieCamine
 
         public async Task<IActionResult> Inscriere()
 		{
-			if (Request.HasFormContentType)
+            //BlobServiceClient serviceClient = new BlobServiceClient("DefaultEndpointsProtocol=https;AccountName=camineuvtstorage;AccountKey=s9ifIu1cH0Y9KXCFhQTNED+VmEy1eECvG5HAFrUHWtmsO5zLC9eV1V+vj4rG2yJPntm7gOHE0baigX5YW8dQ/A==;EndpointSuffix=core.windows.net");
+            //BlobContainerClient containerClient = serviceClient.GetBlobContainerClient("inscrieri");
+            //await containerClient.CreateIfNotExistsAsync();
+            //BlobClient client = containerClient.GetBlobClient("test.png");
+            //await client.DownloadToAsync("wwwroot/Images/" + client.Name);
+            //FileStream fl = new FileStream("wwwroot/Images/camine/1.jpg", FileMode.Open);
+            //await containerClient.UploadBlobAsync("applicant1", fl);
+            if (Request.HasFormContentType)
 			{
                 var form = Request.Form;
                 System.Diagnostics.Debug.WriteLine("Inside Inscriere in Student Controller");
