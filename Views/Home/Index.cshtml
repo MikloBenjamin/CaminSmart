@@ -8,19 +8,6 @@
 	bool isAdmin = false;
 	if (!char.IsDigit(usr[usr.Length - 1]))
 	{
-		@*bool adminInDB = false;
-			foreach (var ad in Model)
-			{
-				if (ad.Email.Equals(u))
-				{
-					adminInDB = true;
-					break;
-				}
-			}
-			if (!adminInDB)
-			{
-				//Should insert into DB
-			}*@
 		isAdmin = true;
 	}
 }

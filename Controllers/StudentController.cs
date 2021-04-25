@@ -136,7 +136,6 @@ namespace AplicatieCamine
             return View(student);
         }
 
-
         // GET: Student/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {

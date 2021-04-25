@@ -49,7 +49,6 @@ namespace AplicatieCamine
         {
             var stid = _context.Student.Where(a => a.Email == User.Identity.Name).Select(a => a.IdStudent).AsEnumerable();
             var model = _context.Tichet.AsEnumerable();
-            _context.Tichet.Select(a => a.Feedback);
             dynamic modell = new ExpandoObject();
             modell.Tichet = model;
             modell.Camera = -1;
@@ -204,7 +203,6 @@ namespace AplicatieCamine
                     _context.Update(tichet);
                     await _context.SaveChangesAsync();
                     //Aici trimitem Email la student
-
                 }
                 catch (DbUpdateConcurrencyException)
                 {
