@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace AplicatieCamine.Controllers
 {
-    [Authorize(Roles = "admin")]
+    [Authorize]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -18,6 +18,40 @@ namespace AplicatieCamine.Controllers
         public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
+        }
+
+        public async Task<IActionResult> Camine()
+		{
+            return RedirectToAction("Index", "Camine");
+        }
+
+        public async Task<IActionResult> Camere()
+        {
+            return RedirectToAction("Index", "Camere");
+        }
+        public async Task<IActionResult> Tichet()
+        {
+            return RedirectToAction("Index", "Tichet");
+        }
+        public async Task<IActionResult> Student()
+        {
+            return RedirectToAction("Index", "Student");
+        }
+        public async Task<IActionResult> Administratori()
+        {
+            return RedirectToAction("Index", "Administratori");
+        }
+        public async Task<IActionResult> Inscriere()
+        {
+            return RedirectToAction("Inscriere", "Student");
+        }
+        public async Task<IActionResult> Tichete()
+        {
+            return RedirectToAction("Tichete", "Tichet");
+        }
+        public async Task<IActionResult> CamineST()
+        {
+            return RedirectToAction("Camine", "Camine");
         }
 
         public IActionResult Index()
