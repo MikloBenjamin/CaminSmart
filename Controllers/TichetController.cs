@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using AplicatieCamine.Models;
 using System.Dynamic;
+using Microsoft.AspNetCore.Authorization;
 
 namespace AplicatieCamine
 {
@@ -48,19 +49,20 @@ namespace AplicatieCamine
         public async Task<IActionResult> Tichete()
         {
             var stid = _context.Student.Where(a => a.Email == User.Identity.Name).Select(a => a.IdStudent).AsEnumerable();
-            var model = _context.Tichet.AsEnumerable();
-            dynamic modell = new ExpandoObject();
-            modell.Tichet = model;
-            modell.Camera = -1;
-            if(stid.Count() > 0)
-			{
+            if (stid.Count() > 0)
+            {
+                var model = _context.Tichet.AsEnumerable();
+                dynamic modell = new ExpandoObject();
+                modell.Tichet = model;
+                modell.Camera = -1;
                 stud_id = stid.First();
                 var cid = _context.Student.Where(a => a.IdStudent == stud_id).Select(a => a.IdCamera).First();
                 var nrc = _context.Camere.Where(a => a.IdCamera == cid).Select(a => a.NrCamera).First();
                 modell.Tichet = _context.Tichet.Where(a => a.IdStudent == stud_id).Select(a => a).AsEnumerable();
                 modell.Camera = nrc;
+                return View("Tichete", modell);
             }
-            return View("Tichete", modell);
+            return RedirectToAction("Inscriere", "Student");
         }
         // GET: Tichets/Details/5
         public async Task<IActionResult> Details(int? id)

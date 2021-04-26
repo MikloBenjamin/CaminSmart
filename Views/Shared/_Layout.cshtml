@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
 <body>
+<<<<<<< Updated upstream
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container">
@@ -45,6 +46,36 @@
             <img class="logouvt" src="../Images/icons/uvt.png" />
         </div>
     </footer>
+=======
+    <div id = "page">
+		<main role="main">
+			<header>
+				<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom shadow-lg mb-3 rounded">
+					<div class="container">
+						<a asp-area="" asp-controller="Home" asp-action="Index">
+							<img src="../Images/icons/CamineUVT.jpg" width="200" height="110" />
+						</a>
+						<button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+								aria-expanded="false" aria-label="Toggle navigation">
+							<span class="navbar-toggler-icon"></span>
+						</button>
+						<div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+							<partial name="_LoginPartial" />
+							<ul class="navbar-nav flex-grow-1">
+								<li class="nav-item">
+									<button class="button3"><a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a></button>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</nav>
+			</header>
+            @RenderBody()
+		</main>
+        @RenderSection("Footer", false)
+    </div>
+
+>>>>>>> Stashed changes
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
