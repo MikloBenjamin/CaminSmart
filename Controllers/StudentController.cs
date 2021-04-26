@@ -29,7 +29,7 @@ namespace AplicatieCamine
             return View(await dBSistemContext.ToListAsync());
         }
 
-        public async Task<IActionResult> Inscriere()
+        public IActionResult Inscriere()
 		{
             //BlobServiceClient serviceClient = new BlobServiceClient("DefaultEndpointsProtocol=https;AccountName=camineuvtstorage;AccountKey=s9ifIu1cH0Y9KXCFhQTNED+VmEy1eECvG5HAFrUHWtmsO5zLC9eV1V+vj4rG2yJPntm7gOHE0baigX5YW8dQ/A==;EndpointSuffix=core.windows.net");
             //BlobContainerClient containerClient = serviceClient.GetBlobContainerClient("inscrieri");
@@ -44,7 +44,8 @@ namespace AplicatieCamine
                 System.Diagnostics.Debug.WriteLine("Inside Inscriere in Student Controller");
 			    if (form.ContainsKey("Cerere"))
 			    {
-                    return View();
+                    var fname = form[""];
+                    return RedirectToAction("Index", "Home");
 			    }
 			}
             return View();

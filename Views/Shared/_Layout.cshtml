@@ -18,83 +18,34 @@
     @RenderSection("Styles", false)
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom shadow-lg mb-3 rounded fixed-top">
-            <div class="container">
-                <a asp-area="" asp-controller="Home" asp-action="Index">
-                    <img src="../Images/icons/CamineUVT.jpg" width="200" height="110" />
-                </a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                    <partial name="_LoginPartial" />
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <button class="button3"><a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a></button>
-                        </li>
-@*                        <li class="nav-item">
-                            <button class="button3"><a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Contact</a></button>
-                        </li>*@
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </header>
-    <div class="container" style="margin-top: 20%; margin-bottom: 20%;">
-        <main role="main" class="pb-3">
+    <div id = "page">
+		<main role="main">
+			<header>
+				<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom shadow-lg mb-3 rounded">
+					<div class="container">
+						<a asp-area="" asp-controller="Home" asp-action="Index">
+							<img src="../Images/icons/CamineUVT.jpg" width="200" height="110" />
+						</a>
+						<button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+								aria-expanded="false" aria-label="Toggle navigation">
+							<span class="navbar-toggler-icon"></span>
+						</button>
+						<div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+							<partial name="_LoginPartial" />
+							<ul class="navbar-nav flex-grow-1">
+								<li class="nav-item">
+									<button class="button3"><a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a></button>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</nav>
+			</header>
             @RenderBody()
-        </main>
+		</main>
+        @RenderSection("Footer", false)
     </div>
 
-    <footer class="footer-distributed">
-
-        <div class="footer-left">
-
-            <h3><img class="logouvt" src="../Images/icons/uvt.png" /></h3>
-
-            <p class="footer-links">
-                <a asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-@*                ·
-                <a asp-area="" asp-controller="Home" asp-action="Privacy">Contact</a>*@
-            </p>
-
-            <p class="footer-company-name">Smart Camine UVT</p>
-
-            <div class="footer-icons">
-
-                <a href="https://www.facebook.com/uvtromania"><i class="fa fa-facebook"></i></a>
-                <a href="https://twitter.com/uvtromania"><i class="fa fa-twitter"></i></a>
-                <a href="https://www.instagram.com/uvt_romania/"><i class="fa fa-instagram"></i></a>
-                <a href="https://www.linkedin.com/school/west-university-of-timisoara/"><i class="fa fa-linkedin"></i></a>
-                <a href="https://www.youtube.com/channel/UC9rKWeN__ZbmqP3s-H6VcLA"><i class="fa fa-youtube"></i></a>
-
-            </div>
-
-        </div>
-
-        <div class="footer-right">
-
-            <p>Contact Us</p>
-
-            <form action="#" method="post">
-
-                <input type="text" name="email" placeholder="Email" />
-                <textarea name="message" placeholder="Message"></textarea>
-                <button>Send</button>
-
-            </form>
-
-        </div>
-
-    </footer>
-   @* <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2021 - AplicatieCamine - <a asp-area="" asp-controller="Home" asp-action="Privacy">Contact</a>
-            <img class="logouvt" src="../Images/icons/uvt.png" />
-        </div>
-    </footer>*@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
