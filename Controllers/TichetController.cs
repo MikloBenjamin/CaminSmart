@@ -23,7 +23,7 @@ namespace AplicatieCamine
             id_tichet = 1;
             if(tichets.Count() > 0)
 			{
-                id_tichet = tichets.Last().IdTichet;
+                id_tichet = tichets.Last().IdTichet + 1;
 			}
         }
 
@@ -121,9 +121,7 @@ namespace AplicatieCamine
         {
             if (ModelState.IsValid)
             {
-                //id_tichet += 1;
-                //System.Diagnostics.Debug.WriteLine(id_tichet);
-                tichet.IdTichet = ++id_tichet;
+                tichet.IdTichet = id_tichet++;
                 tichet.IdStudent = stud_id;
                 tichet.DataEmitere = DateTime.Now;
                 tichet.DateRezolvare = null;

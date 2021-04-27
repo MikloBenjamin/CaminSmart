@@ -1,2 +1,282 @@
 dotnet ef dbcontext scaffold "Server=tcp:server-db-camine.database.windows.net,1433;Initial Catalog=DBSistem;Persist Security Info=False;User ID=adminUser;Password=admincamine123!;
 MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;" Microsoft.EntityFrameworkCore.SqlServer -o Models
+
+
+
+----------
+"PK__APPLICAN__67EE270EA55EE147"
+
+protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.HasAnnotation("Relational:Collation", "SQL_Latin1_General_CP1_CI_AS");
+
+            modelBuilder.Entity<Administratori>(entity =>
+            {
+                entity.HasKey(e => e.IdAdmin)
+                    .HasName("PK__ADMINIST__89472E9570B976EA");
+
+                entity.ToTable("ADMINISTRATORI");
+
+                entity.Property(e => e.IdAdmin)
+                    .ValueGeneratedNever()
+                    .HasColumnName("id_admin");
+
+                entity.Property(e => e.Adresa)
+                    .IsRequired()
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("adresa");
+
+                entity.Property(e => e.Email)
+                    .HasMaxLength(255)
+                    .HasColumnName("email");
+
+                entity.Property(e => e.IdCamin).HasColumnName("id_camin");
+
+                entity.Property(e => e.NrTelefon)
+                    .IsRequired()
+                    .HasMaxLength(10)
+                    .IsUnicode(false)
+                    .HasColumnName("nr_telefon");
+
+                entity.Property(e => e.Nume)
+                    .IsRequired()
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("nume");
+
+                entity.HasOne(d => d.IdCaminNavigation)
+                    .WithMany(p => p.Administratoris)
+                    .HasForeignKey(d => d.IdCamin)
+                    .HasConstraintName("FK__ADMINISTR__id_ca__76969D2E");
+            });
+
+            modelBuilder.Entity<Applicant>(entity =>
+            {
+                entity.HasKey(e => e.IdApplicant)
+                    .HasName("PK__APPLICAN__67EE270EA55EE147");
+
+                entity.ToTable("APPLICANT");
+
+                entity.Property(e => e.IdApplicant)
+                    .ValueGeneratedNever()
+                    .HasColumnName("id_applicant");
+
+                entity.Property(e => e.Adresa)
+                    .IsRequired()
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("adresa");
+
+                entity.Property(e => e.An).HasColumnName("an");
+
+                entity.Property(e => e.Email)
+                    .IsRequired()
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("email");
+
+                entity.Property(e => e.Facultate)
+                    .IsRequired()
+                    .HasMaxLength(40)
+                    .IsUnicode(false)
+                    .HasColumnName("facultate");
+
+                entity.Property(e => e.FilePath)
+                    .IsRequired()
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
+                    .HasColumnName("file_path");
+
+                entity.Property(e => e.Nume)
+                    .IsRequired()
+                    .HasMaxLength(30)
+                    .IsUnicode(false)
+                    .HasColumnName("nume");
+
+                entity.Property(e => e.Prenume)
+                    .IsRequired()
+                    .HasMaxLength(30)
+                    .IsUnicode(false)
+                    .HasColumnName("prenume");
+
+                entity.Property(e => e.Varsta).HasColumnName("varsta");
+            });
+
+            modelBuilder.Entity<Camere>(entity =>
+            {
+                entity.HasKey(e => e.IdCamera)
+                    .HasName("PK__CAMERE__CA0FE41D09B2B6E0");
+
+                entity.ToTable("CAMERE");
+
+                entity.Property(e => e.IdCamera)
+                    .ValueGeneratedNever()
+                    .HasColumnName("id_camera");
+
+                entity.Property(e => e.Descriere)
+                    .HasMaxLength(200)
+                    .HasColumnName("descriere");
+
+                entity.Property(e => e.IdCamin).HasColumnName("id_camin");
+
+                entity.Property(e => e.LimitaNrStudenti).HasColumnName("limita_nr_studenti");
+
+                entity.Property(e => e.NrCamera)
+                    .HasColumnName("nr_camera")
+                    .HasDefaultValueSql("((8))");
+
+                entity.Property(e => e.NrStudentiCazati).HasColumnName("nr_studenti_cazati");
+
+                entity.HasOne(d => d.IdCaminNavigation)
+                    .WithMany(p => p.Cameres)
+                    .HasForeignKey(d => d.IdCamin)
+                    .HasConstraintName("FK__CAMERE__id_camin__70DDC3D8");
+            });
+
+            modelBuilder.Entity<Camine>(entity =>
+            {
+                entity.HasKey(e => e.IdCamin)
+                    .HasName("PK__CAMINE__C1F3C2E80E4259B9");
+
+                entity.ToTable("CAMINE");
+
+                entity.Property(e => e.IdCamin)
+                    .ValueGeneratedNever()
+                    .HasColumnName("id_camin");
+
+                entity.Property(e => e.Adresa)
+                    .HasMaxLength(150)
+                    .HasColumnName("adresa");
+
+                entity.Property(e => e.Descriere)
+                    .HasMaxLength(200)
+                    .HasColumnName("descriere");
+
+                entity.Property(e => e.Facultate)
+                    .IsRequired()
+                    .HasMaxLength(30)
+                    .IsUnicode(false)
+                    .HasColumnName("facultate");
+
+                entity.Property(e => e.NrCamere).HasColumnName("nr_camere");
+
+                entity.Property(e => e.NrLocuri).HasColumnName("nr_locuri");
+            });
+
+
+            modelBuilder.Entity<Student>(entity =>
+            {
+                entity.HasKey(e => e.IdStudent)
+                    .HasName("PK__STUDENT__2BE2EBB6FE8FEE61");
+
+                entity.ToTable("STUDENT");
+
+                entity.Property(e => e.IdStudent)
+                    .ValueGeneratedNever()
+                    .HasColumnName("id_student");
+
+                entity.Property(e => e.Adresa)
+                    .IsRequired()
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("adresa");
+
+                entity.Property(e => e.An).HasColumnName("an");
+
+                entity.Property(e => e.DataCazare)
+                    .HasColumnType("date")
+                    .HasColumnName("data_cazare");
+
+                entity.Property(e => e.DataDecazare)
+                    .HasColumnType("date")
+                    .HasColumnName("data_decazare");
+
+                entity.Property(e => e.Email)
+                    .IsRequired()
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("email");
+
+                entity.Property(e => e.Facultate)
+                    .IsRequired()
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("facultate");
+
+                entity.Property(e => e.IdCamera).HasColumnName("id_camera");
+
+                entity.Property(e => e.Nume)
+                    .IsRequired()
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("nume");
+
+                entity.Property(e => e.Prenume)
+                    .IsRequired()
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("prenume");
+
+                entity.Property(e => e.StatusCazare).HasColumnName("status_cazare");
+
+                entity.Property(e => e.Varsta).HasColumnName("varsta");
+
+                entity.HasOne(d => d.IdCameraNavigation)
+                    .WithMany(p => p.Students)
+                    .HasForeignKey(d => d.IdCamera)
+                    .HasConstraintName("FK__STUDENT__id_came__73BA3083");
+            });
+
+            modelBuilder.Entity<Tichet>(entity =>
+            {
+                entity.HasKey(e => e.IdTichet)
+                    .HasName("PK__TICHET__4E9E5044B704390B");
+
+                entity.ToTable("TICHET");
+
+                entity.Property(e => e.IdTichet)
+                    .ValueGeneratedNever()
+                    .HasColumnName("id_tichet");
+
+                entity.Property(e => e.DataEmitere)
+                    .HasColumnType("date")
+                    .HasColumnName("data_emitere");
+
+                entity.Property(e => e.DateRezolvare)
+                    .HasColumnType("date")
+                    .HasColumnName("date_rezolvare");
+
+                entity.Property(e => e.Detalii)
+                    .IsRequired()
+                    .HasMaxLength(200)
+                    .IsUnicode(false)
+                    .HasColumnName("detalii");
+
+                entity.Property(e => e.Feedback)
+                    .HasMaxLength(1000)
+                    .IsUnicode(false)
+                    .HasColumnName("feedback")
+                    .HasDefaultValueSql("('Administratorul nu a dat inca nici un feedback')");
+
+                entity.Property(e => e.IdCamera)
+                    .HasColumnName("id_camera")
+                    .HasDefaultValueSql("((5))");
+
+                entity.Property(e => e.IdStudent).HasColumnName("id_student");
+
+                entity.Property(e => e.StatusTichet).HasColumnName("status_tichet");
+
+                entity.Property(e => e.TipTichet).HasColumnName("tip_tichet");
+
+                entity.HasOne(d => d.IdCameraNavigation)
+                    .WithMany(p => p.Tichets)
+                    .HasForeignKey(d => d.IdCamera)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("camera_constr");
+
+                entity.HasOne(d => d.IdStudentNavigation)
+                    .WithMany(p => p.Tichets)
+                    .HasForeignKey(d => d.IdStudent)
+                    .HasConstraintName("FK__TICHET__id_stude__7C4F7684");
+            });

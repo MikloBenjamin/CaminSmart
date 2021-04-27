@@ -13,86 +13,6 @@
 }
 
 
-<style>
-	* {
-		box-sizing: border-box;
-	}
-
-	.prop {
-		position: relative;
-		top: 20px;
-	}
-
-	.button {
-		position: relative;
-		top: 150px;
-		border: none;
-		color: white;
-		background-color: #008CBA;
-		padding: 40px 55px;
-		text-align: center;
-		text-decoration: none;
-		display: inline-block;
-		font-size: 25px;
-		margin: 4px 2px;
-		cursor: pointer;
-		border-radius: 30px;
-		transition-duration: 0.6s;
-	}
-
-		.button:hover, .submit:hover {
-			background-color: white;
-			color: black;
-			border: 1px solid #008CBA;
-		}
-
-	.admin {
-		background-color: #e7e7e7;
-		color: black;
-		text-align: center;
-		font-size: 16px;
-		margin: 4px 2px;
-		position: relative;
-		bottom: 110px;
-		left: 1140px;
-		box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
-		border: none;
-		padding: 15px 32px;
-		text-decoration: none;
-		display: inline-block;
-		pointer-events: none;
-	}
-
-	.con {
-		position: relative;
-		width: 100%;
-		height: 100%;
-		display: inline-block;
-	}
-
-	.con:after {
-		content: "";
-		background: url("../Images/camine/5.jpg");
-		opacity: 0.4;
-		top: 0;
-		left: 0;
-		bottom: 0;
-		right: 0;
-		position: absolute;
-		z-index: -1;
-		background-repeat: no-repeat;
-		background-position: 50% 0;
-		background-size: cover;
-		background-attachment: fixed;
-	}
-
-	.tab {
-		align-content: center;
-		position: relative;
-	}
-
-
-</style>
 @*if (isAdmin)// pentru Student*@
 @if (isAdmin)//(User.IsInRole("admin"))
 {
@@ -135,8 +55,7 @@
 }
 else
 {
-	<div class="text-center grid">
-		<div class="self-col">
+		<div class="self-col text-center">
 			<b><p>Structură Cămine</p></b>
 			<p>Vizualizare structură cămine.   Poți vedea informațiile despre fiecare cămin. </p>
 			<p class="ic">
@@ -149,7 +68,7 @@ else
 				<input class="submit" type="submit" value="Click!" />
 			</form>
 		</div>
-		<div class="self-col">
+		<div class="self-col text-center">
 			<b><p class="pr">Am o problemă!</p></b>
 			<p>Trimite tichet pentru a remedia problema sau vizualizază statusul tichetelor tale. </p>
 			<p class="ic">
@@ -161,7 +80,7 @@ else
 				<input class="submit" type="submit" value="Click!" />
 			</form>
 		</div>
-		<div class="self-col">
+		<div class="self-col text-center">
 			<b><p class="pr">Vreau un loc în cămin!</p></b>
 			<p>
 				Nu ești înscris?
@@ -178,31 +97,26 @@ else
 				<input class="submit" type="submit" value="Click!" />
 			</form>
 		</div>
-	</div>
 }
 @section Footer{
 	<footer>
-		<div class="footerL">
-			<img class="logouvt" src="../Images/icons/uvt.png" />
-			<p>
-				<a asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-			</p>
-			<p class="footer-company-name">Smart Camine UVT</p>
-			<div class="footer-icons">
-				<a href="https://www.facebook.com/uvtromania"><i class="fa fa-facebook"></i></a>
-				<a href="https://twitter.com/uvtromania"><i class="fa fa-twitter"></i></a>
-				<a href="https://www.instagram.com/uvt_romania/"><i class="fa fa-instagram"></i></a>
-				<a href="https://www.linkedin.com/school/west-university-of-timisoara/"><i class="fa fa-linkedin"></i></a>
-				<a href="https://www.youtube.com/channel/UC9rKWeN__ZbmqP3s-H6VcLA"><i class="fa fa-youtube"></i></a>
-			</div>
+		<div><img class="logouvt" src="../Images/icons/uvt.png" /></div>
+		<div><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></div>
+		<div><p class="footer-company-name">Smart Camine UVT</p></div>
+		<div class="footer-icons">
+			<a href="https://www.facebook.com/uvtromania"><i class="fa fa-facebook"></i></a>
+			<a href="https://twitter.com/uvtromania"><i class="fa fa-twitter"></i></a>
+			<a href="https://www.instagram.com/uvt_romania/"><i class="fa fa-instagram"></i></a>
+			<a href="https://www.linkedin.com/school/west-university-of-timisoara/"><i class="fa fa-linkedin"></i></a>
+			<a href="https://www.youtube.com/channel/UC9rKWeN__ZbmqP3s-H6VcLA"><i class="fa fa-youtube"></i></a>
 		</div>
-		<div class="footerR">
+		@*<div class="footerR">
 			<p>Contact Us</p>
 			<form action="#" method="post">
 				<input type="text" name="email" placeholder="Email" />
 				<textarea name="message" placeholder="Message"></textarea>
 				<input type="submit" value="Send" />
 			</form>
-		</div>
+		</div>*@
 	</footer>
 }

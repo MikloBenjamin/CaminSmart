@@ -51,3 +51,16 @@ CREATE TABLE TICHET(
     detalii varchar(200) NOT NULL, 
     tip_tichet bit NOT NULL 
 ); 
+
+
+CREATE TABLE APPLICANT(
+	id_applicant int PRIMARY KEY,
+	nume varchar(30) NOT NULL,
+	prenume varchar(30) NOT NULL,
+	facultate varchar(40) NOT NULL,
+	varsta int NOT NULL,
+	adresa varchar(50) NOT NULL,
+	email varchar(50) NOT NULL,
+	an INT NOT NULL,
+    file_path varchar(100) NOT NULL
+);

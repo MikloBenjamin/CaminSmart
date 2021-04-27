@@ -17,15 +17,6 @@
     background: url("../Images/camine/5.jpg");
 }
 
-body {
-    width: 98vw;
-    height: auto;
-}
-
-* {
-    box-sizing: border-box;
-}
-
 .column {
     float: left;
     width: 31%;

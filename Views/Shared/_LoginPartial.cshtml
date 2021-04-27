@@ -1,37 +1,6 @@
 ﻿@using System.Security.Principal
 @using System
 
-<style>
-    .button2 {
-        border: none;
-        color: black;
-        background-color: white;
-        padding: 15px 25px;
-        text-align: center;
-        text-decoration: none;
-        display: inline-block;
-        font-size: 18px;
-        margin: 4px 2px;
-        cursor: pointer;
-        transition-duration: 0.4s;
-    }
-
-        .button2:hover {
-            background-color: #e7e7e7;
-        }
-        .nume{
-            font-size: 20px;
-            position: relative;
-            color: black;
-            right: 50px;
-            top: 30px;
-        }
-        .unde{
-            position: relative;
-            top: 20px;
-            right:70px;
-        }
-</style>
 <ul class="navbar-nav">
     @if (User.Identity.IsAuthenticated)
     {

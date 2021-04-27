@@ -31,24 +31,7 @@ namespace AplicatieCamine
 
         public IActionResult Inscriere()
 		{
-            //BlobServiceClient serviceClient = new BlobServiceClient("DefaultEndpointsProtocol=https;AccountName=camineuvtstorage;AccountKey=s9ifIu1cH0Y9KXCFhQTNED+VmEy1eECvG5HAFrUHWtmsO5zLC9eV1V+vj4rG2yJPntm7gOHE0baigX5YW8dQ/A==;EndpointSuffix=core.windows.net");
-            //BlobContainerClient containerClient = serviceClient.GetBlobContainerClient("inscrieri");
-            //await containerClient.CreateIfNotExistsAsync();
-            //BlobClient client = containerClient.GetBlobClient("test.png");
-            //await client.DownloadToAsync("wwwroot/Images/" + client.Name);
-            //FileStream fl = new FileStream("wwwroot/Images/camine/1.jpg", FileMode.Open);
-            //await containerClient.UploadBlobAsync("applicant1", fl);
-            if (Request.HasFormContentType)
-			{
-                var form = Request.Form;
-                System.Diagnostics.Debug.WriteLine("Inside Inscriere in Student Controller");
-			    if (form.ContainsKey("Cerere"))
-			    {
-                    var fname = form[""];
-                    return RedirectToAction("Index", "Home");
-			    }
-			}
-            return View();
+            return RedirectToAction("Index", "Applicant");
 		}
 
         // GET: Student/Details/5
@@ -88,9 +71,9 @@ namespace AplicatieCamine
             {
                 _context.Add(student);
                 await _context.SaveChangesAsync();
+                id_student++;
                 return RedirectToAction(nameof(Index));
             }
-            id_student++;
             ViewData["IdCamera"] = new SelectList(_context.Camere, "IdCamera", "IdCamera", student.IdCamera);
             return View(student);
         }

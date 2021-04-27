@@ -56,20 +56,20 @@
 	margin-top: 50px;
 }
 
-	.footer-distributed .footer-icons a {
-		display: inline-block;
-		width: 35px;
-		height: 35px;
-		cursor: pointer;
-		background-color: #F7F9FF;
-		border-radius: 2px;
-		font-size: 20px;
-		color: #000000;
-		text-align: center;
-		line-height: 35px;
-		margin-right: 3px;
-		margin-bottom: 5px;
-	}
+.footer-distributed .footer-icons a {
+	display: inline-block;
+	width: 35px;
+	height: 35px;
+	cursor: pointer;
+	background-color: #F7F9FF;
+	border-radius: 2px;
+	font-size: 20px;
+	color: #000000;
+	text-align: center;
+	line-height: 35px;
+	margin-right: 3px;
+	margin-bottom: 5px;
+}
 
 /* Footer Right */
 
@@ -90,22 +90,22 @@
 	display: inline-block;
 }
 
-	.footer-distributed form input,
-	.footer-distributed form textarea {
-		display: block;
-		border-radius: 3px;
-		box-sizing: border-box;
-		background-color: #787C84;
-		box-shadow: 0 1px 0 0 rgba(255, 255, 255, 0.1);
-		border: none;
-		resize: none;
-		font: inherit;
-		font-size: 14px;
-		font-weight: normal;
-		color: #1c3131;
-		width: 400px;
-		padding: 18px;
-	}
+.footer-distributed form input,
+.footer-distributed form textarea {
+	display: block;
+	border-radius: 3px;
+	box-sizing: border-box;
+	background-color: #787C84;
+	box-shadow: 0 1px 0 0 rgba(255, 255, 255, 0.1);
+	border: none;
+	resize: none;
+	font: inherit;
+	font-size: 14px;
+	font-weight: normal;
+	color: #1c3131;
+	width: 400px;
+	padding: 18px;
+}
 
 .footer-distributed ::-webkit-input-placeholder {
 	color:  #f5fcff;
@@ -131,14 +131,14 @@
 	margin-bottom: 20px;
 }
 
-	.footer-distributed form button {
-		border-radius: 3px;
-		background-color: #008CBA;
-		color: #ffffff;
-		border: 0;
-		padding: 15px 50px;
-		float: right;
-	}
+.footer-distributed form button {
+	border-radius: 3px;
+	background-color: #008CBA;
+	color: #ffffff;
+	border: 0;
+	padding: 15px 50px;
+	float: right;
+}
 
 /* If you don't want the footer to be responsive, remove these media queries */
 
