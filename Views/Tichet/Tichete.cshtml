@@ -5,7 +5,11 @@
 	var tichete = Model.Tichet;
 	var nr_camera = Model.Camera;
 }
-
+<style>
+	main {
+		flex-direction: column;
+	}
+</style>
 <h1>Tichete</h1>
 
 <form asp-action = "CreateTichetST" method="get">
@@ -79,7 +83,7 @@
 			@item.Feedback
 		</td>
 		<td>
-			<a asp-action="Details" asp-route-id="@item.IdTichet">Details</a> |
+			<a asp-action="Details" asp-route-id="@item.IdTichet">Details</a>
 		</td>
 	</tr>
 		}

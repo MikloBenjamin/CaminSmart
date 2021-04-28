@@ -1,23 +1,6 @@
 ﻿.testClass{
 	color: red;
 }
-.button3 {
-	border: none;
-	color: black;
-	background-color: white;
-	padding: 15px 25px;
-	text-align: center;
-	text-decoration: none;
-	display: inline-block;
-	font-size: 18px;
-	margin: 4px 2px;
-	cursor: pointer;
-	transition-duration: 0.4s;
-}
-
-	.button3:hover {
-		background-color: #e7e7e7;
-	}
 
 .icon {
 	width: 100px;
@@ -31,24 +14,6 @@
 	width: 200px;
 	height: 60px;
 }
-
-.button2 {
-	border: none;
-	color: black;
-	background-color: white;
-	padding: 15px 25px;
-	text-align: center;
-	text-decoration: none;
-	display: inline-block;
-	font-size: 18px;
-	margin: 4px 2px;
-	cursor: pointer;
-	transition-duration: 0.4s;
-}
-
-	.button2:hover {
-		background-color: #e7e7e7;
-	}
 
 .nume {
 	font-size: 20px;
@@ -70,20 +35,18 @@
 }
 
 .button {
-	position: relative;
-	top: 150px;
 	border: none;
 	color: white;
 	background-color: #008CBA;
-	padding: 40px 55px;
+	padding: 20px 35px;
 	text-align: center;
 	text-decoration: none;
-	display: inline-block;
-	font-size: 25px;
-	margin: 4px 2px;
+	font-size: 20px;
+	margin-left: 20px;
 	cursor: pointer;
 	border-radius: 30px;
 	transition-duration: 0.6s;
+	margin-bottom: 20px;
 }
 
 	.button:hover, .submit:hover {
