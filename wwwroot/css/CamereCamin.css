@@ -1,0 +1,87 @@
+﻿.ocupat {
+	font-family: Garamond, serif;
+	color: red;
+	font-size: 16px;
+	text-align: center;
+}
+
+.liber {
+	font-family: Garamond, serif;
+	color: green;
+	font-size: 16px;
+}
+
+.liber, .ocupat{
+	width: 100%;
+}
+
+.liber p, .ocupat p {
+	text-align: center;
+	top: 5px;
+	left: 5px;
+}
+
+.gridCamere {
+	flex: 1;
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr 1fr;
+	grid-gap: 15px;
+}
+
+.fiecare {
+	background-color: white;
+	border-radius: 20px;
+	display: inline-block;
+	border: 1px solid orange;
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+}
+
+.fiecare:hover {
+	box-shadow: 0 12px 16px 0 rgba(0,0,0,1),0 17px 50px 0 rgba(0,0,0,0.60);
+}
+
+.poza {
+	margin: 10px 0 0 10px;
+	width: 150px;
+	height: 100px;
+}
+
+.fiecare p {
+	text-align: center;
+	font-family: Garamond, serif;
+}
+
+.row {
+	flex-direction: column;
+}
+
+.row h1{
+	background-color: #e7e7e7;
+	color: black;
+	text-align: center;
+	font-size: 32px;
+	box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+	margin: 5px 0 5px 40%;
+	width: 20%;
+	border: none;
+	text-decoration: none;
+	pointer-events: none;
+}
+
+@media (max-width: 1100px){
+	.gridCamere{
+		grid-template-columns: 1fr 1fr 1fr;
+	}
+}
+@media (max-width: 750px) {
+	.gridCamere {
+		grid-template-columns: 1fr 1fr;
+	}
+}
+
+@media (max-width: 500px) {
+	.gridCamere {
+		grid-template-columns: 1fr;
+	}
+}

@@ -4,68 +4,99 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
+<link rel="stylesheet" href="~/css/styleTable.css">
 
-<h4>Tichet</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-		<form asp-action="Create">
-			<div asp-validation-summary="ModelOnly" class="text-danger"></div>
-			<div class="form-group">
-				<label asp-for="IdTichet" class="control-label"></label>
-				<input asp-for="IdTichet" class="form-control" />
-				<span asp-validation-for="IdTichet" class="text-danger"></span>
-			</div>
-			<div class="form-group">
-				<label asp-for="IdStudent" class="control-label"></label>
-				<select asp-for="IdStudent" class="form-control" asp-items="ViewBag.IdStudent"></select>
-			</div>
-			<div class="form-group">
-				<label asp-for="IdCamera" class="control-label"></label>
-				<input asp-for="IdCamera" class="form-control" />
-				<span asp-validation-for="IdCamera" class="text-danger"></span>
-			</div>
-			<div class="form-group">
-				<label asp-for="DataEmitere" class="control-label"></label>
-				<input asp-for="DataEmitere" class="form-control" />
-				<span asp-validation-for="DataEmitere" class="text-danger"></span>
-			</div>
-			<div class="form-group">
-				<label asp-for="DateRezolvare" class="control-label"></label>
-				<input asp-for="DateRezolvare" class="form-control" />
-				<span asp-validation-for="DateRezolvare" class="text-danger"></span>
-			</div>
-			<div class="form-group form-check">
-				<label class="form-check-label">
-					<input class="form-check-input" asp-for="StatusTichet" /> @Html.DisplayNameFor(model => model.StatusTichet)
-				</label>
-			</div>
-			<div class="form-group">
-				<label asp-for="Detalii" class="control-label"></label>
-				<input asp-for="Detalii" class="form-control" autocomplete="off" />
-				<span asp-validation-for="Detalii" class="text-danger"></span>
-			</div>
-			<div class="form-group form-check">
-				<label class="form-check-label">
-					Important? <input class="form-check-input" asp-for="TipTichet" />
-				</label>
-			</div>
-			<div class="form-group">
-				<label asp-for="Feedback" class="control-label"></label>
-				<input asp-for="Feedback" class="form-control" />
-				<span asp-validation-for="Feedback" class="text-danger"></span>
-			</div>
-			<div class="form-group">
-				<input type="submit" value="Create" class="btn btn-primary" />
-			</div>
-		</form>
+
+<div class="container-fluid d-flex justify-content-center mt-50 mb-50">
+    <div class="cardCreate">
+        <div class="card-header header-elements-inline">
+            <h5 class="card-title">Creare Tichet</h5>
+        </div>
+
+            <div class="container-fluid">
+                <form asp-action="Create">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="IdTichet" class="control-label"></label>
+                        <input asp-for="IdTichet" class="form-control" />
+                        <span asp-validation-for="IdTichet" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="IdStudent" class="control-label"></label>
+                        <select asp-for="IdStudent" class="form-control" asp-items="ViewBag.IdStudent"></select>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="IdCamera" class="control-label"></label>
+                        <input asp-for="IdCamera" class="form-control" />
+                        <span asp-validation-for="IdCamera" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="DataEmitere" class="control-label"></label>
+                        <input asp-for="DataEmitere" class="form-control" />
+                        <span asp-validation-for="DataEmitere" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="DateRezolvare" class="control-label"></label>
+                        <input asp-for="DateRezolvare" class="form-control" />
+                        <span asp-validation-for="DateRezolvare" class="text-danger"></span>
+                    </div>
+                    <div class="form-group form-check">
+                        <label class="form-check-label">
+                            <input class="form-check-input" asp-for="StatusTichet" /> @Html.DisplayNameFor(model => model.StatusTichet)
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Detalii" class="control-label"></label>
+                        <input asp-for="Detalii" class="form-control" autocomplete="off" />
+                        <span asp-validation-for="Detalii" class="text-danger"></span>
+                    </div>
+                    <div class="form-group form-check">
+                        <label class="form-check-label">
+                            <input class="form-check-input" asp-for="TipTichet" />  Important?
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Feedback" class="control-label"></label>
+                        <input asp-for="Feedback" class="form-control" />
+                        <span asp-validation-for="Feedback" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                            <input type="submit" value="Create" class="btn btn-primary" />  <a asp-action="Index" class="btn btn-primary">Back to List</a>
+                
+                        </div>
+                </form>
+            </div>
     </div>
-</div>
+    </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+<style>
+.myButton {
+    background-color: #008CBA;
+    border-radius: 14px;
+    border: 1px solid #0d4f14;
+    display: inline-block;
+    cursor: pointer;
+    color: white;
+    font-size: 20px;
+    padding: 15px 35px;
+    text-decoration: none;
+    text-align: center;
+}
+
+.myButton:hover {
+    box-shadow: 0px 0px 5px 0px #604f77;
+    background-color: white;
+    color: black;
+    text-align: center;
+    border: 2px solid #008CBA;
+}
+
+.myButton:active {
+    position: relative;
+    top: 1px;
+    text-align: center;
+}
+</style>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

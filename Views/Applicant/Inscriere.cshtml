@@ -1,11 +1,15 @@
-﻿@model AplicatieCamine.Models.Student
+﻿@model AplicatieCamine.Models.Applicant
 @{
 	ViewData["Title"] = "Inscriere";
 }
 
-@section Styles{ 
-	<link rel="stylesheet" type="text/css" href="@Url.Content("~/css/selfDesign.css")" />
-}
+<style>
+	.row {
+		flex-direction: column;
+		margin-left: 10%;
+		width: 80%;
+	}
+</style>
 
 <h1 align ="center" class="testClass"><u><i>Inscrie-te acum!</i></u></h1>
 
@@ -42,8 +46,8 @@
 		<span asp-validation-for="An" class="text-danger"></span>
 	</div>
 	<div class="form-group">
-		<label></label>
-		<input type="file" name="cerere" value="FISIER_INSCRIERE" accept="application/pdf"/>
+		<label>Document: </label>
+		<input asp-for="FilePath" type="file" name="FilePath" value="FISIER_INSCRIERE" accept=".pdf"  required/>
 	</div>
 	<div class="form-group">
 		<input type="submit" value="Inscrie" class="btn btn-primary" />

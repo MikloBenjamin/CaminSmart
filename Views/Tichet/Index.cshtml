@@ -4,82 +4,111 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Tichete din Admin</h1>
+<link rel="stylesheet" href="~/css/styleTable.css">
 
-<p>
-    <a asp-action="Create">Add data</a>
-</p>
-<table class="table">
-    <thead>
-		<tr>
-			<th>
-				@Html.DisplayNameFor(model => model.IdTichet)
-			</th>
-			<th>
-				@Html.DisplayNameFor(model => model.DataEmitere)
-			</th>
-			<th>
-				@Html.DisplayNameFor(model => model.DateRezolvare)
-			</th>
-			<th>
-				@Html.DisplayNameFor(model => model.StatusTichet)
-			</th>
-			<th>
-				@Html.DisplayNameFor(model => model.Detalii)
-			</th>
-			<th>
-				@Html.DisplayNameFor(model => model.TipTichet)
-			</th>
-			<th>
-				IdStudent
-			</th>
-			<th>
-				@Html.DisplayNameFor(model => model.IdCamera)
-			</th>
-			<th>
-				@Html.DisplayNameFor(model => model.Feedback)
-			</th>
-			<th></th>
-			<th></th>
-			<th></th>
-		</tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-		<tr>
-			<td>
-				@Html.DisplayFor(modelItem => item.IdTichet)
-			</td>
-			<td>
-				@Html.DisplayFor(modelItem => item.DataEmitere)
-			</td>
-			<td>
-				@Html.DisplayFor(modelItem => item.DateRezolvare)
-			</td>
-			<td>
-				@Html.DisplayFor(modelItem => item.StatusTichet)
-			</td>
-			<td>
-				@Html.DisplayFor(modelItem => item.Detalii)
-			</td>
-			<td>
-				@Html.DisplayFor(modelItem => item.TipTichet)
-			</td>
-			<td>
-				@Html.DisplayFor(modelItem => item.IdStudentNavigation.IdStudent)
-			</td>
-			<td>
-				@Html.DisplayFor(modelItem => item.IdCamera)
-			</td>
-			<td>
-				@Html.DisplayFor(modelItem => item.Feedback)
-			</td>
-			<td colspan="3">
-				<a asp-action="Edit" asp-route-id="@item.IdTichet">Edit</a> |
-				<a asp-action="Details" asp-route-id="@item.IdTichet">Details</a> |
-				<a asp-action="Delete" asp-route-id="@item.IdTichet">Delete</a>
-			</td>
-		</tr>
-}
-    </tbody>
-</table>
+<style>
+    main {
+        flex-direction: column;
+    }
+
+    .create_button {
+        border: none;
+        color: white;
+        background-color: #008CBA;
+        padding: 5px 15px;
+        text-align: center;
+        text-decoration: none;
+        font-size: 16px;
+        cursor: pointer;
+        transition-duration: 0.6s;
+        margin: 5px 0 5px 10px;
+    }
+
+</style>
+<div class="container-fluid d-flex justify-content-center mt-50 mb-50">
+    <div class="card">
+        <div class="card-header header-elements-inline">
+            <h5 class="card-title">Tichete din Admin</h5>
+            <a asp-action="Create" class="create_button">Add data</a>
+
+        </div>
+
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.IdTichet)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.DataEmitere)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.DateRezolvare)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.StatusTichet)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Detalii)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.TipTichet)
+                        </th>
+                        <th>
+                            IdStudent
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.IdCamera)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Feedback)
+                        </th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.IdTichet)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.DataEmitere)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.DateRezolvare)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.StatusTichet)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Detalii)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.TipTichet)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.IdStudentNavigation.IdStudent)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.IdCamera)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Feedback)
+                            </td>
+                            <td colspan="3">
+                                <a asp-action="Edit" asp-route-id="@item.IdTichet">Edit</a> |
+                                <a asp-action="Details" asp-route-id="@item.IdTichet">Details</a> |
+                                <a asp-action="Delete" asp-route-id="@item.IdTichet">Delete</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

@@ -25,6 +25,8 @@ namespace AplicatieCamine.Models
         public virtual DbSet<Camine> Camine { get; set; }
         public virtual DbSet<Student> Student { get; set; }
         public virtual DbSet<Tichet> Tichet { get; set; }
+        public virtual DbSet<Applicant> Applicant { get; set; }
+
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -142,6 +144,59 @@ namespace AplicatieCamine.Models
                 entity.Property(e => e.NrLocuri).HasColumnName("nr_locuri");
 
             });
+
+            modelBuilder.Entity<Applicant>(entity =>
+            {
+                entity.HasKey(e => e.IdApplicant)
+                    .HasName("PK__APPLICAN__67EE270EA55EE147");
+
+                entity.ToTable("APPLICANT");
+
+                entity.Property(e => e.IdApplicant)
+                    .ValueGeneratedNever()
+                    .HasColumnName("id_applicant");
+
+                entity.Property(e => e.Adresa)
+                    .IsRequired()
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("adresa");
+
+                entity.Property(e => e.An).HasColumnName("an");
+
+                entity.Property(e => e.Email)
+                    .IsRequired()
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("email");
+
+                entity.Property(e => e.Facultate)
+                    .IsRequired()
+                    .HasMaxLength(40)
+                    .IsUnicode(false)
+                    .HasColumnName("facultate");
+
+                entity.Property(e => e.FilePath)
+                    .IsRequired()
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
+                    .HasColumnName("file_path");
+
+                entity.Property(e => e.Nume)
+                    .IsRequired()
+                    .HasMaxLength(30)
+                    .IsUnicode(false)
+                    .HasColumnName("nume");
+
+                entity.Property(e => e.Prenume)
+                    .IsRequired()
+                    .HasMaxLength(30)
+                    .IsUnicode(false)
+                    .HasColumnName("prenume");
+
+                entity.Property(e => e.Varsta).HasColumnName("varsta");
+            });
+
 
             modelBuilder.Entity<Student>(entity =>
             {

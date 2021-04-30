@@ -1,10 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Azure;
+using Azure.Storage.Blobs;
+using Azure.Storage.Blobs.Models;
 using AplicatieCamine.Models;
 
 namespace AplicatieCamine
@@ -25,18 +29,9 @@ namespace AplicatieCamine
             return View(await dBSistemContext.ToListAsync());
         }
 
-        public async Task<IActionResult> Inscriere()
+        public IActionResult Inscriere()
 		{
-			if (Request.HasFormContentType)
-			{
-                var form = Request.Form;
-                System.Diagnostics.Debug.WriteLine("Inside Inscriere in Student Controller");
-			    if (form.ContainsKey("Cerere"))
-			    {
-                    return View();
-			    }
-			}
-            return View();
+            return RedirectToAction("Index", "Applicant");
 		}
 
         // GET: Student/Details/5
@@ -76,9 +71,9 @@ namespace AplicatieCamine
             {
                 _context.Add(student);
                 await _context.SaveChangesAsync();
+                id_student++;
                 return RedirectToAction(nameof(Index));
             }
-            id_student++;
             ViewData["IdCamera"] = new SelectList(_context.Camere, "IdCamera", "IdCamera", student.IdCamera);
             return View(student);
         }
