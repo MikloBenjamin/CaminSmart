@@ -57,7 +57,7 @@
 		</tr>
 	</thead>
 	<tbody>
-	@if(Enumerable.Count(tichete) == 0) { 
+	@if(Enumerable.Count(tichete) == 0 || nr_camera == -1) { 
 		<tr>
 			<td>
 				You have no active tichets!

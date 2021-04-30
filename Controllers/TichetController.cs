@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using AplicatieCamine.Models;
 using System.Dynamic;
+using Microsoft.AspNetCore.Authorization;
 
 namespace AplicatieCamine
 {

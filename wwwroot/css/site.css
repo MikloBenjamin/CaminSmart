@@ -95,14 +95,10 @@ footer {
     border-top: 1px solid black;
 }
 .footerL {
-    float: left;
     width: 25%;
-    display: inline-block;
 }
 .footerR {
     width: 25%;
-    float: right;
-    display: inline-block;
 }
 
 .self-col {
