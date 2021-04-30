@@ -74,7 +74,7 @@ main {
     display: flex;
     padding-left: 5em;
     padding-right: 5em;
-    background: url("../Images/camine/5.jpg");
+    background: linear-gradient(rgba(255,255,255,.5), rgba(255,255,255,.5)), url("../Images/camine/5.jpg");
     background-size: cover;
     background-attachment: fixed;
     background-repeat: no-repeat;
@@ -123,9 +123,10 @@ footer {
     flex-grow: 1;
 }
 
-.submit {
-    justify-content: flex-end;
-    margin-bottom: 5px;
+.self-col p{
+    font-size: 30px;
+    text-align: center;
+    font-family: Garamond, serif;
 }
 
 .submit {
@@ -140,8 +141,9 @@ footer {
     text-decoration: none;
     font-size: 20px;
     cursor: pointer;
-	border-radius: 30px;
     transition-duration: 0.6s;
+    justify-content: flex-end;
+    margin-bottom: 5px;
 }
 
 .checkImportant {
@@ -150,13 +152,27 @@ footer {
     margin-left: 5px;
 }
 
+.button3 {
+    border: none;
+    color: black;
+    background-color: white;
+    padding: 15px 25px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 18px;
+    margin: 4px 2px;
+    cursor: pointer;
+    transition-duration: 0.4s;
+}
+
+.button3:hover {
+    background-color: #e7e7e7;
+ }
+
 @media (max-width: 600px){
     main{
         flex-direction: column;
-    }
-    footer, .self-col{
-        margin-left: 10%;
-        width: 80%;
     }
 }
 
