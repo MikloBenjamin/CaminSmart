@@ -3,7 +3,7 @@
 }
 
 html, body {
-    width: 97vw;
+    width: 99vw;
     font-size: 16px;
 }
 
@@ -63,28 +63,45 @@ button.accept-policy {
 }
 
 #page {
-    min-height: 80vh;
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
+    margin-top: -1.2%;
 }
 
-main{
+main {
     flex: 1;
     display: flex;
+    padding-left: 5em;
+    padding-right: 5em;
+    background: url("../Images/camine/5.jpg");
+    background-size: cover;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
 }
 
 /*Lazy Loading*/
 header{
-    margin-left: 1%;
+    border-bottom: 1px solid black;
 }
-
 footer {
     width: 100%;
-    margin: 5% 0 2% 1%;
-    background-color: #727272;
-    box-shadow: 5px 0px 20px 5px #848c94;
-    border-radius: 10px;
+    background-color: #F7F9FF;
+    overflow: hidden;
+    text-align: left;
+    padding: 35px 45px 25px;
     font: bold 16px sans-serif;
+    display: inline-block;
+    border-top: 1px solid black;
+}
+.footerL {
+    float: left;
+    width: 25%;
+    display: inline-block;
+}
+.footerR {
+    width: 25%;
+    float: right;
     display: inline-block;
 }
 
@@ -96,7 +113,6 @@ footer {
     border-radius: 10px;
     background-color: white;
     border: 1px solid;
-    box-shadow: 5px 10px 18px #888888;
     font-size: 24px;
     display: flex;
     flex-direction: column;

@@ -81,7 +81,7 @@ else
 			</form>
 		</div>
 		<div class="self-col text-center">
-			<b><p class="pr">Vreau un loc în cămin!</p></b>
+			<p><b>Vreau un loc în cămin!</b></p>
 			<p>
 				Nu ești înscris?
 				Înscrie-te pe pagină și ocupă locul în căminul dorit.
@@ -100,17 +100,19 @@ else
 }
 @section Footer{
 	<footer>
-		<div><img class="logouvt" src="../Images/icons/uvt.png" /></div>
-		<div><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></div>
-		<div><p class="footer-company-name">Smart Camine UVT</p></div>
-		<div class="footer-icons">
-			<a href="https://www.facebook.com/uvtromania"><i class="fa fa-facebook"></i></a>
-			<a href="https://twitter.com/uvtromania"><i class="fa fa-twitter"></i></a>
-			<a href="https://www.instagram.com/uvt_romania/"><i class="fa fa-instagram"></i></a>
-			<a href="https://www.linkedin.com/school/west-university-of-timisoara/"><i class="fa fa-linkedin"></i></a>
-			<a href="https://www.youtube.com/channel/UC9rKWeN__ZbmqP3s-H6VcLA"><i class="fa fa-youtube"></i></a>
+		<div class="footerL">
+			<div><img class="logouvt" src="../Images/icons/uvt.png" /></div>
+			<div><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></div>
+			<div><p>Smart Camine UVT</p></div>
+			<div class="footer-icons">
+				<a href="https://www.facebook.com/uvtromania"><i class="fa fa-facebook"></i></a>
+				<a href="https://twitter.com/uvtromania"><i class="fa fa-twitter"></i></a>
+				<a href="https://www.instagram.com/uvt_romania/"><i class="fa fa-instagram"></i></a>
+				<a href="https://www.linkedin.com/school/west-university-of-timisoara/"><i class="fa fa-linkedin"></i></a>
+				<a href="https://www.youtube.com/channel/UC9rKWeN__ZbmqP3s-H6VcLA"><i class="fa fa-youtube"></i></a>
+			</div>
 		</div>
-		@*<div class="footerR">
+@*		<div class="footerR">
 			<p>Contact Us</p>
 			<form action="#" method="post">
 				<input type="text" name="email" placeholder="Email" />

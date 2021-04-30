@@ -41,7 +41,11 @@
 	</header>
 	<div id="page">
 		<main role="main">
-			@RenderBody()
+			<div class="con">
+				<div class="row">
+					@RenderBody()
+				</div>
+			</div>
 		</main>
 	</div>
 	@RenderSection("Footer", false)
