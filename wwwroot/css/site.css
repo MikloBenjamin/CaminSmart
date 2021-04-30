@@ -84,6 +84,7 @@ main {
 header{
     border-bottom: 1px solid black;
 }
+
 footer {
     width: 100%;
     background-color: #F7F9FF;
@@ -95,7 +96,7 @@ footer {
     grid-template-columns: 1fr 1fr 1fr;
     grid-gap: 10px;
     border-top: 1px solid black;
-}W
+}
 
 footer > div a, footer > div p{
     font-size: 20px;
@@ -179,19 +180,30 @@ footer > div a, footer > div p{
     .unde .nume {
         display: none;
     }
+
     main {
         flex-direction: column;
     }
+
     .self-col p{
+        font-size: 20px;
+    }
+    footer > div a, footer > div p {
         font-size: 20px;
     }
 }
 
-@media (max-width: 500px){
-    footer{
+@media (max-width: 600px) {
+    footer {
         grid-template-columns: 1fr;
     }
+
     .self-col p {
+        font-size: 14px;
+    }
+
+    footer > div a, footer > div p {
         font-size: 16px;
     }
 }
+

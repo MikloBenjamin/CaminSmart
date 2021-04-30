@@ -4,63 +4,97 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
+<link rel="stylesheet" href="~/css/styleTable.css">
 
-<div>
-    <h4>Tichet</h4>
-    <hr />
-	<dl class="row">
-		<dt class="col-sm-2">
-			@Html.DisplayNameFor(model => model.DataEmitere)
-		</dt>
-		<dd class="col-sm-10">
-			@Html.DisplayFor(model => model.DataEmitere)
-		</dd>
-		<dt class="col-sm-2">
-			@Html.DisplayNameFor(model => model.DateRezolvare)
-		</dt>
-		<dd class="col-sm-10">
-			@Html.DisplayFor(model => model.DateRezolvare)
-		</dd>
-		<dt class="col-sm-2">
-			@Html.DisplayNameFor(model => model.StatusTichet)
-		</dt>
-		<dd class="col-sm-10">
-			@Html.DisplayFor(model => model.StatusTichet)
-		</dd>
-		<dt class="col-sm-2">
-			@Html.DisplayNameFor(model => model.Detalii)
-		</dt>
-		<dd class="col-sm-10">
-			@Html.DisplayFor(model => model.Detalii)
-		</dd>
-		<dt class="col-sm-2">
-			@Html.DisplayNameFor(model => model.TipTichet)
-		</dt>
-		<dd class="col-sm-10">
-			@Html.DisplayFor(model => model.TipTichet)
-		</dd>
-		<dt class="col-sm-2">
-			@Html.DisplayNameFor(model => model.IdStudentNavigation)
-		</dt>
-		<dd class="col-sm-10">
-			@Html.DisplayFor(model => model.IdStudentNavigation.IdStudent)
-		</dd>
-		<dt class="col-sm-2">
-			@Html.DisplayNameFor(model => model.IdCamera)
-		</dt>
-		<dd class="col-sm-10">
-			@Html.DisplayFor(model => model.IdCamera)
-		</dd>
-		<dt class="col-sm-2">
-			@Html.DisplayNameFor(model => model.Feedback)
-		</dt>
-		<dd class="col-sm-10">
-			@Html.DisplayFor(model => model.Feedback)
-		</dd>
-	</dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.IdTichet">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-</div>
+@*<h1>Details</h1>*@
+
+<div class="container-fluid d-flex justify-content-center mt-50 mb-50">
+    <div class="card">
+        <div class="card-header header-elements-inline">
+            <h4 class="card-title">Detalii Tichet</h4>
+        </div>
+        <dl class="row ">
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.DataEmitere)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.DataEmitere)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.DateRezolvare)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.DateRezolvare)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.StatusTichet)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.StatusTichet)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Detalii)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Detalii)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.TipTichet)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.TipTichet)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.IdStudentNavigation)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.IdStudentNavigation.IdStudent)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.IdCamera)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.IdCamera)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Feedback)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Feedback)
+            </dd>
+        </dl>
+    </div>
+    </div>
+    <div class="d-inline">
+        <a asp-action="Edit" asp-route-id="@Model.IdTichet" class="myButton">Edit</a> 
+        <a asp-action="Index" class="myButton">Back to List</a>
+    </div>
+
+    <style>
+        .myButton {
+            background-color: #008CBA;
+            border-radius: 14px;
+            border: 1px solid #0d4f14;
+            display: inline-block;
+            cursor: pointer;
+            color: white;
+            font-size: 20px;
+            padding: 15px 35px;
+            text-decoration: none;
+            text-align: center;
+        }
+
+            .myButton:hover {
+                box-shadow: 0px 0px 5px 0px #604f77;
+                background-color: white;
+                color: black;
+                text-align: center;
+                border: 2px solid #008CBA;
+            }
+
+            .myButton:active {
+                position: relative;
+                top: 1px;
+                text-align: center;
+            }
+    </style>
