@@ -11,114 +11,100 @@
 		isAdmin = true;
 	}
 }
-
+@section Styles{
+	<link rel="stylesheet" href="~/css/HomeAdmin.css" />
+}
 
 @*if (isAdmin)// pentru Student*@
-@if (isAdmin)//(User.IsInRole("admin"))
+@if (User.IsInRole("admin"))
 {
-	<button class="admin">Admin</button>
+	//<button class="admin">Admin</button>
 	<div class="text-center">
 		<div class="prop">
 			<h1 class="display-4">Selectează</h1>
 			<p>pentru a vizualiza, a adăuga, a șterge și pentru a edita datele</p>
+		</div><br />
+		<div class="gridAdmins">
+			<form asp-action="Camere" method="post">
+				<input class="adminButtons" type="submit" value="Camere" />
+			</form>
+
+			<form asp-action="Camine" method="post">
+				<input class="adminButtons" type="submit" value="Cămine" />
+			</form>
+
+			<form asp-action="Student" method="post">
+				<input class="adminButtons" type="submit" value="Studenți" />
+			</form>
+
+			<form asp-action="Tichet" method="post">
+				<input class="adminButtons" type="submit" value="Tichete" />
+			</form>
+
+			<form asp-action="Administratori" method="post">
+				<input class="adminButtons" type="submit" value="Administratori" />
+			</form>
 		</div>
-		<table class="tab">
-			<tr>
-				<td>
-					<form asp-action="Camere" method="post">
-						<input class="button" type="submit" value="Camere" />
-					</form>
-				</td>
-				<td>
-					<form asp-action="Camine" method="post">
-						<input class="button" type="submit" value="Cămine" />
-					</form>
-				</td>
-				<td>
-					<form asp-action="Student" method="post">
-						<input class="button" type="submit" value="Studenți" />
-					</form>
-				</td>
-				<td>
-					<form asp-action="Tichet" method="post">
-						<input class="button" type="submit" value="Tichete" />
-					</form>
-				</td>
-				<td>
-					<form asp-action="Administratori" method="post">
-						<input class="button" type="submit" value="Administratori" />
-					</form>
-				</td>
-			</tr>
-		</table>
 	</div>
 }
 else
 {
-		<div class="self-col text-center">
-			<p class="flexible"><b>Structură Cămine</b></p>
-			<p class="flexible">Vizualizare structură cămine.   Poți vedea informațiile despre fiecare cămin. </p>
-			<p class="flexible">
-				<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-building" viewBox="0 0 16 16">
-					<path fill-rule="evenodd" d="M14.763.075A.5.5 0 0 1 15 .5v15a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5V14h-1v1.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V10a.5.5 0 0 1 .342-.474L6 7.64V4.5a.5.5 0 0 1 .276-.447l8-4a.5.5 0 0 1 .487.022zM6 8.694 1 10.36V15h5V8.694zM7 15h2v-1.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 .5.5V15h2V1.309l-7 3.5V15z" />
-					<path d="M2 11h1v1H2v-1zm2 0h1v1H4v-1zm-2 2h1v1H2v-1zm2 0h1v1H4v-1zm4-4h1v1H8V9zm2 0h1v1h-1V9zm-2 2h1v1H8v-1zm2 0h1v1h-1v-1zm2-2h1v1h-1V9zm0 2h1v1h-1v-1zM8 7h1v1H8V7zm2 0h1v1h-1V7zm2 0h1v1h-1V7zM8 5h1v1H8V5zm2 0h1v1h-1V5zm2 0h1v1h-1V5zm0-2h1v1h-1V3z" />
-				</svg>
-			</p>
-			<form asp-action="CamineST" method="post">
-				<input class="submit" type="submit" value="Click!" />
-			</form>
-		</div>
-		<div class="self-col text-center">
-			<b><p class="pr">Am o problemă!</p></b>
-			<p>Trimite tichet pentru a remedia problema sau vizualizază statusul tichetelor tale. </p>
-			<p class="ic">
-				<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-exclamation-triangle-fill" viewBox="0 0 16 16">
-					<path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
-				</svg>
-			</p>
-			<form asp-action="Tichete" method="post">
-				<input class="submit" type="submit" value="Click!" />
-			</form>
-		</div>
-		<div class="self-col text-center">
-			<p><b>Vreau un loc în cămin!</b></p>
-			<p>
-				Nu ești înscris?
-				Înscrie-te pe pagină și ocupă locul în căminul dorit.
-			</p>
-			<p>
-				<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-bookmark-check" viewBox="0 0 16 16">
-					<path fill-rule="evenodd" d="M10.854 5.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 7.793l2.646-2.647a.5.5 0 0 1 .708 0z" />
-					<path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z" />
-				</svg>
-			</p>
-			<form asp-action="Inscriere" method="post">
-				<input type="text" name="goTo" value="Inscriere" style="display:none;" />
-				<input class="submit" type="submit" value="Click!" />
-			</form>
-		</div>
+	<div class="self-col text-center">
+		<p class="flexible"><b>Structură Cămine</b></p>
+		<p class="flexible">Vizualizare structură cămine.   Poți vedea informațiile despre fiecare cămin. </p>
+		<p class="flexible">
+			<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-building" viewBox="0 0 16 16">
+				<path fill-rule="evenodd" d="M14.763.075A.5.5 0 0 1 15 .5v15a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5V14h-1v1.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V10a.5.5 0 0 1 .342-.474L6 7.64V4.5a.5.5 0 0 1 .276-.447l8-4a.5.5 0 0 1 .487.022zM6 8.694 1 10.36V15h5V8.694zM7 15h2v-1.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 .5.5V15h2V1.309l-7 3.5V15z" />
+				<path d="M2 11h1v1H2v-1zm2 0h1v1H4v-1zm-2 2h1v1H2v-1zm2 0h1v1H4v-1zm4-4h1v1H8V9zm2 0h1v1h-1V9zm-2 2h1v1H8v-1zm2 0h1v1h-1v-1zm2-2h1v1h-1V9zm0 2h1v1h-1v-1zM8 7h1v1H8V7zm2 0h1v1h-1V7zm2 0h1v1h-1V7zM8 5h1v1H8V5zm2 0h1v1h-1V5zm2 0h1v1h-1V5zm0-2h1v1h-1V3z" />
+			</svg>
+		</p>
+		<form asp-action="CamineST" method="post">
+			<input class="submit" type="submit" value="Click!" />
+		</form>
+	</div>
+	<div class="self-col text-center">
+		<b><p class="pr">Am o problemă!</p></b>
+		<p>Trimite tichet pentru a remedia problema sau vizualizază statusul tichetelor tale. </p>
+		<p class="ic">
+			<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-exclamation-triangle-fill" viewBox="0 0 16 16">
+				<path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
+			</svg>
+		</p>
+		<form asp-action="Tichete" method="post">
+			<input class="submit" type="submit" value="Click!" />
+		</form>
+	</div>
+	<div class="self-col text-center">
+		<p><b>Vreau un loc în cămin!</b></p>
+		<p>
+			Nu ești înscris?
+			Înscrie-te pe pagină și ocupă locul în căminul dorit.
+		</p>
+		<p>
+			<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-bookmark-check" viewBox="0 0 16 16">
+				<path fill-rule="evenodd" d="M10.854 5.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 7.793l2.646-2.647a.5.5 0 0 1 .708 0z" />
+				<path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z" />
+			</svg>
+		</p>
+		<form asp-action="Inscriere" method="post">
+			<input type="text" name="goTo" value="Inscriere" style="display:none;" />
+			<input class="submit" type="submit" value="Click!" />
+		</form>
+	</div>
 }
 @section Footer{
 	<footer>
-		<div class="footerL">
-			<div><img class="logouvt" src="../Images/icons/uvt.png" /></div>
+		<div><img class="logouvt" src="../Images/icons/uvt.png" /></div>
+		<div>
 			<div><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></div>
 			<div><p>Smart Camine UVT</p></div>
-			<div class="footer-icons">
-				<a href="https://www.facebook.com/uvtromania"><i class="fa fa-facebook"></i></a>
-				<a href="https://twitter.com/uvtromania"><i class="fa fa-twitter"></i></a>
-				<a href="https://www.instagram.com/uvt_romania/"><i class="fa fa-instagram"></i></a>
-				<a href="https://www.linkedin.com/school/west-university-of-timisoara/"><i class="fa fa-linkedin"></i></a>
-				<a href="https://www.youtube.com/channel/UC9rKWeN__ZbmqP3s-H6VcLA"><i class="fa fa-youtube"></i></a>
-			</div>
 		</div>
-@*		<div class="footerR">
-			<p>Contact Us</p>
-			<form action="#" method="post">
-				<input type="text" name="email" placeholder="Email" />
-				<textarea name="message" placeholder="Message"></textarea>
-				<input type="submit" value="Send" />
-			</form>
-		</div>*@
+		<div class="footer-icons">
+			<a href="https://www.facebook.com/uvtromania"><i class="fa fa-facebook"></i></a>
+			<a href="https://twitter.com/uvtromania"><i class="fa fa-twitter"></i></a>
+			<a href="https://www.instagram.com/uvt_romania/"><i class="fa fa-instagram"></i></a>
+			<a href="https://www.linkedin.com/school/west-university-of-timisoara/"><i class="fa fa-linkedin"></i></a>
+			<a href="https://www.youtube.com/channel/UC9rKWeN__ZbmqP3s-H6VcLA"><i class="fa fa-youtube"></i></a>
+		</div>
 	</footer>
 }

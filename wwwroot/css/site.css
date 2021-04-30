@@ -87,24 +87,29 @@ header{
 footer {
     width: 100%;
     background-color: #F7F9FF;
-    overflow: hidden;
-    text-align: left;
+    overflow: visible;
+    text-align: center;
     padding: 35px 45px 25px;
     font: bold 16px sans-serif;
-    display: inline-block;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 10px;
     border-top: 1px solid black;
+}W
+
+footer > div a, footer > div p{
+    font-size: 20px;
 }
-.footerL {
-    width: 25%;
-}
-.footerR {
-    width: 25%;
+
+.footer-icons a{
+    font-size: 32px;
+    margin-left: 2%;
 }
 
 .self-col {
     margin-left: 1%;
     margin-top: 5%;
-    flex: 0.5;
+    flex: 1;
     padding: 30px;
     border-radius: 10px;
     background-color: white;
@@ -170,14 +175,23 @@ footer {
     background-color: #e7e7e7;
  }
 
-@media (max-width: 600px){
-    main{
+@media (max-width: 800px) {
+    .unde .nume {
+        display: none;
+    }
+    main {
         flex-direction: column;
+    }
+    .self-col p{
+        font-size: 20px;
     }
 }
 
-@media (max-width: 700px) {
-    .unde .nume {
-        display: none;
+@media (max-width: 500px){
+    footer{
+        grid-template-columns: 1fr;
+    }
+    .self-col p {
+        font-size: 16px;
     }
 }

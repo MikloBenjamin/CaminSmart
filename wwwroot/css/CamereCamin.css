@@ -31,7 +31,6 @@
 .fiecare {
 	background-color: white;
 	border-radius: 20px;
-	display: inline-block;
 	border: 1px solid orange;
 	display: grid;
 	grid-template-columns: 1fr 1fr;
