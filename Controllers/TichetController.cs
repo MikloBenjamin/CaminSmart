@@ -62,7 +62,7 @@ namespace AplicatieCamine
                 modell.Camera = nrc;
                 return View("Tichete", modell);
             }
-            return RedirectToAction("Inscriere", "Student");
+            return RedirectToAction("Index", "Applicant");
         }
         // GET: Tichets/Details/5
         public async Task<IActionResult> Details(int? id)

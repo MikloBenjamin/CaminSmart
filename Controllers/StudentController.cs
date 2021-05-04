@@ -25,7 +25,11 @@ namespace AplicatieCamine
         public IActionResult Home()
 		{
             string user = User.Identity.Name;
-            var model = _context.Student.Where(st => st.Email == user).Select(st => st).AsEnumerable().First();
+            var model = _context.Student.Where(st => st.Email == user).Select(st => st).AsEnumerable();
+            if(model.Count() == 0)
+			{
+                model = null;
+			}
             return View("/Views/Home/Index.cshtml", model);
 		}
         
@@ -38,8 +42,12 @@ namespace AplicatieCamine
 
         public async Task<IActionResult> Status()
 		{
-            var id = _context.Student.Where(st => st.Email == User.Identity.Name).Select(st => st.IdStudent).First();
-            return await Details(id);
+            var id = _context.Student.Where(st => st.Email == User.Identity.Name).Select(st => st.IdStudent);
+            if(id.Count() > 0)
+			{
+                return View(id.First());
+			}
+            return View(null);
         }
 
         // GET: Student/Details/5

@@ -1,5 +1,7 @@
 ﻿@using System;
-@model AplicatieCamine.Models.Student
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@model IEnumerable<AplicatieCamine.Models.Student>
 @{
 	ViewData["Title"] = "Home Page";
 	int count = System.IO.Directory.EnumerateFiles(@"wwwroot/Images/camine").Count<string>();
@@ -13,7 +15,7 @@
 }
 
 @*if (isAdmin)// pentru Student*@
-@if (User.IsInRole("admin"))
+@if (isAdmin)//(User.IsInRole("admin"))
 {
 	@section Styles{
 		<link rel="stylesheet" href="~/css/HomeAdmin.css" />
@@ -62,8 +64,8 @@ else
 				<path d="M2 11h1v1H2v-1zm2 0h1v1H4v-1zm-2 2h1v1H2v-1zm2 0h1v1H4v-1zm4-4h1v1H8V9zm2 0h1v1h-1V9zm-2 2h1v1H8v-1zm2 0h1v1h-1v-1zm2-2h1v1h-1V9zm0 2h1v1h-1v-1zM8 7h1v1H8V7zm2 0h1v1h-1V7zm2 0h1v1h-1V7zM8 5h1v1H8V5zm2 0h1v1h-1V5zm2 0h1v1h-1V5zm0-2h1v1h-1V3z" />
 			</svg>
 		</p>
-		<form asp-controller="Home" asp-action="CamineST" method="post">
-			<input class="submit" type="submit" value="Click!" />
+		<form asp-controller="Home" asp-action="CamineST">
+			<input class="submit" type="submit" value="Camine!" />
 		</form>
 	</div>
 	<div class="self-col text-center">
@@ -74,8 +76,8 @@ else
 				<path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
 			</svg>
 		</p>
-		<form asp-controller="Home" asp-action="Tichete" method="post">
-			<input class="submit" type="submit" value="Click!" />
+		<form asp-controller="Home" asp-action="Tichete">
+			<input class="submit" type="submit" value="Tichet!" />
 		</form>
 	</div>
 	if (Model != null)
@@ -91,9 +93,9 @@ else
 					<path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z" />
 				</svg>
 			</p>
-			<form asp-action="Status" method="post">
+			<form asp-action="Status">
 				<input type="text" name="goTo" value="Status" style="display:none;" />
-				<input class="submit" type="submit" value="Click!" />
+				<input class="submit" type="submit" value="Status!" />
 			</form>
 		</div>
 	}
@@ -111,9 +113,9 @@ else
 					<path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z" />
 				</svg>
 			</p>
-			<form asp-controller="Home" asp-action="Inscriere" method="post">
+			<form asp-controller="Home" asp-action="Inscriere">
 				<input type="text" name="goTo" value="Inscriere" style="display:none;" />
-				<input class="submit" type="submit" value="Click!" />
+				<input class="submit" type="submit" value="Inscrie!" />
 			</form>
 		</div>
 	}

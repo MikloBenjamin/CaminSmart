@@ -49,6 +49,7 @@ namespace AplicatieCamine.Controllers
         {
             return RedirectToAction("Tichete", "Tichet");
         }
+
         public async Task<IActionResult> CamineST()
         {
             return RedirectToAction("Camine", "Camine");
