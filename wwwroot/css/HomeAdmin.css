@@ -1,20 +1,19 @@
 ﻿.gridAdmins{
 	flex: 1;
 	display: grid;
-	grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+	grid-template-columns: 1fr 1fr 1fr;
 	grid-gap: 15px;
 	margin-top: 5%;
-}
-
-.row {
-	flex-direction: column;
-}
-
-.row div {
-	flex: 1;
 }
 
 .adminButtons{
 	width: 100%;
 	height: 40px;
+}
+
+.text-center{
+	flex: 0.8;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
 }

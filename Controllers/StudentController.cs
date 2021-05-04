@@ -22,6 +22,13 @@ namespace AplicatieCamine
             _context = context;
         }
 
+        public IActionResult Home()
+		{
+            string user = User.Identity.Name;
+            var model = _context.Student.Where(st => st.Email == user).Select(st => st).AsEnumerable().First();
+            return View("/Views/Home/Index.cshtml", model);
+		}
+        
         // GET: Student
         public async Task<IActionResult> Index()
         {
@@ -29,10 +36,11 @@ namespace AplicatieCamine
             return View(await dBSistemContext.ToListAsync());
         }
 
-        public IActionResult Inscriere()
+        public async Task<IActionResult> Status()
 		{
-            return RedirectToAction("Index", "Applicant");
-		}
+            var id = _context.Student.Where(st => st.Email == User.Identity.Name).Select(st => st.IdStudent).First();
+            return await Details(id);
+        }
 
         // GET: Student/Details/5
         public async Task<IActionResult> Details(int? id)

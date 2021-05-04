@@ -43,7 +43,7 @@ namespace AplicatieCamine.Controllers
         }
         public async Task<IActionResult> Inscriere()
         {
-            return RedirectToAction("Inscriere", "Student");
+            return RedirectToAction("Index", "Applicant");
         }
         public async Task<IActionResult> Tichete()
         {
@@ -53,10 +53,17 @@ namespace AplicatieCamine.Controllers
         {
             return RedirectToAction("Camine", "Camine");
         }
-
-        public IActionResult Index()
+        public async Task<IActionResult> Applicants()
         {
-            return View();
+            return RedirectToAction("Applicants", "Applicant");
+        }
+        public async Task<IActionResult> Status()
+        {
+            return RedirectToAction("Status", "Student");
+        }
+        public async Task<IActionResult> Index()
+        {
+            return RedirectToAction("Home", "Student");
         }
 
         public IActionResult Privacy()

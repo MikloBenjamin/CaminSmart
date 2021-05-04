@@ -1,0 +1,53 @@
+﻿@using Azure.Storage.Blobs;
+@model IEnumerable<BlobClient>
+@{
+	ViewData["Title"] = "Applicants";
+}
+
+<link rel="stylesheet" href="~/css/styleTable.css">
+
+<style>
+	main {
+		flex-direction: column;
+	}
+</style>
+
+<div class="container-fluid d-flex justify-content-center mt-50 mb-50">
+	<div class="card">
+		<div class="card-header header-elements-inline">
+			<h5 class="card-title">Applicants</h5>
+		</div>
+
+		<div class="table-responsive">
+			<table class="table table-hover">
+				<thead>
+					<tr>
+						<th>File</th>
+						<th>Accept</th>
+						<th>Refuse</th>
+					</tr>
+				</thead>
+				<tbody>
+					@foreach (var item in Model)
+					{
+						string link = "/UploadFiles/" + @item.Name;
+						<tr>
+							<td>
+								<form asp-action="ViewFile" method="post">
+									<input type="submit" value="@item.Name" name="file" style="background: none; border: none; color: darkred;"/>
+								</form>
+								@*<a href="@link" target="_blank">@Html.DisplayFor(modelItem => item.Name)</a>*@
+							</td>
+							<td>
+								<a asp-action="Accept">Accept</a>
+							</td>
+							<td>
+								<a asp-action="Refuse">Refuse</a>
+							</td>
+						</tr>
+					}
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>

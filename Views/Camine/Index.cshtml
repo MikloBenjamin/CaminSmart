@@ -4,7 +4,11 @@
 	ViewData["Title"] = "Index";
 	int count = System.IO.Directory.EnumerateFiles(@"wwwroot/Images/camine").Count<string>();
 }
-
+<style>
+	main {
+		flex-direction: column;
+	}
+</style>
 <h1>Cămine @count</h1>
 
 <p>

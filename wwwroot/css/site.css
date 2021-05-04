@@ -70,19 +70,18 @@ button.accept-policy {
 }
 
 main {
-    flex: 1;
     display: flex;
-    padding-left: 5em;
-    padding-right: 5em;
+    flex: 1;
+/*    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-column-gap: 5em;*/
+    padding-top: 5em;
+    padding-bottom: 5em;
     background: linear-gradient(rgba(255,255,255,.5), rgba(255,255,255,.5)), url("../Images/camine/5.jpg");
     background-size: cover;
     background-attachment: fixed;
     background-repeat: no-repeat;
-}
-
-/*Lazy Loading*/
-header{
-    border-bottom: 1px solid black;
+    justify-content: space-evenly;
 }
 
 footer {
@@ -108,8 +107,9 @@ footer > div a, footer > div p{
 }
 
 .self-col {
-    margin-left: 1%;
-    margin-top: 5%;
+    margin-top: 2.5%;
+    margin-bottom: 2.5%;
+    max-width: 25%;
     flex: 1;
     padding: 30px;
     border-radius: 10px;
@@ -183,10 +183,15 @@ footer > div a, footer > div p{
 
     main {
         flex-direction: column;
+        padding: 3em;
+    }
+
+    .self-col{
+        max-width: 100%;
     }
 
     .self-col p{
-        font-size: 20px;
+        font-size: 24px;
     }
     footer > div a, footer > div p {
         font-size: 20px;
@@ -196,10 +201,6 @@ footer > div a, footer > div p{
 @media (max-width: 600px) {
     footer {
         grid-template-columns: 1fr;
-    }
-
-    .self-col p {
-        font-size: 14px;
     }
 
     footer > div a, footer > div p {

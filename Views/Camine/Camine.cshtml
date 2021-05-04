@@ -2,66 +2,55 @@
 @using System;
 @{
 	var cimages = Url.Content("~/Images/camine/");
-}
-@section Styles{
-	<link rel="stylesheet" type="text/css" href="~/css/styleCamine.css" />
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-}
-@{
 	ViewData["Title"] = "Lista Camine";
 	int count = System.IO.Directory.EnumerateFiles(@"wwwroot/Images/camine").Count<string>();
 	Random r = new Random();
-
-	@foreach (var item in Model)
-	{
-		string random_nr = r.Next(1, count).ToString();
-		string rand = cimages + @random_nr + ".jpg";
-		string myModal = "myModal" + @item.IdCamin;
-		<div class="col-lg-4">
-			<br>
-			<div class="col text-center">
-				<form asp-action="Camere">
-					<input type="number" name="cnr" value="@Html.DisplayFor(modelItem => item.IdCamin)" style="display: none;" />
-					<input type="submit" class="myButton" name="cid" value="Camin @Html.DisplayFor(modelItem => item.IdCamin)" />
-				</form>
-			</div>
-			<br>
-			<div class="container" style="width:400px; height:300px;">
-				<img src="@rand" class="img-thumbnail rounded w-100 h-100 shadow-2-strong" />
-			</div>
-			<br>
-			<div class="container" style="width:400px;">
-				<button type="button" class="btn btn-dark btn-lg btn-block mr-2" data-toggle="modal" data-target="#@myModal">
-					Facilitati <i class="fa fa-bed"></i>
-				</button>
-			</div>
-			<br>
-			<!-- The Modal -->
-			<div class="modal fade" id="@myModal">
-				<div class="modal-dialog">
-					<div class="modal-content">
-						<!-- Modal Header -->
-						<div class="modal-header text-center">
-							<h4 class="modal-title w-100"> Camin @Html.DisplayFor(modelItem => item.IdCamin) </h4>
-							<button type="button" class="close" data-dismiss="modal">&times;</button>
-						</div>
-						<!-- Modal body -->
-						<div class="modal-body">
-							<p> @Html.DisplayFor(modelItem => item.Descriere)</p>
-						</div>
-						<!-- Modal footer -->
-						<div class="modal-footer">
-							<button type="button" class="btn btn-danger" data-dismiss="modal">Inchide</button>
+	<div class="camine">
+		@foreach (var item in Model)
+		{
+			string random_nr = r.Next(1, count).ToString();
+			string rand = cimages + @random_nr + ".jpg";
+			string myModal = "myModal" + @item.IdCamin;	
+			<div>
+				<div class="col text-center">
+					<form asp-action="Camere">
+						<input type="number" name="cnr" value="@Html.DisplayFor(modelItem => item.IdCamin)" style="display: none;" />
+						<input type="submit" class="myButton" name="cid" value="Camin @Html.DisplayFor(modelItem => item.IdCamin)" />
+					</form>
+				</div>
+				<br>
+				<div class="container" style="width:400px; height:300px;">
+					<img src="@rand" class="img-thumbnail rounded w-100 h-100 shadow-2-strong" />
+				</div>
+				<br>
+				<div class="container" style="width:400px;">
+					<button type="button" class="btn btn-dark btn-lg btn-block mr-2" data-toggle="modal" data-target="#@myModal">
+						Facilitati <i class="fa fa-bed"></i>
+					</button>
+				</div>
+				<br>
+				<!-- The Modal -->
+				<div class="modal fade" id="@myModal">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<!-- Modal Header -->
+							<div class="modal-header text-center">
+								<h4 class="modal-title w-100"> Camin @Html.DisplayFor(modelItem => item.IdCamin) </h4>
+								<button type="button" class="close" data-dismiss="modal">&times;</button>
+							</div>
+							<!-- Modal body -->
+							<div class="modal-body">
+								<p> @Html.DisplayFor(modelItem => item.Descriere)</p>
+							</div>
+							<!-- Modal footer -->
+							<div class="modal-footer">
+								<button type="button" class="btn btn-danger" data-dismiss="modal">Inchide</button>
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-		</div>
-	}
+
+		}
+	</div>
 }
