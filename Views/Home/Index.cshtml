@@ -15,7 +15,7 @@
 }
 
 @*if (isAdmin)// pentru Student*@
-@if (isAdmin)//(User.IsInRole("admin"))
+@if (User.IsInRole("admin"))
 {
 	@section Styles{
 		<link rel="stylesheet" href="~/css/HomeAdmin.css" />
