@@ -1,13 +1,15 @@
 ﻿@model IEnumerable<AplicatieCamine.Models.Camere>
 @{
-	var el = (Model.Count() > 0 ? Model.First() : null);
-	string[] t = { null, null, null };
-	if (el != null) {
-		t[0] = el.LimitaNrStudenti.ToString();
-		t[1] = el.IdCamin.ToString();
-		t[2] = el.Descriere;
-	}
-	ViewData["Title"] = "Camin " + t[1];
+    var el = (Model.Count() > 0 ? Model.First() : null);
+    string[] t = { null, null, null };
+    if (el != null) {
+        t[0] = el.LimitaNrStudenti.ToString();
+        t[1] = el.IdCamin.ToString();
+        t[2] = el.Descriere;
+    }
+    ViewData["Title"] = "Camin " + t[1];
+    var cimages = Url.Content("~/Images/camere/");
+	int i = 0;
 }
 @section Styles{
 	<link rel="stylesheet" href="~/css/CamereCamin.css" />
@@ -16,47 +18,49 @@
 	main{
 		flex-direction: column;
 		padding: 2em;
-		justify-content: space-around;
+		margin: 0px 60px 0px 60px;
 	}
 </style>
-<h1 align="center">Camin @t[1]</h1>
+<h1 style="text-align: right; font-family: Garamond, serif; font-size:65px">
+    Cămin @t[1]
+</h1>
 @if (el != null)
 {
 	<div class="gridCamere">
 		@foreach (var item in Model)
-		{
-			var ocupat = (item.NrStudentiCazati == item.LimitaNrStudenti ? "ocupat" : "liber");
+        {
+            if (i == 24) { i = 0; }
+            i = i + 1;
+            string nr = i.ToString();
+            string rand = cimages + @nr + ".jpg";
+            var ocupat = (item.NrStudentiCazati == item.LimitaNrStudenti ? "ocupat" : "liber");
 			<div class="fiecare">
-				<img class="poza" src="../Images/camere/4.jpg" width="200" height="110" />
-				<div>
-					<p> <b>CAMERA @Html.DisplayFor(modelItem => item.NrCamera)</b> </p>
-					@if (ocupat == "liber")
-					{
-						<p>@Html.DisplayFor(modelItem => item.Descriere)</p>
-					}
-				</div>
+				<img class="poza" src=@rand width="200" height="110" />
+                <div>
+                    <p> <b>CAMERA @Html.DisplayFor(modelItem => item.NrCamera)</b> </p>
+                    @if (ocupat == "liber")
+                    {
+                        <p>@Html.DisplayFor(modelItem => item.Descriere)</p>
+                    }
+                    else
+                    {
+						<p class="@ocupat"><b>NU MAI SUNT LOCURI DISPONIBILE!</b></p>
+                        <p>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="red" class="bi bi-exclamation-octagon" viewBox="0 0 16 16">
+                                <path d="M4.54.146A.5.5 0 0 1 4.893 0h6.214a.5.5 0 0 1 .353.146l4.394 4.394a.5.5 0 0 1 .146.353v6.214a.5.5 0 0 1-.146.353l-4.394 4.394a.5.5 0 0 1-.353.146H4.893a.5.5 0 0 1-.353-.146L.146 11.46A.5.5 0 0 1 0 11.107V4.893a.5.5 0 0 1 .146-.353L4.54.146zM5.1 1 1 5.1v5.8L5.1 15h5.8l4.1-4.1V5.1L10.9 1H5.1z" />
+                                <path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z" />
+                            </svg>
+                        </p>
+                    }
+                </div>
 				<div class="@ocupat">
-					@if (ocupat == "ocupat")
-					{
-						<b>NU MAI SUNT LOCURI DISPONIBILE!</b>
-					}
-					else
+					@if (ocupat == "liber")
 					{
 						<p>Sunt cazați <b>@Html.DisplayFor(modelItem => item.NrStudentiCazati)</b> studenți.</p>
 					}
 				</div>
 				<div class="@ocupat">
-					@if (ocupat == "ocupat")
-					{
-						<p>
-							<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="red" class="bi bi-exclamation-octagon" viewBox="0 0 16 16">
-								<path d="M4.54.146A.5.5 0 0 1 4.893 0h6.214a.5.5 0 0 1 .353.146l4.394 4.394a.5.5 0 0 1 .146.353v6.214a.5.5 0 0 1-.146.353l-4.394 4.394a.5.5 0 0 1-.353.146H4.893a.5.5 0 0 1-.353-.146L.146 11.46A.5.5 0 0 1 0 11.107V4.893a.5.5 0 0 1 .146-.353L4.54.146zM5.1 1 1 5.1v5.8L5.1 15h5.8l4.1-4.1V5.1L10.9 1H5.1z" />
-								<path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z" />
-							</svg>
-						</p>
-					}
-					else
-					{
+					@if (ocupat == "liber"){
 						<p>
 							<b>
 								LIBER

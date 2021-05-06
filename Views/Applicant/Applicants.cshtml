@@ -10,44 +10,58 @@
 	main {
 		flex-direction: column;
 	}
+    .create_button {
+        border: none;
+        color: white;
+        background-color: #008CBA;
+        text-align: center;
+        text-decoration: none;
+        font-size: 24px;
+        cursor: pointer;
+        transition-duration: 0.6s;
+        margin: 0px 0px 0px 10px;
+        padding: 5px 15px;
+    }
+
 </style>
 
-<div class="container-fluid d-flex justify-content-center mt-50 mb-50">
+<div class="container-fluid d-flex justify-content-center mb-auto">
 	<div class="card">
-		<div class="card-header header-elements-inline">
-			<h5 class="card-title">Applicants</h5>
-		</div>
+        <div class="card-header header-elements-inline">
+            <h5 style="text-align:center;font-family:Garamond,serif; font-size: 30px">Applicanți</h5>
+            <a asp-controller="Home" asp-action="Index" class="create_button">Înapoi</a>
+        </div>
 
-		<div class="table-responsive">
-			<table class="table table-hover">
-				<thead>
-					<tr>
-						<th>File</th>
-						<th>Accept</th>
-						<th>Refuse</th>
-					</tr>
-				</thead>
-				<tbody>
-					@foreach (var item in Model)
-					{
-						string link = "/UploadFiles/" + @item.Name;
-						<tr>
-							<td>
-								<form asp-action="ViewFile" method="post">
-									<input type="submit" value="@item.Name" name="file" style="background: none; border: none; color: darkred;"/>
-								</form>
-								@*<a href="@link" target="_blank">@Html.DisplayFor(modelItem => item.Name)</a>*@
-							</td>
-							<td>
-								<a asp-action="Accept">Accept</a>
-							</td>
-							<td>
-								<a asp-action="Refuse">Refuse</a>
-							</td>
-						</tr>
-					}
-				</tbody>
-			</table>
-		</div>
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>File</th>
+                        <th>Accept</th>
+                        <th>Refuzare</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        string link = "/UploadFiles/" + @item.Name;
+                        <tr>
+                            <td>
+                                <form asp-action="ViewFile" method="post">
+                                    <input type="submit" value="@item.Name" name="file" style="background: none; border: none; color: darkred;" />
+                                </form>
+                                @*<a href="@link" target="_blank">@Html.DisplayFor(modelItem => item.Name)</a>*@
+                            </td>
+                            <td>
+                                <a asp-action="Accept">Accept</a>
+                            </td>
+                            <td>
+                                <a asp-action="Refuse">Refuzare</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
 	</div>
 </div>

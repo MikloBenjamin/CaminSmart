@@ -6,56 +6,69 @@
     bool tip = Model.TipTichet;
 }
 
-<h1>Edit</h1>
+<link rel="stylesheet" href="~/css/styleTable.css">
 
-<h4>Tichet</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="IdTichet" />
-            <div class="form-group" disabled>
-                <label asp-for="IdStudent" class="control-label"></label>
-                <select asp-for="IdStudent" class="form-control" asp-items="ViewBag.IdStudent"></select>
-                <span asp-validation-for="IdStudent" class="text-danger"></span>
-            </div>
-            <div class="form-group" disabled>
-                <label asp-for="DataEmitere" class="control-label"></label>
-                <input asp-for="DataEmitere" class="form-control" />
-                <span asp-validation-for="DataEmitere" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="DateRezolvare" class="control-label"></label>
-                <input asp-for="DateRezolvare" class="form-control" />
-                <span asp-validation-for="DateRezolvare" class="text-danger"></span>
-            </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="StatusTichet" /> @Html.DisplayNameFor(model => model.StatusTichet)
-                </label>
-            </div>
-            <div class="form-group">
-                <label asp-for="Detalii" class="control-label"></label>
-                <input asp-for="Detalii" class="form-control" />
-                <span asp-validation-for="Detalii" class="text-danger"></span>
-            </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="TipTichet" /> @Html.DisplayNameFor(model => model.TipTichet)
-                </label>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
+<style>
+    .create_button {
+        border: none;
+        color: white;
+        background-color: #008CBA;
+        padding: 5px 15px;
+        text-align: center;
+        text-decoration: none;
+        font-size: 16px;
+        cursor: pointer;
+        transition-duration: 0.6s;
+        margin: 5px 0 5px 10px;
+    }
+</style>
+<div class="container-fluid d-flex justify-content-center mb-50">
+    <div class="cardCreate">
+        <div class="card-header header-elements-inline ml-50">
+            <h5 style="font-family:Garamond,serif; font-size: 30px">Editează Cameră</h5>
+        </div>
+        <div class="container-fluid">
+            <form asp-action="Edit">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="IdTichet" />
+                <div class="form-group" disabled>
+                    <label asp-for="IdStudent" class="control-label"></label>
+                    <select asp-for="IdStudent" class="form-control" asp-items="ViewBag.IdStudent"></select>
+                    <span asp-validation-for="IdStudent" class="text-danger"></span>
+                </div>
+                <div class="form-group" disabled>
+                    <label asp-for="DataEmitere" class="control-label"></label>
+                    <input asp-for="DataEmitere" class="form-control" />
+                    <span asp-validation-for="DataEmitere" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="DateRezolvare" class="control-label"></label>
+                    <input asp-for="DateRezolvare" class="form-control" />
+                    <span asp-validation-for="DateRezolvare" class="text-danger"></span>
+                </div>
+                <div class="form-group form-check">
+                    <label class="form-check-label">
+                        <input class="form-check-input" asp-for="StatusTichet" /> @Html.DisplayNameFor(model => model.StatusTichet)
+                    </label>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Detalii" class="control-label"></label>
+                    <input asp-for="Detalii" class="form-control" />
+                    <span asp-validation-for="Detalii" class="text-danger"></span>
+                </div>
+                <div class="form-group form-check">
+                    <label class="form-check-label">
+                        <input class="form-check-input" asp-for="TipTichet" /> @Html.DisplayNameFor(model => model.TipTichet)
+                    </label>
+                </div>
+                <div class="justify-content-center">
+                    <input type="submit" value="Salvează" class="create_button" />
+                    <a class="create_button" asp-action="Index">Înapoi</a>
+                </div>
+            </form>
+        </div>
     </div>
 </div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
+    @section Scripts {
+        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    }

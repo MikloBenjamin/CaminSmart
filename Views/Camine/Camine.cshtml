@@ -1,21 +1,23 @@
 ﻿@model IEnumerable<AplicatieCamine.Models.Camine>
 @using System;
 @{
-	var cimages = Url.Content("~/Images/camine/");
-	ViewData["Title"] = "Lista Camine";
-	int count = System.IO.Directory.EnumerateFiles(@"wwwroot/Images/camine").Count<string>();
-	Random r = new Random();
+    int i = 0;
+    var cimages = Url.Content("~/Images/camine/");
+    ViewData["Title"] = "Lista Camine";
+    int count = System.IO.Directory.EnumerateFiles(@"wwwroot/Images/camine").Count<string>();
+    Random r = new Random();
 	<div class="camine">
 		@foreach (var item in Model)
-		{
-			string random_nr = r.Next(1, count).ToString();
-			string rand = cimages + @random_nr + ".jpg";
-			string myModal = "myModal" + @item.IdCamin;	
+        {
+            i = i + 1;
+            string nr = i.ToString();
+            string rand = cimages + @nr + ".jpg";
+            string myModal = "myModal" + @item.IdCamin;
 			<div>
 				<div class="col text-center">
 					<form asp-action="Camere">
 						<input type="number" name="cnr" value="@Html.DisplayFor(modelItem => item.IdCamin)" style="display: none;" />
-						<input type="submit" class="myButton" name="cid" value="Camin @Html.DisplayFor(modelItem => item.IdCamin)" />
+						<input type="submit" class="myButton" name="cid" value="Cămin @Html.DisplayFor(modelItem => item.IdCamin)" />
 					</form>
 				</div>
 				<br>
@@ -25,7 +27,7 @@
 				<br>
 				<div class="container" style="width:400px;">
 					<button type="button" class="btn btn-dark btn-lg btn-block mr-2" data-toggle="modal" data-target="#@myModal">
-						Facilitati <i class="fa fa-bed"></i>
+						Facilități <i class="fa fa-bed"></i>
 					</button>
 				</div>
 				<br>
@@ -35,7 +37,7 @@
 						<div class="modal-content">
 							<!-- Modal Header -->
 							<div class="modal-header text-center">
-								<h4 class="modal-title w-100"> Camin @Html.DisplayFor(modelItem => item.IdCamin) </h4>
+								<h4 class="modal-title w-100"> Cămin @Html.DisplayFor(modelItem => item.IdCamin) </h4>
 								<button type="button" class="close" data-dismiss="modal">&times;</button>
 							</div>
 							<!-- Modal body -->
@@ -44,7 +46,7 @@
 							</div>
 							<!-- Modal footer -->
 							<div class="modal-footer">
-								<button type="button" class="btn btn-danger" data-dismiss="modal">Inchide</button>
+								<button type="button" class="btn btn-danger" data-dismiss="modal">Închide</button>
 							</div>
 						</div>
 					</div>

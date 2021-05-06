@@ -185,7 +185,7 @@
     border-radius: .1875rem
 }
 
-@media(max-width:600px;) {
+@media(max-width:600px) {
     .cardCreate {
         position: relative;
         display: -ms-flexbox;

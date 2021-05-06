@@ -4,60 +4,69 @@
     ViewData["Title"] = "Delete";
 }
 
-<h1>Delete</h1>
+<link rel="stylesheet" href="~/css/styleTable.css">
 
-<h3>Are you sure you want to delete this?</h3>
-<div>
-    <h4>Tichet</h4>
-    <hr />
-	<dl class="row">
-		<dt class="col-sm-2">
-			@Html.DisplayNameFor(model => model.DataEmitere)
-		</dt>
-		<dd class="col-sm-10">
-			@Html.DisplayFor(model => model.DataEmitere)
-		</dd>
-		<dt class="col-sm-2">
-			@Html.DisplayNameFor(model => model.DateRezolvare)
-		</dt>
-		<dd class="col-sm-10">
-			@Html.DisplayFor(model => model.DateRezolvare)
-		</dd>
-		<dt class="col-sm-2">
-			@Html.DisplayNameFor(model => model.StatusTichet)
-		</dt>
-		<dd class="col-sm-10">
-			@Html.DisplayFor(model => model.StatusTichet)
-		</dd>
-		<dt class="col-sm-2">
-			@Html.DisplayNameFor(model => model.Detalii)
-		</dt>
-		<dd class="col-sm-10">
-			@Html.DisplayFor(model => model.Detalii)
-		</dd>
-		<dt class="col-sm-2">
-			@Html.DisplayNameFor(model => model.TipTichet)
-		</dt>
-		<dd class="col-sm-10">
-			@Html.DisplayFor(model => model.TipTichet)
-		</dd>
-		<dt class="col-sm-2">
-			@Html.DisplayNameFor(model => model.IdStudentNavigation)
-		</dt>
-		<dd class="col-sm-10">
-			@Html.DisplayFor(model => model.IdStudentNavigation.IdStudent)
-		</dd>
-		<dt class="col-sm-2">
-			@Html.DisplayNameFor(model => model.IdCamera)
-		</dt>
-		<dd class="col-sm-10">
-			@Html.DisplayFor(model => model.IdCamera)
-		</dd>
-	</dl>
-    
-    <form asp-action="Delete">
-        <input type="hidden" asp-for="IdTichet" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-action="Index">Back to List</a>
-    </form>
+<div class="container-fluid d-flex justify-content-center mb-auto">
+    <div class="cardCreate">
+        <div class="card-header header-elements-inline ml-50 justify-content-center">
+            <h5 style="font-family:Garamond,serif; font-size: 40px"><b>Sigur vrei să ștergi?</b></h5>
+        </div>
+        <div class="container-fluid justify-content-center">
+            <div class="col-sm-15">
+                <p style="font-family:Garamond,serif; font-size: 18px; text-align:center">
+                    <b>@Html.DisplayNameFor(model => model.IdTichet):</b>
+                    @Html.DisplayFor(model => model.IdTichet)
+                </p>
+            </div>
+            <div class="col-sm-15">
+                <p style="font-family:Garamond,serif; font-size: 18px; text-align:center">
+                    <b>@Html.DisplayNameFor(model => model.DataEmitere):</b>
+                    @Html.DisplayFor(model => model.DataEmitere)
+                </p>
+            </div>
+            <div class="col-sm-15">
+                <p style="font-family:Garamond,serif; font-size: 18px;text-align:center">
+                    <b>@Html.DisplayNameFor(model => model.DateRezolvare):</b>
+                    @Html.DisplayFor(model => model.DateRezolvare)
+                </p>
+            </div>
+            <div class="col-sm-15">
+                <p style="font-family:Garamond,serif; font-size: 18px; text-align:center">
+                    <b>@Html.DisplayNameFor(model => model.StatusTichet):</b>
+                    @Html.DisplayFor(model => model.StatusTichet)
+                </p>
+            </div>
+            <div class="col-sm-15">
+                <p style="font-family:Garamond,serif; font-size: 18px;text-align:center">
+                    <b>@Html.DisplayNameFor(model => model.Detalii):</b>
+                    @Html.DisplayFor(model => model.Detalii)
+                </p>
+            </div>
+            <div class="col-sm-15">
+                <p style="font-family:Garamond,serif; font-size: 18px; text-align:center">
+                    <b>@Html.DisplayNameFor(model => model.TipTichet): </b>
+                    @Html.DisplayFor(model => model.TipTichet)
+                </p>
+            </div>
+            <div class="col-sm-15">
+                <p style="font-family:Garamond,serif; font-size: 18px; text-align:center">
+                    <b>@Html.DisplayNameFor(model => model.IdStudentNavigation): </b>
+                    @Html.DisplayFor(model => model.IdStudentNavigation.IdStudent)
+                </p>
+            </div>
+            <div class="col-sm-15">
+                <p style="font-family:Garamond,serif; font-size: 18px; text-align:center">
+                    <b>@Html.DisplayNameFor(model => model.IdCamera): </b>
+                    @Html.DisplayFor(model => model.IdCamera)
+                </p>
+            </div>
+        </div>
+        <div class="mx-auto mb-2">
+            <form asp-action="Delete">
+                <input type="hidden" asp-for="IdCamera" />
+                <input type="submit" value="Șterge" class="btn btn-danger" />
+            </form>
+        </div>
+        <a class="ml-5" asp-action="Index">Înapoi</a>
+    </div>
 </div>

@@ -24,12 +24,14 @@
     }
 
 </style>
-<div class="container-fluid d-flex justify-content-center mt-50 mb-50">
+<div class="container-fluid d-flex justify-content-center mb-auto">
     <div class="card">
         <div class="card-header header-elements-inline">
-            <h5 class="card-title">Tichete din Admin</h5>
-            <a asp-action="Create" class="create_button">Add data</a>
-
+            <h5 style="font-family:Garamond,serif; font-size: 40px">Tichete</h5>
+            <div class="mb-2">
+                <a asp-action="Create" class="create_button">Adaugă!</a>
+                <a asp-controller="Home" asp-action="Index" class="create_button">Înapoi</a>
+            </div>
         </div>
 
         <div class="table-responsive">
@@ -100,9 +102,9 @@
                                 @Html.DisplayFor(modelItem => item.Feedback)
                             </td>
                             <td colspan="3">
-                                <a asp-action="Edit" asp-route-id="@item.IdTichet">Edit</a> |
-                                <a asp-action="Details" asp-route-id="@item.IdTichet">Details</a> |
-                                <a asp-action="Delete" asp-route-id="@item.IdTichet">Delete</a>
+                                <a asp-action="Edit" asp-route-id="@item.IdTichet">Editează</a> |
+                                <a asp-action="Details" asp-route-id="@item.IdTichet">Detalii</a> |
+                                <a asp-action="Delete" asp-route-id="@item.IdTichet">Șterge</a>
                             </td>
                         </tr>
                     }

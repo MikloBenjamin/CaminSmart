@@ -28,12 +28,6 @@
 	top: 20px;
 	right: 70px;
 }
-
-.prop {
-	position: relative;
-	top: 20px;
-}
-
 .button {
 	border: none;
 	color: white;
@@ -61,9 +55,6 @@
 	text-align: center;
 	font-size: 16px;
 	margin: 4px 2px;
-	position: relative;
-	bottom: 110px;
-	left: 1140px;
 	box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
 	border: none;
 	padding: 15px 32px;
