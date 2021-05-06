@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace AplicatieCamine.Controllers
 {
-    [Authorize(Roles = "admin")]
+    [Authorize]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -20,9 +20,51 @@ namespace AplicatieCamine.Controllers
             _logger = logger;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Camine()
+		{
+            return RedirectToAction("Index", "Camine");
+        }
+
+        public async Task<IActionResult> Camere()
         {
-            return View();
+            return RedirectToAction("Index", "Camere");
+        }
+        public async Task<IActionResult> Tichet()
+        {
+            return RedirectToAction("Index", "Tichet");
+        }
+        public async Task<IActionResult> Student()
+        {
+            return RedirectToAction("Index", "Student");
+        }
+        public async Task<IActionResult> Administratori()
+        {
+            return RedirectToAction("Index", "Administratori");
+        }
+        public async Task<IActionResult> Inscriere()
+        {
+            return RedirectToAction("Index", "Applicant");
+        }
+        public async Task<IActionResult> Tichete()
+        {
+            return RedirectToAction("Tichete", "Tichet");
+        }
+
+        public async Task<IActionResult> CamineST()
+        {
+            return RedirectToAction("Camine", "Camine");
+        }
+        public async Task<IActionResult> Applicants()
+        {
+            return RedirectToAction("Applicants", "Applicant");
+        }
+        public async Task<IActionResult> Status()
+        {
+            return RedirectToAction("Status", "Student");
+        }
+        public async Task<IActionResult> Index()
+        {
+            return RedirectToAction("Home", "Student");
         }
 
         public IActionResult Privacy()

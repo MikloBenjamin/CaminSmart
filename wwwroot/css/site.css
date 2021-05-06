@@ -1,92 +1,210 @@
-﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
-for details on configuring this project to bundle and minify static web assets. */
+﻿*, *::before, *::after {
+    box-sizing: border-box;
+}
 
-main::after{
-    content: "";
-    background: url("..//Images/camine/5.jpg");
-    opacity: 0.4;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    position: absolute;
-    z-index: -1;
-    background-repeat: no-repeat;
-    background-position: 50% 0;
-    background-size: cover;
-    background-attachment: fixed;
+html, body {
+    width: 99vw;
+    font-size: 16px;
+}
+
+body{
+    margin: 0;
+    padding: 0;
 }
 
 a.navbar-brand {
-  background:url("../../img/CamineUVT.jpg");
-  width: 30px;
-  height: 30px;
-  background-size: 30px;
-  white-space: normal;
-  text-align: center;
-  word-break: break-all;
+    background: url("../../img/CamineUVT.jpg");
+    width: 30px;
+    height: 30px;
+    background-size: 30px;
+    white-space: normal;
+    text-align: center;
+    word-break: break-all;
 }
 
 /* Provide sufficient contrast against white background */
 a {
-  color: #0366d6;
+    color: #0366d6;
 }
 
 .btn-primary {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
+    color: #fff;
+    background-color: #1b6ec2;
+    border-color: #1861ac;
 }
 
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
+    color: #fff;
+    background-color: #1b6ec2;
+    border-color: #1861ac;
 }
 
-/* Sticky footer styles
--------------------------------------------------- */
-html {
-  font-size: 14px;
-}
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+    html {
+        font-size: 16px;
+    }
 }
 
 .border-top {
-  border-top: 1px solid #e5e5e5;
+    border-top: 1px solid #e5e5e5;
 }
+
 .border-bottom {
-  border-bottom: 1px solid #e5e5e5;
+    border-bottom: 1px solid #e5e5e5;
 }
 
 .box-shadow {
-  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+    box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
 }
 
 button.accept-policy {
-  font-size: 1rem;
-  line-height: inherit;
+    font-size: 1rem;
+    line-height: inherit;
 }
 
-/* Sticky footer styles
--------------------------------------------------- */
-html {
-  position: relative;
-  min-height: 100%;
+#page {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    margin-top: -1.2%;
 }
 
-body {
-  /* Margin bottom by footer height */
-  margin-bottom: 60px;
+main {
+    display: flex;
+    flex: 1;
+/*    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-column-gap: 5em;*/
+    padding-top: 5em;
+    padding-bottom: 5em;
+    background: linear-gradient(rgba(255,255,255,.5), rgba(255,255,255,.5)), url("../Images/camine/5.jpg");
+    background-size: cover;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    justify-content: space-evenly;
 }
-.footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  white-space: nowrap;
-  line-height: 60px; /* Vertically center the text there */
+
+footer {
+    width: 100%;
+    background-color: #F7F9FF;
+    overflow: visible;
+    text-align: center;
+    padding: 35px 45px 25px;
+    font: bold 16px sans-serif;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 10px;
+    border-top: 1px solid black;
+}
+
+footer > div a, footer > div p{
+    font-size: 20px;
+}
+
+.footer-icons a{
+    font-size: 32px;
+    margin-left: 2%;
+}
+
+.self-col {
+    margin-top: 2.5%;
+    margin-bottom: 2.5%;
+    max-width: 25%;
+    flex: 1;
+    padding: 30px;
+    border-radius: 10px;
+    background-color: white;
+    border: 1px solid;
+    font-size: 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.self-col:hover {
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,1),0 17px 50px 0 rgba(0,0,0,0.60);
+}
+
+.flexible{
+    flex-grow: 1;
+}
+
+.self-col p{
+    font-size: 30px;
+    text-align: center;
+    font-family: Garamond, serif;
+}
+
+.submit {
+    float: left;
+    margin-left: 15%;
+    width: 70%;
+    border: none;
+    color: white;
+    background-color: #008CBA;
+    padding: 20px 35px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 20px;
+    cursor: pointer;
+    transition-duration: 0.6s;
+    justify-content: flex-end;
+    margin-bottom: 5px;
+}
+
+.checkImportant {
+    position: absolute;
+    margin-top: 0.3rem;
+    margin-left: 5px;
+}
+
+.button3 {
+    border: none;
+    color: black;
+    background-color: white;
+    padding: 15px 25px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 18px;
+    margin: 4px 2px;
+    cursor: pointer;
+    transition-duration: 0.4s;
+}
+
+.button3:hover {
+    background-color: #e7e7e7;
+ }
+
+@media (max-width: 800px) {
+    .unde .nume {
+        display: none;
+    }
+
+    main {
+        flex-direction: column;
+        padding: 3em;
+    }
+
+    .self-col{
+        max-width: 100%;
+    }
+
+    .self-col p{
+        font-size: 24px;
+    }
+    footer > div a, footer > div p {
+        font-size: 20px;
+    }
+}
+
+@media (max-width: 600px) {
+    footer {
+        grid-template-columns: 1fr;
+    }
+
+    footer > div a, footer > div p {
+        font-size: 16px;
+    }
 }
 

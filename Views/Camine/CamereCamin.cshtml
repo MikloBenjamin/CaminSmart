@@ -1,141 +1,91 @@
 ﻿@model IEnumerable<AplicatieCamine.Models.Camere>
 @{
-    ViewData["Title"] = "Camere Camin";
-    var el = Model.First();
-    string[] t = { el.LimitaNrStudenti.ToString(), el.IdCamin.ToString(), el.Descriere };
+    var el = (Model.Count() > 0 ? Model.First() : null);
+    string[] t = { null, null, null };
+    if (el != null) {
+        t[0] = el.LimitaNrStudenti.ToString();
+        t[1] = el.IdCamin.ToString();
+        t[2] = el.Descriere;
+    }
+    ViewData["Title"] = "Camin " + t[1];
+    var cimages = Url.Content("~/Images/camere/");
+	int i = 0;
+}
+@section Styles{
+	<link rel="stylesheet" href="~/css/CamereCamin.css" />
 }
 <style>
-    .ocupat {
-        font-family: Garamond, serif;
-        color: red;
-        font-size: 16px;
-        text-align: center;
-    }
-
-    .liber {
-        font-family: Garamond, serif;
-        color: green;
-        font-size: 16px;
-    }
-
-    .fiecare {
-        width: 360px;
-        height: 160px;
-        background-color: white;
-        border-radius: 20px;
-        display: inline-block;
-    }
-    .fiecare:hover {
-        box-shadow: 0 12px 16px 0 rgba(0,0,0,1),0 17px 50px 0 rgba(0,0,0,0.60);
-    }
-
-    .poza {
-        position: relative;
-        top: 10px;
-        left: 5px;
-        width: 150px;
-        height: 100px
-    }
-
-    .d1 {
-        position: relative;
-        left: 7px;
-    }
-
-    .admin {
-        background-color: #e7e7e7;
-        color: black;
-        text-align: center;
-        font-size: 24px;
-        margin: 4px 2px;
-        position: relative;
-        top: -180px;
-        left: 450px;
-        box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
-        border: none;
-        padding: 15px 32px;
-        text-decoration: none;
-        width: 200px;
-        pointer-events: none;
-    }
-    .mijloc{
-        position: relative;
-        left: 60px;
-        top: 20px;
-    }
-    .c {
-        text-align: center;
-        font-family: Garamond, serif;
-        position: relative;
-        top: 20px;
-    }
-    .m {
-        position: relative;
-        left: 90px;
-        top: 3px;
-    }
-    .camin{
-        position: relative;
-        top: 140px;
-    }
+	main{
+		flex-direction: column;
+		padding: 2em;
+		margin: 0px 60px 0px 60px;
+	}
 </style>
-<div class="camin"><button class="admin">Cămin @t[1]</button></div>
-    @foreach (var item in Model)
-    {
-        var ocupat = (item.NrStudentiCazati == item.LimitaNrStudenti ? "ocupat" : "liber");
-
-        @if (ocupat == "liber")
+<h1 style="text-align: right; font-family: Garamond, serif; font-size:65px">
+    Cămin @t[1]
+</h1>
+@if (el != null)
+{
+	<div class="gridCamere">
+		@foreach (var item in Model)
         {
-            <div class="fiecare">
-                <table>
-                    <tr>
-                        <td>
-                            <img class="poza" src="../Images/camere/4.jpg" width="200" height="110" />
-                        </td>
-                        <td class="d1">
-                            <p class="c">
-                                <b>CAMERA @Html.DisplayFor(modelItem => item.NrCamera)</b><br />
-                                @Html.DisplayFor(modelItem => item.Descriere)<br />
-                                Sunt cazați <b>@Html.DisplayFor(modelItem => item.NrStudentiCazati)</b> studenți.
-                            </p>
-                            <div class="@ocupat">
-                                <p class="mijloc">
-                                    <b>
-                                        LIBER
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="green" class="bi bi-check2-square" viewBox="0 0 16 16">
-                                            <path d="M3 14.5A1.5 1.5 0 0 1 1.5 13V3A1.5 1.5 0 0 1 3 1.5h8a.5.5 0 0 1 0 1H3a.5.5 0 0 0-.5.5v10a.5.5 0 0 0 .5.5h10a.5.5 0 0 0 .5-.5V8a.5.5 0 0 1 1 0v5a1.5 1.5 0 0 1-1.5 1.5H3z" />
-                                            <path d="m8.354 10.354 7-7a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0z" />
-                                        </svg>
-                                    </b>
-                                </p>
-                            </div>
-                        </td>
-                    </tr>
-                </table>
-            </div>
-        }
-        @if (ocupat == "ocupat")
-        {
-            <div class="fiecare">
-                <table>
-                    <tr>
-                        <td>
-                            <img class="poza" src="../Images/camere/4.jpg" width="200" height="110" />
-                        </td>
-                        <td class="d1">
-                            <p class="c">
-                                <b>CAMERA @Html.DisplayFor(modelItem => item.NrCamera)</b>
-                                <div class="@ocupat"><b>NU MAI SUNT LOCURI DISPONIBILE!</b></div>
-                                <p class="m">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="red" class="bi bi-exclamation-octagon" viewBox="0 0 16 16">
-                                        <path d="M4.54.146A.5.5 0 0 1 4.893 0h6.214a.5.5 0 0 1 .353.146l4.394 4.394a.5.5 0 0 1 .146.353v6.214a.5.5 0 0 1-.146.353l-4.394 4.394a.5.5 0 0 1-.353.146H4.893a.5.5 0 0 1-.353-.146L.146 11.46A.5.5 0 0 1 0 11.107V4.893a.5.5 0 0 1 .146-.353L4.54.146zM5.1 1 1 5.1v5.8L5.1 15h5.8l4.1-4.1V5.1L10.9 1H5.1z" />
-                                        <path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z" />
-                                    </svg>
-                                </p>
-                            </p>
-                        </td>
-                    </tr>
-                </table>
-            </div>
-        }
-    }
+            if (i == 24) { i = 0; }
+            i = i + 1;
+            string nr = i.ToString();
+            string rand = cimages + @nr + ".jpg";
+            var ocupat = (item.NrStudentiCazati == item.LimitaNrStudenti ? "ocupat" : "liber");
+			<div class="fiecare">
+				<img class="poza" src=@rand width="200" height="110" />
+                <div>
+                    <p> <b>CAMERA @Html.DisplayFor(modelItem => item.NrCamera)</b> </p>
+                    @if (ocupat == "liber")
+                    {
+                        <p>@Html.DisplayFor(modelItem => item.Descriere)</p>
+                    }
+                    else
+                    {
+						<p class="@ocupat"><b>NU MAI SUNT LOCURI DISPONIBILE!</b></p>
+                        <p>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="red" class="bi bi-exclamation-octagon" viewBox="0 0 16 16">
+                                <path d="M4.54.146A.5.5 0 0 1 4.893 0h6.214a.5.5 0 0 1 .353.146l4.394 4.394a.5.5 0 0 1 .146.353v6.214a.5.5 0 0 1-.146.353l-4.394 4.394a.5.5 0 0 1-.353.146H4.893a.5.5 0 0 1-.353-.146L.146 11.46A.5.5 0 0 1 0 11.107V4.893a.5.5 0 0 1 .146-.353L4.54.146zM5.1 1 1 5.1v5.8L5.1 15h5.8l4.1-4.1V5.1L10.9 1H5.1z" />
+                                <path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z" />
+                            </svg>
+                        </p>
+                    }
+                </div>
+				<div class="@ocupat">
+					@if (ocupat == "ocupat")
+					{
+						//pass
+					}
+					else
+					{
+						<p>Sunt cazați <b>@Html.DisplayFor(modelItem => item.NrStudentiCazati)</b> studenți.</p>
+					}
+				</div>
+				<div class="@ocupat">
+					@if (ocupat == "ocupat")
+					{
+						//pass
+					}
+					else
+					{
+						<p>
+							<b>
+								LIBER
+								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="green" class="bi bi-check2-square" viewBox="0 0 16 16">
+									<path d="M3 14.5A1.5 1.5 0 0 1 1.5 13V3A1.5 1.5 0 0 1 3 1.5h8a.5.5 0 0 1 0 1H3a.5.5 0 0 0-.5.5v10a.5.5 0 0 0 .5.5h10a.5.5 0 0 0 .5-.5V8a.5.5 0 0 1 1 0v5a1.5 1.5 0 0 1-1.5 1.5H3z" />
+									<path d="m8.354 10.354 7-7a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0z" />
+								</svg>
+							</b>
+						</p>
+					}
+				</div>
+			</div>
+		}
+	</div>
+}
+else
+{
+	<h2>Nu exista camere in acest camin!</h2>
+}

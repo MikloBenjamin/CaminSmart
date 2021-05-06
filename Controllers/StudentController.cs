@@ -1,10 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Azure;
+using Azure.Storage.Blobs;
+using Azure.Storage.Blobs.Models;
 using AplicatieCamine.Models;
 
 namespace AplicatieCamine
@@ -18,11 +22,32 @@ namespace AplicatieCamine
             _context = context;
         }
 
+        public IActionResult Home()
+		{
+            string user = User.Identity.Name;
+            var model = _context.Student.Where(st => st.Email == user).Select(st => st).AsEnumerable();
+            if(model.Count() == 0)
+			{
+                model = null;
+			}
+            return View("/Views/Home/Index.cshtml", model);
+		}
+        
         // GET: Student
         public async Task<IActionResult> Index()
         {
             var dBSistemContext = _context.Student.Include(s => s.IdCameraNavigation);
             return View(await dBSistemContext.ToListAsync());
+        }
+
+        public async Task<IActionResult> Status()
+		{
+            var id = _context.Student.Where(st => st.Email == User.Identity.Name).Select(st => st.IdStudent);
+            if(id.Count() > 0)
+			{
+                return View(id.First());
+			}
+            return View(null);
         }
 
         // GET: Student/Details/5
@@ -62,9 +87,9 @@ namespace AplicatieCamine
             {
                 _context.Add(student);
                 await _context.SaveChangesAsync();
+                id_student++;
                 return RedirectToAction(nameof(Index));
             }
-            id_student++;
             ViewData["IdCamera"] = new SelectList(_context.Camere, "IdCamera", "IdCamera", student.IdCamera);
             return View(student);
         }
@@ -121,14 +146,6 @@ namespace AplicatieCamine
             ViewData["IdCamera"] = new SelectList(_context.Camere, "IdCamera", "IdCamera", student.IdCamera);
             return View(student);
         }
-
-        //Aceasta actiune va fi apelat din formul de la CreateStudent din partea de Student
-        //
-        public void Inscriere()
-		{
-
-            id_student++;
-		}
 
         // GET: Student/Delete/5
         public async Task<IActionResult> Delete(int? id)

@@ -4,45 +4,62 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
+<style>
+    .create_button {
+        border: none;
+        color: white;
+        background-color: #008CBA;
+        padding: 5px 15px;
+        text-align: center;
+        text-decoration: none;
+        font-size: 16px;
+        cursor: pointer;
+        transition-duration: 0.6s;
+        margin: 5px 0 5px 10px;
+    }
+</style>
+<link rel="stylesheet" href="~/css/styleTable.css">
 
-<div>
-    <h4>Administratori</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Nume)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Nume)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Adresa)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Adresa)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.NrTelefon)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.NrTelefon)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Email)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Email)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.IdCaminNavigation)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.IdCaminNavigation.IdCamin)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.IdAdmin">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+<div class="container-fluid d-flex justify-content-center mb-auto">
+    <div class="cardCreate">
+        <div class="card-header header-elements-inline ml-50 justify-content-center">
+            <h5 style="font-family:Garamond,serif; font-size: 40px"><b>Detalii Administrator</b></h5>
+        </div>
+        <div class="container-fluid justify-content-center">
+            <div class="col-sm-15">
+                <p style="font-family:Garamond,serif; font-size: 18px; text-align:center">
+                    <b>@Html.DisplayNameFor(model => model.Nume):</b>
+                    @Html.DisplayFor(model => model.Nume)
+                </p>
+            </div>
+            <div class="col-sm-15">
+                <p style="font-family:Garamond,serif; font-size: 18px;text-align:center">
+                    <b>@Html.DisplayNameFor(model => model.Adresa):</b>
+                    @Html.DisplayFor(model => model.Adresa)
+                </p>
+            </div>
+            <div class="col-sm-15">
+                <p style="font-family:Garamond,serif; font-size: 18px; text-align:center">
+                    <b>@Html.DisplayNameFor(model => model.NrTelefon):</b>
+                    @Html.DisplayFor(model => model.NrTelefon)
+                </p>
+            </div>
+            <div class="col-sm-15">
+                <p style="font-family:Garamond,serif; font-size: 18px;text-align:center">
+                    <b>@Html.DisplayNameFor(model => model.Email):</b>
+                    @Html.DisplayFor(model => model.Email)
+                </p>
+            </div>
+            <div class="col-sm-15">
+                <p style="font-family:Garamond,serif; font-size: 18px; text-align:center">
+                    <b>@Html.DisplayNameFor(model => model.IdCaminNavigation): </b>
+                    @Html.DisplayFor(model => model.IdCaminNavigation.IdCamin)
+                </p>
+            </div>
+        </div>
+        <div class="mx-auto mb-2">
+            <a class="create_button" asp-action="Edit" asp-route-id="@Model.IdAdmin">Editează</a>
+            <a asp-action="Index" class="create_button">Înapoi</a>
+        </div>
+    </div>
 </div>
