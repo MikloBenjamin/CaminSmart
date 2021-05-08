@@ -1,58 +1,78 @@
 ﻿@model AplicatieCamine.Models.Applicant
 @{
-	ViewData["Title"] = "Inscriere";
+    ViewData["Title"] = "Inscriere";
 }
 
 <style>
-	main{
-		flex-direction: column;
-		margin-left: 10%;
-		width: 80%;
-	}
-	form{
-		margin-bottom: 5%;
-	}
+    main {
+        flex-direction: column;
+    }
+    form {
+        margin-bottom: 5%;
+    }
+    .create_button {
+        border: none;
+        color: white;
+        background-color: #008CBA;
+        padding: 5px 15px;
+        text-align: center;
+        text-decoration: none;
+        font-size: 16px;
+        cursor: pointer;
+        transition-duration: 0.6s;
+        margin: 5px 0 5px 10px;
+    }
 </style>
 
-<h1 align ="center" class="testClass"><u><i>Inscrie-te acum!</i></u></h1>
+<link rel="stylesheet" href="~/css/styleTable.css">
+<div class="container-fluid d-flex justify-content-center mb-50">
+    <div class="cardCreate">
+        <div class="card-header header-elements-inline mx-auto">
+            <h5 style="font-family:Garamond,serif; font-size: 37px"><b>Înscrie-te!</b></h5>
+        </div>
 
-<form asp-action="Inscriere" method="post">
-	<div asp-validation-summary="ModelOnly" class="text-danger"></div>
-	<div class="form-group">
-		<label asp-for="Nume" class="control-label"></label>
-		<input asp-for="Nume" class="form-control" />
-		<span asp-validation-for="Nume" class="text-danger"></span>
-	</div>
-	<div class="form-group">
-		<label asp-for="Prenume" class="control-label"></label>
-		<input asp-for="Prenume" class="form-control" />
-		<span asp-validation-for="Prenume" class="text-danger"></span>
-	</div>
-	<div class="form-group">
-		<label asp-for="Facultate" class="control-label"></label>
-		<input asp-for="Facultate" class="form-control" />
-		<span asp-validation-for="Facultate" class="text-danger"></span>
-	</div>
-	<div class="form-group">
-		<label asp-for="Varsta" class="control-label"></label>
-		<input asp-for="Varsta" class="form-control" />
-		<span asp-validation-for="Varsta" class="text-danger"></span>
-	</div>
-	<div class="form-group">
-		<label asp-for="Adresa" class="control-label"></label>
-		<input asp-for="Adresa" class="form-control" />
-		<span asp-validation-for="Adresa" class="text-danger"></span>
-	</div>
-	<div class="form-group">
-		<label asp-for="An" class="control-label"></label>
-		<input asp-for="An" class="form-control" />
-		<span asp-validation-for="An" class="text-danger"></span>
-	</div>
-	<div class="form-group">
-		<label>Document: </label>
-		<input asp-for="FilePath" type="file" name="FilePath" value="FISIER_INSCRIERE" accept=".pdf"  required/>
-	</div>
-	<div class="form-group">
-		<input type="submit" value="Inscrie" class="btn btn-primary" />
-	</div>
-</form>
+        <div class="container-fluid">
+            <form asp-action="Inscriere" method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Nume" class="control-label"></label>
+                    <input asp-for="Nume" class="form-control" />
+                    <span asp-validation-for="Nume" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Prenume" class="control-label"></label>
+                    <input asp-for="Prenume" class="form-control" />
+                    <span asp-validation-for="Prenume" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Facultate" class="control-label"></label>
+                    <input asp-for="Facultate" class="form-control" />
+                    <span asp-validation-for="Facultate" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Varsta" class="control-label"></label>
+                    <input asp-for="Varsta" class="form-control" />
+                    <span asp-validation-for="Varsta" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Adresa" class="control-label"></label>
+                    <input asp-for="Adresa" class="form-control" />
+                    <span asp-validation-for="Adresa" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="An" class="control-label"></label>
+                    <input asp-for="An" class="form-control" />
+                    <span asp-validation-for="An" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label>Document: </label>
+                    <input type="file" name="FilePath" accept=".pdf" required />
+                </div>
+                <div class="mx-auto">
+                    <input class="create_button" type="submit" value="Trimite" />
+                    <a asp-controller="Home" asp-action="Index" class="create_button">Înapoi</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

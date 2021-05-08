@@ -5,45 +5,51 @@
 }
 
 <style>
-	main {
-		flex-direction: column;
-	}
-	.row{
-		margin-left: 5%;
-	}
+    main {
+        flex-direction: column;
+    }
+
+    .create_button {
+        border: none;
+        color: white;
+        background-color: #008CBA;
+        padding: 5px 15px;
+        text-align: center;
+        text-decoration: none;
+        font-size: 16px;
+        cursor: pointer;
+        transition-duration: 0.6s;
+        margin: 5px 0 5px 10px;
+    }
 </style>
+<link rel="stylesheet" href="~/css/styleTable.css">
+<div class="container-fluid d-flex justify-content-center mb-auto">
+    <div class="cardCreate w-50 p-3">
+        <div class="card-header header-elements-inline ml-50">
+            <h5 style="font-family:Garamond,serif; font-size: 36px; text-align: center">Care este problema?</h5>
+        </div>
 
-<h1>Create</h1>
-
-<h4>Tichetele tale</h4>
-<hr />
-<div class="row">
-	<div class="col-md-4">
-		<form asp-action="CreateTichetST" method="post">
-			<div asp-validation-summary="ModelOnly" class="text-danger"></div>
-			<div class="form-group">
-				<label asp-for="Detalii" class="control-label"></label>
-				<input asp-for="Detalii" class="form-control" autocomplete="off" />
-				<span asp-validation-for="Detalii" class="text-danger"></span>
-			</div>	
-			<div class="form-group form-check">
-				<label class="form-check-label">
-					Important? <input class="checkImportant" asp-for="TipTichet" />
-				</label>
-			</div>
-			<div class="form-group">
-				<input type="submit" value="Create" class="btn btn-primary" />
-			</div>
-		</form>
-	</div>
+        <div class="container-fluid">
+            <form asp-action="CreateTichetST" method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Detalii" class="control-label"></label>
+                    <input asp-for="Detalii" class="form-control" autocomplete="off" />
+                    <span asp-validation-for="Detalii" class="text-danger"></span>
+                </div>
+                <div class="form-group form-check">
+                    <label class="form-check-label">
+                        Important? <input class="checkImportant" asp-for="TipTichet" />
+                    </label>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Trimite" class="create_button" />
+                    <a asp-action="Tichete" class="create_button">Înapoi</a>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
-
-<div>
-	<form asp-acton = "Index" method="post">
-		<input class = "button" type = "submit" value = "Back to List" />
-	</form>
-</div>
-
 @section Scripts {
-	@{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

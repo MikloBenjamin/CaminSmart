@@ -14,39 +14,40 @@
     }
 }
 
-@*if (isAdmin)// pentru Student*@
-@if (User.IsInRole("admin"))
+@if (isAdmin)// pentru Student
+@*if (User.IsInRole("admin"))*@
 {
 
     @section Styles{
         <link rel="stylesheet" href="~/css/HomeAdmin.css"/>
     }
+
     //<button class="admin">Admin</button>
     <div class="text-center">
             <h1 class="display-4">Selectează</h1>
             <p>pentru a vizualiza, a adăuga, a șterge și pentru a edita datele</p>
         <div class="gridAdmins">
-            <form asp-controller="Home" asp-action="Camere" method="post">
+            <form class="left left-room-stud-admin" asp-controller="Home" asp-action="Camere" method="post">
                 <input class="adminButtons" type="submit" value="Camere" />
             </form>
 
-            <form asp-controller="Home" asp-action="Camine" method="post">
+            <form class="right-camin-tichet-aplic"asp-controller="Home" asp-action="Camine" method="post">
                 <input class="adminButtons" type="submit" value="Cămine" />
             </form>
 
-            <form asp-controller="Home" asp-action="Student" method="post">
+            <form class="right left-room-stud-admin top-student-tichet" asp-controller="Home" asp-action="Student" method="post">
                 <input class="adminButtons" type="submit" value="Studenți" />
             </form>
 
-            <form asp-controller="Home" asp-action="Tichet" method="post">
+            <form class="left tothetop right-camin-tichet-aplic top-student-tichet" asp-controller="Home" asp-action="Tichet" method="post">
                 <input class="adminButtons" type="submit" value="Tichete" />
             </form>
 
-            <form asp-controller="Home" asp-action="Administratori" method="post">
+            <form class="tothetop left-room-stud-admin top-admin-aplic" asp-controller="Home" asp-action="Administratori" method="post">
                 <input class="adminButtons" type="submit" value="Administratori" />
             </form>
 
-            <form asp-controller="Home" asp-action="Applicants" method="post">
+            <form class="right tothetop right-camin-tichet-aplic top-admin-aplic" asp-controller="Home" asp-action="Applicants" method="post">
                 <input class="adminButtons" type="submit" value="Applicanți" />
             </form>
         </div>
@@ -55,7 +56,7 @@
 else
 {
     <div class="self-col text-center">
-        <p class="flexible"><b>Structură Cămine</b></p>
+        <p style="font-size: 37px"><b>Structură Cămine</b></p>
         <p class="flexible">Vizualizare structură cămine.   Poți vedea informațiile despre fiecare cămin. </p>
         <p class="flexible">
             <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-building" viewBox="0 0 16 16">
@@ -68,7 +69,7 @@ else
         </form>
     </div>
     <div class="self-col text-center">
-        <b><p class="pr">Am o problemă!</p></b>
+        <p style="font-size: 37px"><b>Am o problemă!</b></p>
         <p>Trimite tichet pentru a remedia problema sau vizualizază statusul tichetelor tale. </p>
         <p class="ic">
             <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-exclamation-triangle-fill" viewBox="0 0 16 16">
@@ -82,9 +83,9 @@ else
     if (Model != null)
     {
         <div class="self-col text-center">
-            <p><b>Status!</b></p>
+            <p style="font-size: 37px"><b>Status Cazare</b></p>
             <p>
-                Detalii despre statusul meu de cazare!
+                 Dacă te-ai înscris în cămin, verifică statusul tău de cazare.
             </p>
             <p>
                 <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-bookmark-check" viewBox="0 0 16 16">

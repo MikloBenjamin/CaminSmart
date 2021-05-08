@@ -1,14 +1,74 @@
 ﻿
-.gridAdmins {
-	display: grid;
-	flex: 1;
-	grid-template-columns: 1fr 1fr 1fr;
-	grid-gap: 2px;
+.left {
+	position: relative;
+	left: 35%;
 }
 
+.right {
+	position: relative;
+	right: 35%;
+}
+
+.tothetop {
+	position: relative;
+	bottom: 35%;
+}
+
+.gridAdmins {
+	flex: 1;
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr;
+}
+
+@media(max-width:1195px){
+	.gridAdmins {
+		grid-template-columns: auto auto;
+	}
+	.left{left: unset;}
+	.right{right: unset;}
+	.tothetop{bottom: unset;}
+	.adminButtons {
+		width: auto;
+		height: auto;
+	}
+	.left-room-stud-admin{
+		position: relative;
+		left: 15%;
+	}
+	.right-camin-tichet-aplic {
+		position: relative;
+		right: 20%;
+	}
+	.top-student-tichet {
+		position: relative;
+		bottom: 30%;
+	}
+	.top-admin-aplic {
+		position: relative;
+		bottom: 60%;
+	}
+}
+
+@media(max-width: 808px){
+	.gridAdmins {
+		grid-template-columns: 1fr;
+		grid-gap: 5px 1px;
+	}
+	.left {left: unset;}
+	.right {right: unset;}
+	.tothetop {bottom: unset;}
+	.left-room-stud-admin {left: unset;}
+	.right-camin-tichet-aplic {right: unset;}
+	.top-student-tichet{bottom: unset;}
+	.top-admin-aplic{bottom: unset;}
+	.adminButtons {
+		padding: 0px 50px 40px 50px;
+	}
+
+}
 .adminButtons {
-	width: 70%;
-	height: 70%;
+	width: 60%;
+	height: 60%;
 	border: none;
 	color: white;
 	background-color: #008CBA;
@@ -19,11 +79,12 @@
 	border-radius: 30px;
 	transition-duration: 0.6s;
 }
-.adminButtons:hover{
-	background-color: white;
-	color: black;
-	border: 1px solid #008CBA;
-}
+	.adminButtons:hover {
+		background-color: white;
+		color: black;
+		border: 1px solid #008CBA;
+		text-decoration: underline;
+	}
 
 .text-center{
 	flex:0.8;

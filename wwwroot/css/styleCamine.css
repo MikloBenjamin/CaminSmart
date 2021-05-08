@@ -38,8 +38,8 @@
 .camine{
     flex: 1;
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    grid-column-gap: 1em;
+    grid-template-columns: auto auto auto auto;
+    grid-gap: 10px;
 }
 
 @media(max-width: 1500px){

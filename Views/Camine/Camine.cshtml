@@ -6,6 +6,7 @@
     ViewData["Title"] = "Lista Camine";
     int count = System.IO.Directory.EnumerateFiles(@"wwwroot/Images/camine").Count<string>();
     Random r = new Random();
+	
 	<div class="camine">
 		@foreach (var item in Model)
         {
@@ -14,18 +15,18 @@
             string rand = cimages + @nr + ".jpg";
             string myModal = "myModal" + @item.IdCamin;
 			<div>
-				<div class="col text-center">
+				<div class="text-center">
 					<form asp-action="Camere">
 						<input type="number" name="cnr" value="@Html.DisplayFor(modelItem => item.IdCamin)" style="display: none;" />
 						<input type="submit" class="myButton" name="cid" value="Cămin @Html.DisplayFor(modelItem => item.IdCamin)" />
 					</form>
 				</div>
 				<br>
-				<div class="container" style="width:400px; height:300px;">
+				<div class="container" style="width:350px; height:300px;">
 					<img src="@rand" class="img-thumbnail rounded w-100 h-100 shadow-2-strong" />
 				</div>
 				<br>
-				<div class="container" style="width:400px;">
+				<div class="container" style="width:350px;">
 					<button type="button" class="btn btn-dark btn-lg btn-block mr-2" data-toggle="modal" data-target="#@myModal">
 						Facilități <i class="fa fa-bed"></i>
 					</button>
