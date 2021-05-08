@@ -123,17 +123,25 @@ namespace AplicatieCamine
             if (ModelState.IsValid)
             {
                 tichet.IdTichet = id_tichet++;
-                tichet.IdStudent = stud_id;
                 tichet.DataEmitere = DateTime.Now;
                 tichet.DateRezolvare = null;
                 tichet.StatusTichet = false;
                 tichet.Detalii = Request.Form["Detalii"];
                 tichet.TipTichet = (Request.Form["TipTichet"].Count() != 0);
-                var stid = _context.Student.Where(a => a.Email == User.Identity.Name).Select(a => a.IdStudent).AsEnumerable();
+                var stid = _context.Student.Where(a => a.Email == User.Identity.Name).Select(a => a).AsEnumerable();
+                tichet.IdStudent = stid.First().IdStudent;
                 if (stid.Count() > 0)
                 {
-                    var x = _context.Tichet.Where(a => a.IdStudent == stid.First()).Select(a => a.IdCamera).AsEnumerable();
-                    tichet.IdCamera = x.First();
+                    var x = _context.Tichet.Where(a => a.IdStudent == stid.First().IdStudent).Select(a => a.IdCamera).AsEnumerable();
+                    
+                    if (x.Count() > 0)
+                    {
+                        tichet.IdCamera = x.First();
+                    }
+                    else
+                    {
+                        tichet.IdCamera = (int)stid.First().IdCamera;
+                    }
                 }
                 else
 				{
@@ -141,8 +149,9 @@ namespace AplicatieCamine
 				}
                 if(tichet.Detalii != null && tichet.IdCamera != -1)
 				{
-                    AddTichet(tichet);
+                    _context.Add(tichet);
                     await _context.SaveChangesAsync();
+                    System.Diagnostics.Debug.WriteLine("Am adaugat cu succes!!!");
 				}
                 return await Tichete();
             }

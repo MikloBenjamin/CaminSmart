@@ -2,6 +2,13 @@
 
 @{
     ViewData["Title"] = "Details";
+    string u = User.Identity.Name;
+    string usr = u.Split('@')[0];
+    bool isAdmin = false;
+    if (!char.IsDigit(usr[usr.Length - 1]))
+    {
+        isAdmin = true;
+    }
 }
 
 <style>
@@ -76,8 +83,14 @@
             </div>
         </div>
         <div class="mx-auto mb-2">
-            <a asp-action="Edit" asp-route-id="@Model.IdTichet" class="create_button">Editează</a>
-            <a asp-action="Index" class="create_button">Înapoi</a>
+            @if (isAdmin)
+            {
+                <a asp-action="Index" class="create_button">Înapoi</a>
+            }
+            else
+            {
+                <a asp-action="Tichete" class="create_button">Înapoi</a>
+            }
         </div>
     </div>
 </div>

@@ -176,12 +176,6 @@ namespace AplicatieCamine.Models
                     .IsUnicode(false)
                     .HasColumnName("facultate");
 
-                entity.Property(e => e.FilePath)
-                    .IsRequired()
-                    .HasMaxLength(100)
-                    .IsUnicode(false)
-                    .HasColumnName("file_path");
-
                 entity.Property(e => e.Nume)
                     .IsRequired()
                     .HasMaxLength(30)

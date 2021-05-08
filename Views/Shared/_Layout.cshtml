@@ -1,7 +1,17 @@
-﻿<!DOCTYPE html>
+﻿@{ 
+    string u = User.Identity.Name;
+    string usr = u.Split('@')[0];
+    bool isAdmin = false;
+    if (!char.IsDigit(usr[usr.Length - 1]))
+    {
+        isAdmin = true;
+    }
+}
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
-	<link class="icon" rel="icon" href="../Images/icons/uvt.ico" type="image/x-icon" />
+	<link class="icon" rel="icon" href="@Url.Content("/Images/icons/uvt.ico")"  type="image/x-icon" />
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<title>@ViewData["Title"] - AplicatieCamine</title>
@@ -22,7 +32,7 @@
 		<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom shadow-lg mb-3 rounded">
 			<div class="container">
 				<a asp-area="" asp-controller="Home" asp-action="Index">
-					<img src="@Url.Content("/Images/icons/CamineUVT.jpg")" width="200" height="110" />
+                    <img src="@Url.Content("/Images/icons/CamineUVT.jpg")" width="200" height="110" />
 				</a>
 				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
 						aria-expanded="false" aria-label="Toggle navigation">
