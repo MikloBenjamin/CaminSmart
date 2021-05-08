@@ -42,7 +42,7 @@ namespace AplicatieCamine
 
         public async Task<IActionResult> Status()
 		{
-            var id = _context.Student.Where(st => st.Email == User.Identity.Name).Select(st => st.IdStudent);
+            var id = _context.Student.Where(st => st.Email == User.Identity.Name).Select(st => st);
             if(id.Count() > 0)
 			{
                 return View(id.First());

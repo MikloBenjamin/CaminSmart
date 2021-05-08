@@ -12,6 +12,7 @@ using Azure.Storage.Blobs.Models;
 using AplicatieCamine.Models;
 using SendGrid;
 using SendGrid.Helpers.Mail;
+using Microsoft.AspNetCore.Http;
 namespace AplicatieCamine
 {
 	public class ApplicantController : Controller
@@ -19,33 +20,38 @@ namespace AplicatieCamine
 		private readonly DBSistemContext _context;
 		private int idAppl = 1;
 		public ApplicantController(DBSistemContext context)
-		{
-			_context = context;
-			var applicants = _context.Applicant.Select(a => a).AsEnumerable();
-			idAppl = 1;
-			if (applicants.Count() > 0)
-			{
-				idAppl = applicants.Last().IdApplicant + 1;
-			}
-		}
-		public ActionResult Index()
+        {
+            _context = context;
+            var applicants = _context.Applicant.Select(a => a).AsEnumerable();
+            idAppl = 1;
+            if (applicants.Count() > 0)
+            {
+                idAppl = applicants.Last().IdApplicant + 1;
+            }
+        }
+        public ActionResult Index()
 		{
 			return View("Inscriere");
 		}
 
 		[HttpPost]
 		[ValidateAntiForgeryToken]
-		public async Task<IActionResult> Inscriere([Bind("IdApplicant,Nume,Prenume,Facultate,Varsta,Adresa,Email,An,FilePath")] Applicant apl)
+		public async Task<IActionResult> Inscriere([Bind("IdApplicant,Nume,Prenume,Facultate,Varsta,Adresa,Email,An")] Applicant apl, IFormFile file)
 		{
-			System.Diagnostics.Debug.WriteLine(apl.Nume + " " + apl.Prenume + " " + apl.Adresa + " " + apl.FilePath);
 			if (ModelState.IsValid)
 			{
 				apl.Email = User.Identity.Name;
 				apl.IdApplicant = idAppl;
-				string fileName = Path.GetFileName(apl.FilePath).Replace(' ', '_');
+				//var file = Request.Form.Files["file"]; // Request.Form["input_name"] results input value for input_name
+				string path = Url.Content("wwwroot/UploadFiles/") + idAppl.ToString() + ".pdf";
+				using (FileStream stream = new FileStream(path, FileMode.Create))
+				{
+					await file.CopyToAsync(stream);
+				}
+				string fileName = idAppl.ToString() + ".pdf";
 				BlobServiceClient serviceClient = new BlobServiceClient("DefaultEndpointsProtocol=https;AccountName=camineuvtstorage;AccountKey=s9ifIu1cH0Y9KXCFhQTNED+VmEy1eECvG5HAFrUHWtmsO5zLC9eV1V+vj4rG2yJPntm7gOHE0baigX5YW8dQ/A==;EndpointSuffix=core.windows.net");
 				BlobContainerClient containerClient = serviceClient.GetBlobContainerClient("inscrieri");
-				FileStream fl = new FileStream("UploadFiles/" + apl.FilePath, FileMode.Open);
+				FileStream fl = new FileStream(path, FileMode.Open);
 				await containerClient.UploadBlobAsync(fileName, fl);
 				_context.Add(apl);
 				await _context.SaveChangesAsync();
@@ -66,12 +72,11 @@ namespace AplicatieCamine
 					plainTextContent,
 					htmlContent
 					);
-				var response = await client.SendEmailAsync(msg);
+				await client.SendEmailAsync(msg);
 				return RedirectToAction("Index", "Home");
 			}
 			return View();
 		}
-
 		public IEnumerable<BlobClient> GetAllBlobs(BlobContainerClient container)
 		{
 			foreach (BlobItem blob in container.GetBlobs(BlobTraits.None, BlobStates.None, string.Empty))

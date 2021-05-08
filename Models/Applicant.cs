@@ -16,6 +16,5 @@ namespace AplicatieCamine.Models
         public string Adresa { get; set; }
         public string Email { get; set; }
         public int An { get; set; }
-        public string FilePath { get; set; }
     }
 }
