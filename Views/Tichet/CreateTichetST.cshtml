@@ -29,26 +29,10 @@
             <h5 style="font-family:Garamond,serif; font-size: 36px; text-align: center">Care este problema?</h5>
         </div>
 
-        <div class="container-fluid">
-            <form asp-action="CreateTichetST" method="post">
-                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                <div class="form-group">
-                    <label asp-for="Detalii" class="control-label"></label>
-                    <input asp-for="Detalii" class="form-control" autocomplete="off" />
-                    <span asp-validation-for="Detalii" class="text-danger"></span>
-                </div>
-                <div class="form-group form-check">
-                    <label class="form-check-label">
-                        Important? <input class="checkImportant" asp-for="TipTichet" />
-                    </label>
-                </div>
-                <div class="form-group">
-                    <input type="submit" value="Trimite" class="create_button" />
-                    <a asp-action="Tichete" class="create_button">Înapoi</a>
-                </div>
-            </form>
-        </div>
-    </div>
+<div>
+	<form asp-acton = "Index" method="post">
+		<input class = "button" type = "submit" value = "Înapoi" />
+	</form>
 </div>
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

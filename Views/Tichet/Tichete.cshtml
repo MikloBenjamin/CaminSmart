@@ -25,11 +25,11 @@
     }
 </style>
 <div class="container-fluid d-flex justify-content-center mb-auto">
-    <div class="card w-75 p-3">
+    <div class="card">
         <div class="card-header header-elements-inline">
             <h5 style="font-family:Garamond,serif;font-size: 40px">Tichetele tale</h5>
             <div class="mb-2">
-                <a asp-action="CreateTichetST" class="create_button">Creează tichet nou!</a>
+                <a asp-action="CreateTichetST" class="create_button">Adaugă!</a>
                 <a asp-controller="Home" asp-action="Index" class="create_button">Înapoi</a>
             </div>
         </div>
@@ -37,16 +37,41 @@
         <div class="table-responsive">
             <table class="table table-hover">
                 <thead>
+                    <tr>
+                        <th>
+                            IdTichet
+                        </th>
+                        <th>
+                            DataEmitere
+                        </th>
+                        <th>
+                            DateRezolvare
+                        </th>
+                        <th>
+                            StatusTichet
+                        </th>
+                        <th>
+                            Detalii
+                        </th>
+                        <th>
+                            NrCamera
+                        </th>
+                        <th>
+                            Importanta
+                        </th>
+                        <th>
+                            Feedback
+                        </th>
+                        <th></th>
+                    </tr>
                 </thead>
                 <tbody>
                     @if (Enumerable.Count(tichete) == 0 || nr_camera == -1)
                     {
                         <tr>
-                            <td></td>
                             <td>
-                                <h1 style="font-family:Garamond,serif; text-align:center; color:red">Momentan nu ai niciun tichet!</h1> 
+                                Momentan nu ai niciun tichet!
                             </td>
-                            <td></td>
                         </tr>
                     }
                     else
@@ -55,33 +80,6 @@
                         {
                             string importanta = (item.TipTichet ? "DA" : "NU");
                             string rezolvat = (item.StatusTichet ? "Rezolvat" : "Nerezolvat");
-                            <tr>
-                                <th>
-                                    IdTichet
-                                </th>
-                                <th>
-                                    DataEmitere
-                                </th>
-                                <th>
-                                    DateRezolvare
-                                </th>
-                                <th>
-                                    StatusTichet
-                                </th>
-                                <th>
-                                    Detalii
-                                </th>
-                                <th>
-                                    NrCamera
-                                </th>
-                                <th>
-                                    Importanta
-                                </th>
-                                <th>
-                                    Feedback
-                                </th>
-                                <th></th>
-                            </tr>
                             <tr>
                                 <td>
                                     @item.IdTichet
