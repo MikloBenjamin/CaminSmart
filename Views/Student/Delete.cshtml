@@ -1,0 +1,104 @@
+﻿@model AplicatieCamine.Models.Student
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<<style>
+    .create_button {
+        border: none;
+        color: white;
+        background-color: #008CBA;
+        padding: 5px 15px;
+        text-align: center;
+        text-decoration: none;
+        font-size: 16px;
+        cursor: pointer;
+        transition-duration: 0.6s;
+        margin: 5px 0 5px 10px;
+    }
+</style>
+<link rel="stylesheet" href="~/css/styleTable.css">
+
+<div class="container-fluid d-flex justify-content-center mb-auto">
+    <div class="cardCreate">
+        <div class="card-header header-elements-inline ml-50 justify-content-center">
+            <h5 style="font-family:Garamond,serif; font-size: 40px"><b>Sigur vrei să ștergi?</b></h5>
+        </div>
+        <div class="container-fluid justify-content-center">
+            <div class="col-sm-15">
+                <p style="font-family:Garamond,serif; font-size: 18px; text-align:center">
+                    <b>@Html.DisplayNameFor(model => model.Nume):</b>
+                    @Html.DisplayFor(model => model.Nume)
+                </p>
+            </div>
+            <div class="col-sm-15">
+                <p style="font-family:Garamond,serif; font-size: 18px;text-align:center">
+                    <b>@Html.DisplayNameFor(model => model.Prenume):</b>
+                    @Html.DisplayFor(model => model.Prenume)
+                </p>
+            </div>
+            <div class="col-sm-15">
+                <p style="font-family:Garamond,serif; font-size: 18px; text-align:center">
+                    <b>@Html.DisplayNameFor(model => model.Facultate):</b>
+                    @Html.DisplayFor(model => model.Facultate)
+                </p>
+            </div>
+            <div class="col-sm-15">
+                <p style="font-family:Garamond,serif; font-size: 18px;text-align:center">
+                    <b>@Html.DisplayNameFor(model => model.Varsta):</b>
+                    @Html.DisplayFor(model => model.Varsta)
+                </p>
+            </div>
+            <div class="col-sm-15">
+                <p style="font-family:Garamond,serif; font-size: 18px; text-align:center">
+                    <b>@Html.DisplayNameFor(model => model.Adresa): </b>
+                    @Html.DisplayFor(model => model.Adresa)
+                </p>
+            </div>
+            <div class="col-sm-15">
+                <p style="font-family:Garamond,serif; font-size: 18px; text-align:center">
+                    <b>@Html.DisplayNameFor(model => model.Email): </b>
+                    @Html.DisplayFor(model => model.Email)
+                </p>
+            </div>
+            <div class="col-sm-15">
+                <p style="font-family:Garamond,serif; font-size: 18px; text-align:center">
+                    <b>@Html.DisplayNameFor(model => model.An): </b>
+                    @Html.DisplayFor(model => model.An)
+                </p>
+            </div>
+            <div class="col-sm-15">
+                <p style="font-family:Garamond,serif; font-size: 18px; text-align:center">
+                    <b>@Html.DisplayNameFor(model => model.StatusCazare): </b>
+                    @Html.DisplayFor(model => model.StatusCazare)
+                </p>
+            </div>
+            <div class="col-sm-15">
+                <p style="font-family:Garamond,serif; font-size: 18px; text-align:center">
+                    <b>@Html.DisplayNameFor(model => model.DataCazare): </b>
+                    @Html.DisplayFor(model => model.DataCazare)
+                </p>
+            </div>
+            <div class="col-sm-15">
+                <p style="font-family:Garamond,serif; font-size: 18px; text-align:center">
+                    <b>@Html.DisplayNameFor(model => model.DataDecazare): </b>
+                    @Html.DisplayFor(model => model.DataDecazare)
+                </p>
+            </div>
+            <div class="col-sm-15">
+                <p style="font-family:Garamond,serif; font-size: 18px; text-align:center">
+                    <b>@Html.DisplayNameFor(model => model.IdCameraNavigation.IdCamera): </b>
+                    @Html.DisplayFor(model => model.IdCameraNavigation.IdCamera)
+                </p>
+            </div>
+        </div>
+        <div class="mx-auto mb-2">
+            <form asp-action="Delete">
+                <input type="hidden" asp-for="IdStudent" />
+                <input type="submit" value="Delete" class="btn btn-danger" />
+            </form>
+        </div>
+        <a class="ml-5" asp-action="Index">Înapoi</a>
+    </div>
+</div>

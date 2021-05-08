@@ -14,8 +14,7 @@
     }
 }
 
-@if (isAdmin)// pentru Student
-@*if (User.IsInRole("admin"))*@
+@if (!isAdmin)
 {
 
     @section Styles{
@@ -69,7 +68,7 @@ else
         </form>
     </div>
     <div class="self-col text-center">
-        <p class="pr"><b>Am o problemă!</b></p>
+        <p style="font-size: 37px"><b>Am o problemă!</b></p>
         <p>Trimite tichet pentru a remedia problema sau vizualizază statusul tichetelor tale. </p>
         <p class="ic">
             <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-exclamation-triangle-fill" viewBox="0 0 16 16">
