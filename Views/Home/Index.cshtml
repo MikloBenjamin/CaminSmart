@@ -14,7 +14,7 @@
     }
 }
 
-@if (!isAdmin)
+@if (isAdmin)
 {
 
     @section Styles{
@@ -55,7 +55,7 @@
 else
 {
     <div class="self-col text-center">
-        <p style="font-size: 37px"><b>Structură Cămine</b></p>
+        <p style="font-size: 34px"><b>Structură Cămine</b></p>
         <p class="flexible">Vizualizare structură cămine.   Poți vedea informațiile despre fiecare cămin. </p>
         <p class="flexible">
             <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-building" viewBox="0 0 16 16">
@@ -68,7 +68,7 @@ else
         </form>
     </div>
     <div class="self-col text-center">
-        <p style="font-size: 37px"><b>Am o problemă!</b></p>
+        <p style="font-size: 34px"><b>Am o problemă!</b></p>
         <p>Trimite tichet pentru a remedia problema sau vizualizază statusul tichetelor tale. </p>
         <p class="ic">
             <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-exclamation-triangle-fill" viewBox="0 0 16 16">
@@ -84,7 +84,7 @@ else
         <div class="self-col text-center">
             <p style="font-size: 37px"><b>Status Cazare</b></p>
             <p>
-                 Dacă te-ai înscris în cămin, verifică statusul tău de cazare.
+                 Verifică statusul tău de cazare.
             </p>
             <p>
                 <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-bookmark-check" viewBox="0 0 16 16">
@@ -101,7 +101,7 @@ else
     else
     {
         <div class="self-col text-center">
-            <p><b>Vreau un loc în cămin!</b></p>
+            <p style="font-size: 34px"><b>Vreau un loc în cămin!</b></p>
             <p>
                 Nu ești înscris?
                 Înscrie-te pe pagină și ocupă locul în căminul dorit.
@@ -118,20 +118,4 @@ else
             </form>
         </div>
     }
-}
-@section Footer{
-    <footer>
-        <div><img class="logouvt" src="../Images/icons/uvt.png" /></div>
-        <div>
-            <div><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></div>
-            <div><p style="font-family:Garamond, serif; font-size: 32px">Smart Cămine UVT</p></div>
-        </div>
-        <div class="footer-icons">
-            <a href="https://www.facebook.com/uvtromania"><i class="fa fa-facebook"></i></a>
-            <a href="https://twitter.com/uvtromania"><i class="fa fa-twitter"></i></a>
-            <a href="https://www.instagram.com/uvt_romania/"><i class="fa fa-instagram"></i></a>
-            <a href="https://www.linkedin.com/school/west-university-of-timisoara/"><i class="fa fa-linkedin"></i></a>
-            <a href="https://www.youtube.com/channel/UC9rKWeN__ZbmqP3s-H6VcLA"><i class="fa fa-youtube"></i></a>
-        </div>
-    </footer>
 }

@@ -47,10 +47,7 @@
                         string link = "/UploadFiles/" + @item.Name;
                         <tr>
                             <td>
-                                <form asp-action="ViewFile" method="post">
-                                    <input type="submit" value="@item.Name" name="file" style="background: none; border: none; color: darkred;" />
-                                </form>
-                                @*<a href="@link" target="_blank">@Html.DisplayFor(modelItem => item.Name)</a>*@
+                                <a href="@link" target="_blank" style="background: none; border: none; color: darkred;">@Html.DisplayFor(modelItem => item.Name)</a>
                             </td>
                             <td>
                                 <a asp-action="Accept">Accept</a>

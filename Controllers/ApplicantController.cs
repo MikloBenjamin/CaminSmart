@@ -42,7 +42,6 @@ namespace AplicatieCamine
 			{
 				apl.Email = User.Identity.Name;
 				apl.IdApplicant = idAppl;
-				//var file = Request.Form.Files["file"]; // Request.Form["input_name"] results input value for input_name
 				string path = Url.Content("wwwroot/UploadFiles/") + idAppl.ToString() + ".pdf";
 				using (FileStream stream = new FileStream(path, FileMode.Create))
 				{
@@ -56,7 +55,6 @@ namespace AplicatieCamine
 				_context.Add(apl);
 				await _context.SaveChangesAsync();
 				idAppl++;
-				System.Diagnostics.Debug.WriteLine("Added applicant to DB and his file to Storage");
 
 				var apiKey = "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";
 				var client = new SendGridClient(apiKey);
@@ -73,6 +71,7 @@ namespace AplicatieCamine
 					htmlContent
 					);
 				await client.SendEmailAsync(msg);
+				System.Diagnostics.Debug.WriteLine("Email successfully sent!");
 				return RedirectToAction("Index", "Home");
 			}
 			return View();
@@ -90,16 +89,20 @@ namespace AplicatieCamine
 			BlobServiceClient serviceClient = new BlobServiceClient("DefaultEndpointsProtocol=https;AccountName=camineuvtstorage;AccountKey=s9ifIu1cH0Y9KXCFhQTNED+VmEy1eECvG5HAFrUHWtmsO5zLC9eV1V+vj4rG2yJPntm7gOHE0baigX5YW8dQ/A==;EndpointSuffix=core.windows.net");
 			BlobContainerClient containerClient = serviceClient.GetBlobContainerClient("inscrieri");
 			var model = GetAllBlobs(containerClient);
+			var files = System.IO.Directory.GetFiles(@"wwwroot/UploadFiles");
+			System.Diagnostics.Debug.WriteLine(files.ToString());
+			foreach (BlobItem blob in containerClient.GetBlobs(BlobTraits.None, BlobStates.None, string.Empty))
+			{
+				if (!files.Contains(blob.Name)){
+					BlobClient bl = containerClient.GetBlobClient(blob.Name);
+					var blobProperties = await bl.GetPropertiesAsync();
+					using(FileStream file = new FileStream(Url.Content("wwwroot/UploadFiles/") + blob.Name, FileMode.Create))
+					{
+						await bl.DownloadToAsync(file);
+					}
+				}
+			}
 			return View(model);
-		}
-
-		[HttpPost]
-		public void ViewPdf()
-		{
-			var form = Request.Form;
-			string name = form["file"];
-			string filePath = "UploadFiles/" + name;
-			Response.ContentType = "application/pdf";
 		}
 	}
 }
