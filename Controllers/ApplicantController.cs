@@ -42,12 +42,12 @@ namespace AplicatieCamine
 			{
 				apl.Email = User.Identity.Name;
 				apl.IdApplicant = idAppl;
-				string path = Url.Content("wwwroot/UploadFiles/") + idAppl.ToString() + ".pdf";
+				string path = Url.Content("wwwroot/UploadFiles/") + apl.Nume + "_" + apl.Prenume + "_" + idAppl.ToString() + ".pdf";
 				using (FileStream stream = new FileStream(path, FileMode.Create))
 				{
 					await file.CopyToAsync(stream);
 				}
-				string fileName = idAppl.ToString() + ".pdf";
+				string fileName = apl.Nume + "_" + apl.Prenume + "_" + idAppl.ToString() + ".pdf";
 				BlobServiceClient serviceClient = new BlobServiceClient("DefaultEndpointsProtocol=https;AccountName=camineuvtstorage;AccountKey=s9ifIu1cH0Y9KXCFhQTNED+VmEy1eECvG5HAFrUHWtmsO5zLC9eV1V+vj4rG2yJPntm7gOHE0baigX5YW8dQ/A==;EndpointSuffix=core.windows.net");
 				BlobContainerClient containerClient = serviceClient.GetBlobContainerClient("inscrieri");
 				FileStream fl = new FileStream(path, FileMode.Open);
@@ -76,7 +76,7 @@ namespace AplicatieCamine
 			}
 			return View();
 		}
-		public IEnumerable<BlobClient> GetAllBlobs(BlobContainerClient container)
+		public IEnumerable<BlobClient> GetAllBlobs(BlobContainerClient container, IEnumerable<string> applicants)
 		{
 			foreach (BlobItem blob in container.GetBlobs(BlobTraits.None, BlobStates.None, string.Empty))
 			{
@@ -86,9 +86,10 @@ namespace AplicatieCamine
 
 		public async Task<IActionResult> Applicants()
 		{
+			var applicants = _context.Applicant.Select(apl => apl.Nume + "_" + apl.Prenume + "_" + apl.IdApplicant).AsEnumerable();
 			BlobServiceClient serviceClient = new BlobServiceClient("DefaultEndpointsProtocol=https;AccountName=camineuvtstorage;AccountKey=s9ifIu1cH0Y9KXCFhQTNED+VmEy1eECvG5HAFrUHWtmsO5zLC9eV1V+vj4rG2yJPntm7gOHE0baigX5YW8dQ/A==;EndpointSuffix=core.windows.net");
 			BlobContainerClient containerClient = serviceClient.GetBlobContainerClient("inscrieri");
-			var model = GetAllBlobs(containerClient);
+			var model = GetAllBlobs(containerClient, applicants);
 			var files = System.IO.Directory.GetFiles(@"wwwroot/UploadFiles");
 			System.Diagnostics.Debug.WriteLine(files.ToString());
 			foreach (BlobItem blob in containerClient.GetBlobs(BlobTraits.None, BlobStates.None, string.Empty))
@@ -103,6 +104,36 @@ namespace AplicatieCamine
 				}
 			}
 			return View(model);
+		}
+		[HttpPost]
+		public IActionResult Accept()
+		{
+			string applNameID = Request.Form["file"];
+			int toAccept = Int32.Parse(applNameID.Split(".")[0].Split("_")[2]);
+
+			Applicant aplc = _context.Applicant.Where(apl => apl.IdApplicant == toAccept).First();
+			
+			return RedirectToAction("AcceptApplicant", "Student", new { 
+				id = aplc.IdApplicant, nume = aplc.Nume, prenume = aplc.Prenume, facultate = aplc.Facultate,
+				email = aplc.Email, adresa = aplc.Adresa, an = aplc.An, varsta = aplc.Varsta
+			});
+		}
+		[HttpPost]
+		public async Task<IActionResult> Refuse()
+		{
+			string applNameID = Request.Form["file"];
+			int toAccept = Int32.Parse(applNameID.Split(".")[0].Split("_")[2]);
+
+			var aplc = _context.Applicant.Where(apl => apl.IdApplicant == toAccept);
+			if (aplc.Count() > 0)
+			{
+				_context.Remove(aplc.First());
+			}
+			await _context.SaveChangesAsync();
+			BlobServiceClient serviceClient = new BlobServiceClient("DefaultEndpointsProtocol=https;AccountName=camineuvtstorage;AccountKey=s9ifIu1cH0Y9KXCFhQTNED+VmEy1eECvG5HAFrUHWtmsO5zLC9eV1V+vj4rG2yJPntm7gOHE0baigX5YW8dQ/A==;EndpointSuffix=core.windows.net");
+			BlobContainerClient containerClient = serviceClient.GetBlobContainerClient("inscrieri");
+			containerClient.DeleteBlob(applNameID);
+			return RedirectToAction("Applicants");
 		}
 	}
 }

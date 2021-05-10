@@ -14,7 +14,7 @@
     }
 }
 
-@if (isAdmin)
+@if (!isAdmin)
 {
 
     @section Styles{
@@ -47,7 +47,7 @@
             </form>
 
             <form class="right tothetop right-camin-tichet-aplic top-admin-aplic" asp-controller="Home" asp-action="Applicants" method="post">
-                <input class="adminButtons" type="submit" value="Applicanți" />
+                <input class="adminButtons" type="submit" value="Aplicanți" />
             </form>
         </div>
     </div>

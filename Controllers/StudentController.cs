@@ -20,6 +20,7 @@ namespace AplicatieCamine
         public StudentController(DBSistemContext context)
         {
             _context = context;
+            id_student = context.Student.Count() + 1;
         }
 
         public IActionResult Home()
@@ -92,6 +93,72 @@ namespace AplicatieCamine
             }
             ViewData["IdCamera"] = new SelectList(_context.Camere, "IdCamera", "IdCamera", student.IdCamera);
             return View(student);
+        }
+
+        private async Task<bool> DeleteApplicant(string bname, int id)
+		{
+            var aplc = _context.Applicant.Where(apl => apl.IdApplicant == id);
+            if (aplc.Count() > 0)
+            {
+                _context.Remove(aplc.First());
+            }
+            await _context.SaveChangesAsync();
+            BlobServiceClient serviceClient = new BlobServiceClient("DefaultEndpointsProtocol=https;AccountName=camineuvtstorage;AccountKey=s9ifIu1cH0Y9KXCFhQTNED+VmEy1eECvG5HAFrUHWtmsO5zLC9eV1V+vj4rG2yJPntm7gOHE0baigX5YW8dQ/A==;EndpointSuffix=core.windows.net");
+            BlobContainerClient containerClient = serviceClient.GetBlobContainerClient("inscrieri");
+            containerClient.DeleteBlob(bname);
+            return true;
+		}
+
+        public async Task<IActionResult> AcceptApplicant(
+            int id, string nume, string prenume, string facultate, 
+            string email, string adresa, int an, int varsta
+           )
+        {
+			Student student = new Student
+			{
+				IdStudent = id_student++,
+				Nume = nume,
+				Prenume = prenume,
+				Facultate = facultate,
+				Adresa = adresa,
+				Email = email,
+				Varsta = varsta,
+				An = an,
+				StatusCazare = 1,
+				DataCazare = DateTime.Now,
+				DataDecazare = null,
+				IdCamera = -1
+			};
+            System.Diagnostics.Debug.WriteLine(student.Adresa + " " + student.Nume);
+			var camine = _context.Camine.ToList();
+            foreach(var camin in camine)
+			{
+                bool found = false;
+                var camere = _context.Camere.Where(cam => cam.IdCamin == camin.IdCamin).ToList();
+                foreach(var camera in camere)
+				{
+                    if(camera.NrStudentiCazati < camera.LimitaNrStudenti)
+					{
+                        found = true;
+                        student.IdCamera = camera.IdCamera;
+                        break;
+					}
+				}
+                if(found == true)
+				{
+                    break;
+				}
+			}
+
+
+            if(student.IdCamera != -1)
+			{
+                _context.Add(student);
+                await _context.SaveChangesAsync();
+                await DeleteApplicant(nume + "_" + prenume + "_" + id, id);
+                return RedirectToAction("Applicants", "Applicant");
+			}
+            return NotFound();
         }
 
         // GET: Student/Edit/5

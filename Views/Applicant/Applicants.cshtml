@@ -50,11 +50,17 @@
                                 <a href="@link" target="_blank" style="background: none; border: none; color: darkred;">@Html.DisplayFor(modelItem => item.Name)</a>
                             </td>
                             <td>
-                                <a asp-action="Accept">Accept</a>
+                                <form asp-action="Accept" method="post" enctype="multipart/form-data">
+                                    <input type="hidden" name="file" value="@item.Name"/>
+                                    <input type="submit" value="Accept" />
+                                </form>
                             </td>
-                            <td>
-                                <a asp-action="Refuse">Refuzare</a>
-                            </td>
+							<td>
+								<form asp-action="Refuse" method="post" enctype="multipart/form-data">
+									<input type="hidden" name="file" value="@item.Name" />
+									<input type="submit" value="Refuzare" />
+								</form>
+							</td>
                         </tr>
                     }
                 </tbody>
