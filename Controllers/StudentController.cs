@@ -41,7 +41,7 @@ namespace AplicatieCamine
             return View(await dBSistemContext.ToListAsync());
         }
 
-        public async Task<IActionResult> Status()
+        public IActionResult Status()
 		{
             var id = _context.Student.Where(st => st.Email == User.Identity.Name).Select(st => st);
             if(id.Count() > 0)
@@ -248,5 +248,21 @@ namespace AplicatieCamine
         {
             return _context.Student.Any(e => e.IdStudent == id);
         }
+
+        public IActionResult CleanServer()
+		{
+            var files = System.IO.Directory.GetFiles(@"wwwroot/UploadFiles");
+            BlobServiceClient serviceClient = new BlobServiceClient("DefaultEndpointsProtocol=https;AccountName=camineuvtstorage;AccountKey=s9ifIu1cH0Y9KXCFhQTNED+VmEy1eECvG5HAFrUHWtmsO5zLC9eV1V+vj4rG2yJPntm7gOHE0baigX5YW8dQ/A==;EndpointSuffix=core.windows.net");
+            BlobContainerClient containerClient = serviceClient.GetBlobContainerClient("inscrieri");
+            var blobs = containerClient.GetBlobs().Select(bl => bl.Name);
+            foreach(string file in files)
+			{
+				if (!blobs.Contains(file))
+				{
+                    System.IO.File.Delete(file);
+				}
+			}
+            return RedirectToAction("Home");
+		}
     }
 }
