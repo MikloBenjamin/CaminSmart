@@ -8,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using AplicatieCamine.Models;
 using System.Dynamic;
 using Microsoft.AspNetCore.Authorization;
+using SendGrid;
+using SendGrid.Helpers.Mail;
 
 namespace AplicatieCamine
 {
@@ -202,6 +204,23 @@ namespace AplicatieCamine
             {
                 try
                 {
+                    var email_student = _context.Student.Where(a => a.IdStudent == tichet.IdStudent).Select(a => a.Email).First();
+                    var apiKey = "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";
+                    var client = new SendGridClient(apiKey);
+                    var from = new EmailAddress("florin.marut99@e-uvt.ro", "Florin");
+                    var to = new EmailAddress(email_student, "Florin");
+                    var subject = "Cazarea ta a fost înregistrată cu succes!";
+                    var plainTextContent = "Tichetul cu ID-ul" + tichet.IdTichet + " si-a actualizat statusul";
+                    var htmlContent = "<strong>Tichetul cu ID-ul" + tichet.IdTichet + " si-a actualizat statusul</strong>";
+                    var msg = MailHelper.CreateSingleEmail(
+                        from,
+                        to,
+                        subject,
+                        plainTextContent,
+                        htmlContent
+                        );
+                    await client.SendEmailAsync(msg);
+                    System.Diagnostics.Debug.WriteLine("Email successfully sent!");
                     _context.Update(tichet);
                     await _context.SaveChangesAsync();
                     //Aici trimitem Email la student
