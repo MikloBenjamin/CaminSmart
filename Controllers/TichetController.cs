@@ -211,6 +211,8 @@ namespace AplicatieCamine
             {
                 try
                 {
+                    _context.Update(tichet);
+                    await _context.SaveChangesAsync();
                     var email_student = _context.Student.Where(a => a.IdStudent == tichet.IdStudent).Select(a => a.Email).First();
                     var apiKey = "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";
                     var client = new SendGridClient(apiKey);
@@ -228,8 +230,6 @@ namespace AplicatieCamine
                         );
                     await client.SendEmailAsync(msg);
                     System.Diagnostics.Debug.WriteLine("Email successfully sent!");
-                    _context.Update(tichet);
-                    await _context.SaveChangesAsync();
                     //Aici trimitem Email la student
                 }
                 catch (DbUpdateConcurrencyException)
