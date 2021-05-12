@@ -82,7 +82,7 @@ namespace AplicatieCamine
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("IdStudent,Nume,Prenume,Facultate,Varsta,Adresa,Email,An,StatusCazare,IdCamera,DataCazare,DataDecazare")] Student student)
+        public async Task<IActionResult> Create([Bind("IdStudent,Nume,Prenume,Facultate,Varsta,Adresa,Email,An,IdCamera,DataCazare")] Student student)
         {
             if (ModelState.IsValid)
             {
@@ -124,9 +124,7 @@ namespace AplicatieCamine
 				Email = email,
 				Varsta = varsta,
 				An = an,
-				StatusCazare = 1,
 				DataCazare = DateTime.Now,
-				DataDecazare = null,
 				IdCamera = -1
 			};
             System.Diagnostics.Debug.WriteLine(student.Adresa + " " + student.Nume);
@@ -183,7 +181,7 @@ namespace AplicatieCamine
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("IdStudent,Nume,Prenume,Facultate,Varsta,Adresa,Email,An,StatusCazare,IdCamera,DataCazare,DataDecazare")] Student student)
+        public async Task<IActionResult> Edit(int id, [Bind("IdStudent,Nume,Prenume,Facultate,Varsta,Adresa,Email,An,IdCamera,DataCazare")] Student student)
         {
             if (id != student.IdStudent)
             {

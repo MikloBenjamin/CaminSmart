@@ -215,10 +215,6 @@ namespace AplicatieCamine.Models
                     .HasColumnName("data_cazare")
                     .HasColumnType("date");
 
-                entity.Property(e => e.DataDecazare)
-                    .HasColumnName("data_decazare")
-                    .HasColumnType("date");
-
                 entity.Property(e => e.Email)
                     .IsRequired()
                     .HasColumnName("email")
@@ -244,8 +240,6 @@ namespace AplicatieCamine.Models
                     .HasColumnName("prenume")
                     .HasMaxLength(50)
                     .IsUnicode(false);
-
-                entity.Property(e => e.StatusCazare).HasColumnName("status_cazare");
 
                 entity.Property(e => e.Varsta).HasColumnName("varsta");
 

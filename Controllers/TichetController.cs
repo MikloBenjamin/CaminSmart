@@ -129,7 +129,6 @@ namespace AplicatieCamine
                 tichet.DateRezolvare = null;
                 tichet.StatusTichet = false;
                 tichet.Detalii = Request.Form["Detalii"];
-                tichet.TipTichet = (Request.Form["TipTichet"].Count() != 0);
                 var stid = _context.Student.Where(a => a.Email == User.Identity.Name).Select(a => a).AsEnumerable();
                 tichet.IdStudent = stid.First().IdStudent;
                 if (stid.Count() > 0)
@@ -202,6 +201,17 @@ namespace AplicatieCamine
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("IdTichet,IdStudent,DataEmitere,DateRezolvare,StatusTichet,Detalii,TipTichet,IdCamera,Feedback")] Tichet tichet)
         {
+            tichet.IdTichet = id;
+/*            var updated_tichet = await _context.Tichet.FindAsync(id);
+            updated_tichet.IdStudent = tichet.IdStudent;
+            updated_tichet.DataEmitere = tichet.DataEmitere;
+            updated_tichet.DateRezolvare = tichet.DateRezolvare;
+            updated_tichet.StatusTichet = tichet.StatusTichet;
+            updated_tichet.Detalii = tichet.Detalii;
+            updated_tichet.TipTichet = tichet.TipTichet;
+            updated_tichet.IdCamera = tichet.IdCamera;
+            updated_tichet.Feedback = tichet.Feedback;*/
+
             if (id != tichet.IdTichet)
             {
                 return NotFound();
@@ -211,16 +221,19 @@ namespace AplicatieCamine
             {
                 try
                 {
-                    _context.Update(tichet);
+                    var tc = _context.Tichet.First(entry => entry.IdTichet == id);
+                    tichet.IdCamera = tc.IdCamera;
+                    _context.Entry(tc).CurrentValues.SetValues(tichet);
+                    //_context.Tichet.Update(tichet);
                     await _context.SaveChangesAsync();
                     var email_student = _context.Student.Where(a => a.IdStudent == tichet.IdStudent).Select(a => a.Email).First();
                     var apiKey = "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";
                     var client = new SendGridClient(apiKey);
                     var from = new EmailAddress("florin.marut99@e-uvt.ro", "Florin");
                     var to = new EmailAddress(email_student, "Florin");
-                    var subject = "Cazarea ta a fost înregistrată cu succes!";
-                    var plainTextContent = "Tichetul cu ID-ul" + tichet.IdTichet + " si-a actualizat statusul";
-                    var htmlContent = "<strong>Tichetul cu ID-ul" + tichet.IdTichet + " si-a actualizat statusul</strong>";
+                    var subject = "Administratorul a modificat tichetul tau!";
+                    var plainTextContent = "Tichetul cu ID-ul " + tichet.IdTichet + " a fost actualizat!";
+                    var htmlContent = "<strong>Tichetul cu ID-ul " + tichet.IdTichet + " a fost actualizat!</strong>";
                     var msg = MailHelper.CreateSingleEmail(
                         from,
                         to,
@@ -230,7 +243,6 @@ namespace AplicatieCamine
                         );
                     await client.SendEmailAsync(msg);
                     System.Diagnostics.Debug.WriteLine("Email successfully sent!");
-                    //Aici trimitem Email la student
                 }
                 catch (DbUpdateConcurrencyException)
                 {

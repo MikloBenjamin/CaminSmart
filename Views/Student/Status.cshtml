@@ -1,8 +1,6 @@
 ﻿@model AplicatieCamine.Models.Student
 
-@{ ViewData["Title"] = "Status";
-    var status = ((Model.StatusCazare == 1) ? "Cazat" : "Nu este cazat");
-    }
+@{ ViewData["Title"] = "Status"; }
 <style>
     main {
         flex-direction: column;
@@ -77,20 +75,8 @@
                 </div>
                 <div class="col-sm-15">
                     <p style="font-family:Garamond,serif; font-size: 18px; text-align:center">
-                        <b>Status cazare: </b>
-                        @status
-                    </p>
-                </div>
-                <div class="col-sm-15">
-                    <p style="font-family:Garamond,serif; font-size: 18px; text-align:center">
                         <b>@Html.DisplayNameFor(model => model.DataCazare): </b>
                         @Html.DisplayFor(model => model.DataCazare)
-                    </p>
-                </div>
-                <div class="col-sm-15">
-                    <p style="font-family:Garamond,serif; font-size: 18px; text-align:center">
-                        <b>@Html.DisplayNameFor(model => model.DataDecazare): </b>
-                        @Html.DisplayFor(model => model.DataDecazare)
                     </p>
                 </div>
                 <div class="col-sm-15">
