@@ -30,7 +30,7 @@
         <div class="container-fluid">
 			<form asp-action="Edit">
 				<div asp-validation-summary="ModelOnly" class="text-danger"></div>
-				<input type="hidden" asp-for="IdTichet" name="id"/>
+				<input type="hidden" asp-for="IdTichet" name="id" />
 				<div class="form-group" disabled>
 					<label asp-for="IdStudent" class="control-label"></label>
 					<select asp-for="IdStudent" class="form-control" asp-items="ViewBag.IdStudent"></select>
@@ -66,6 +66,9 @@
 						Feedback:
 						<input class="form-check-input" asp-for="Feedback" /> @Html.DisplayNameFor(model => model.Feedback)
 					</label>
+				</div>
+				<div class="col-sm-15">
+					<a href="@Url.Content("~/TichetImages/" + Model.FileName)"><img src="@Url.Content("~/TichetImages/" + Model.FileName)" width="60" height="60" /></a>
 				</div>
 				<div class="justify-content-center">
 					<input type="submit" value="Salvează" class="create_button" />

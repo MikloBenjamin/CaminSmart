@@ -20,7 +20,7 @@ namespace AplicatieCamine
         public StudentController(DBSistemContext context)
         {
             _context = context;
-            id_student = context.Student.Count() + 1;
+            id_student = context.Student.ToList().Last().IdStudent + 1;
         }
 
         public IActionResult Home()
@@ -89,7 +89,8 @@ namespace AplicatieCamine
                 _context.Add(student);
                 await _context.SaveChangesAsync();
                 id_student++;
-                return RedirectToAction(nameof(Index));
+                string controller = "Student", action = "Index";
+                return RedirectToAction("UpdateNrStudentCazati", "Camere", new { id = (int)student.IdCamera, raction = action, rcontroller = controller });
             }
             ViewData["IdCamera"] = new SelectList(_context.Camere, "IdCamera", "IdCamera", student.IdCamera);
             return View(student);
@@ -105,7 +106,10 @@ namespace AplicatieCamine
             await _context.SaveChangesAsync();
             BlobServiceClient serviceClient = new BlobServiceClient("DefaultEndpointsProtocol=https;AccountName=camineuvtstorage;AccountKey=s9ifIu1cH0Y9KXCFhQTNED+VmEy1eECvG5HAFrUHWtmsO5zLC9eV1V+vj4rG2yJPntm7gOHE0baigX5YW8dQ/A==;EndpointSuffix=core.windows.net");
             BlobContainerClient containerClient = serviceClient.GetBlobContainerClient("inscrieri");
-            containerClient.DeleteBlob(bname);
+            if(containerClient.GetBlobClient(bname).Exists())
+			{
+                containerClient.DeleteBlob(bname);
+			}
             return true;
 		}
 
@@ -114,7 +118,8 @@ namespace AplicatieCamine
             string email, string adresa, int an, int varsta
            )
         {
-			Student student = new Student
+            System.Diagnostics.Debug.WriteLine("Id student = " + id_student.ToString() + "\n");
+            Student student = new Student
 			{
 				IdStudent = id_student++,
 				Nume = nume,
@@ -127,7 +132,6 @@ namespace AplicatieCamine
 				DataCazare = DateTime.Now,
 				IdCamera = -1
 			};
-            System.Diagnostics.Debug.WriteLine(student.Adresa + " " + student.Nume);
 			var camine = _context.Camine.ToList();
             foreach(var camin in camine)
 			{
@@ -154,7 +158,8 @@ namespace AplicatieCamine
                 _context.Add(student);
                 await _context.SaveChangesAsync();
                 await DeleteApplicant(nume + "_" + prenume + "_" + id, id);
-                return RedirectToAction("Applicants", "Applicant");
+                string controller = "Applicant", action = "Applicants";
+                return RedirectToAction("UpdateNrStudentCazati", "Camere", new { id = (int)student.IdCamera, raction = action, rcontroller = controller });
 			}
             return NotFound();
         }
@@ -249,9 +254,9 @@ namespace AplicatieCamine
 
         public IActionResult CleanServer()
 		{
-            var files = System.IO.Directory.GetFiles(@"wwwroot/UploadFiles");
             BlobServiceClient serviceClient = new BlobServiceClient("DefaultEndpointsProtocol=https;AccountName=camineuvtstorage;AccountKey=s9ifIu1cH0Y9KXCFhQTNED+VmEy1eECvG5HAFrUHWtmsO5zLC9eV1V+vj4rG2yJPntm7gOHE0baigX5YW8dQ/A==;EndpointSuffix=core.windows.net");
             BlobContainerClient containerClient = serviceClient.GetBlobContainerClient("inscrieri");
+            var files = System.IO.Directory.GetFiles(@"wwwroot/UploadFiles");
             var blobs = containerClient.GetBlobs().Select(bl => bl.Name);
             foreach(string file in files)
 			{
@@ -260,6 +265,17 @@ namespace AplicatieCamine
                     System.IO.File.Delete(file);
 				}
 			}
+
+            containerClient = serviceClient.GetBlobContainerClient("tichete");
+            files = System.IO.Directory.GetFiles(@"wwwroot/TichetImages");
+            blobs = containerClient.GetBlobs().Select(bl => bl.Name);
+            foreach (string file in files)
+            {
+                if (!blobs.Contains(file))
+                {
+                    System.IO.File.Delete(file);
+                }
+            }
             return RedirectToAction("Home");
 		}
     }

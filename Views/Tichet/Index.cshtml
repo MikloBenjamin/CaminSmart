@@ -73,40 +73,44 @@
                 <tbody>
                     @foreach (var item in Model)
                     {
-                        <tr>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.IdTichet)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.DataEmitere)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.DateRezolvare)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.StatusTichet)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Detalii)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.TipTichet)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.IdStudentNavigation.IdStudent)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.IdCamera)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Feedback)
-                            </td>
-                            <td colspan="3">
-                                <a asp-action="Edit" asp-route-id="@item.IdTichet">Editează</a> |
-                                <a asp-action="Details" asp-route-id="@item.IdTichet">Detalii</a> |
-                                <a asp-action="Delete" asp-route-id="@item.IdTichet">Șterge</a>
-                            </td>
-                        </tr>
+                        string file_name = item.FileName;
+					<tr>
+						<td>
+							@Html.DisplayFor(modelItem => item.IdTichet)
+						</td>
+						<td>
+							@Html.DisplayFor(modelItem => item.DataEmitere)
+						</td>
+						<td>
+							@Html.DisplayFor(modelItem => item.DateRezolvare)
+						</td>
+						<td>
+							@Html.DisplayFor(modelItem => item.StatusTichet)
+						</td>
+						<td>
+							@Html.DisplayFor(modelItem => item.Detalii)
+						</td>
+						<td>
+							@Html.DisplayFor(modelItem => item.TipTichet)
+						</td>
+						<td>
+							@Html.DisplayFor(modelItem => item.IdStudentNavigation.IdStudent)
+						</td>
+						<td>
+							@Html.DisplayFor(modelItem => item.IdCamera)
+						</td>
+						<td>
+							@Html.DisplayFor(modelItem => item.Feedback)
+						</td>
+						<td>
+							<a href="@Url.Content("~/TichetImages/" + file_name)"><img src="@Url.Content("~/TichetImages/" + file_name)" width="40" height="40" /></a>
+						</td>
+						<td colspan="3">
+							<a asp-action="Edit" asp-route-id="@item.IdTichet">Editează</a> |
+							<a asp-action="Details" asp-route-id="@item.IdTichet">Detalii</a> |
+							<a asp-action="Delete" asp-route-id="@item.IdTichet">Șterge</a>
+						</td>
+					</tr>
                     }
                 </tbody>
             </table>

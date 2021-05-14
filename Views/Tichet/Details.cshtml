@@ -32,56 +32,59 @@
         <div class="card-header header-elements-inline ml-50 justify-content-center">
             <h5 style="font-family:Garamond,serif; font-size: 40px"><b>Detalii Tichet</b></h5>
         </div>
-        <div class="container-fluid justify-content-center">
-            <div class="col-sm-15">
-                <p style="font-family:Garamond,serif; font-size: 18px; text-align:center">
-                    <b>@Html.DisplayNameFor(model => model.IdTichet):</b>
-                    @Html.DisplayFor(model => model.IdTichet)
-                </p>
-            </div>
-            <div class="col-sm-15">
-                <p style="font-family:Garamond,serif; font-size: 18px; text-align:center">
-                    <b>@Html.DisplayNameFor(model => model.DataEmitere):</b>
-                    @Html.DisplayFor(model => model.DataEmitere)
-                </p>
-            </div>
-            <div class="col-sm-15">
-                <p style="font-family:Garamond,serif; font-size: 18px;text-align:center">
-                    <b>@Html.DisplayNameFor(model => model.DateRezolvare):</b>
-                    @Html.DisplayFor(model => model.DateRezolvare)
-                </p>
-            </div>
-            <div class="col-sm-15">
-                <p style="font-family:Garamond,serif; font-size: 18px; text-align:center">
-                    <b>@Html.DisplayNameFor(model => model.StatusTichet):</b>
-                    @Html.DisplayFor(model => model.StatusTichet)
-                </p>
-            </div>
-            <div class="col-sm-15">
-                <p style="font-family:Garamond,serif; font-size: 18px;text-align:center">
-                    <b>@Html.DisplayNameFor(model => model.Detalii):</b>
-                    @Html.DisplayFor(model => model.Detalii)
-                </p>
-            </div>
-            <div class="col-sm-15">
-                <p style="font-family:Garamond,serif; font-size: 18px; text-align:center">
-                    <b>@Html.DisplayNameFor(model => model.TipTichet): </b>
-                    @Html.DisplayFor(model => model.TipTichet)
-                </p>
-            </div>
-            <div class="col-sm-15">
-                <p style="font-family:Garamond,serif; font-size: 18px; text-align:center">
-                    <b>@Html.DisplayNameFor(model => model.IdStudentNavigation): </b>
-                    @Html.DisplayFor(model => model.IdStudentNavigation.IdStudent)
-                </p>
-            </div>
-            <div class="col-sm-15">
-                <p style="font-family:Garamond,serif; font-size: 18px; text-align:center">
-                    <b>@Html.DisplayNameFor(model => model.IdCamera): </b>
-                    @Html.DisplayFor(model => model.IdCamera)
-                </p>
-            </div>
-        </div>
+		<div class="container-fluid justify-content-center">
+			<div class="col-sm-15">
+				<p style="font-family:Garamond,serif; font-size: 18px; text-align:center">
+					<b>@Html.DisplayNameFor(model => model.IdTichet):</b>
+					@Html.DisplayFor(model => model.IdTichet)
+				</p>
+			</div>
+			<div class="col-sm-15">
+				<p style="font-family:Garamond,serif; font-size: 18px; text-align:center">
+					<b>@Html.DisplayNameFor(model => model.DataEmitere):</b>
+					@Html.DisplayFor(model => model.DataEmitere)
+				</p>
+			</div>
+			<div class="col-sm-15">
+				<p style="font-family:Garamond,serif; font-size: 18px;text-align:center">
+					<b>@Html.DisplayNameFor(model => model.DateRezolvare):</b>
+					@Html.DisplayFor(model => model.DateRezolvare)
+				</p>
+			</div>
+			<div class="col-sm-15">
+				<p style="font-family:Garamond,serif; font-size: 18px; text-align:center">
+					<b>@Html.DisplayNameFor(model => model.StatusTichet):</b>
+					@Html.DisplayFor(model => model.StatusTichet)
+				</p>
+			</div>
+			<div class="col-sm-15">
+				<p style="font-family:Garamond,serif; font-size: 18px;text-align:center">
+					<b>@Html.DisplayNameFor(model => model.Detalii):</b>
+					@Html.DisplayFor(model => model.Detalii)
+				</p>
+			</div>
+			<div class="col-sm-15">
+				<p style="font-family:Garamond,serif; font-size: 18px; text-align:center">
+					<b>@Html.DisplayNameFor(model => model.TipTichet): </b>
+					@Html.DisplayFor(model => model.TipTichet)
+				</p>
+			</div>
+			<div class="col-sm-15">
+				<p style="font-family:Garamond,serif; font-size: 18px; text-align:center">
+					<b>@Html.DisplayNameFor(model => model.IdStudentNavigation): </b>
+					@Html.DisplayFor(model => model.IdStudentNavigation.IdStudent)
+				</p>
+			</div>
+			<div class="col-sm-15">
+				<p style="font-family:Garamond,serif; font-size: 18px; text-align:center">
+					<b>@Html.DisplayNameFor(model => model.IdCamera): </b>
+					@Html.DisplayFor(model => model.IdCamera)
+				</p>
+			</div>
+			<div class="col-sm-15">
+				<a href="@Url.Content("~/TichetImages/" + Model.FileName)"><img src="@Url.Content("~/TichetImages/" + Model.FileName)" width="60" height="60" /></a>
+			</div>
+		</div>
         <div class="mx-auto mb-2">
             @if (isAdmin)
             {

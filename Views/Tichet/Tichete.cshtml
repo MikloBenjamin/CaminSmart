@@ -51,37 +51,41 @@
 					}
 					else
 					{
-						<tr>
-							<th>
-								IdTichet
-							</th>
-							<th>
-								DataEmitere
-							</th>
-							<th>
-								DateRezolvare
-							</th>
-							<th>
-								StatusTichet
-							</th>
-							<th>
-								Detalii
-							</th>
-							<th>
-								NrCamera
-							</th>
-							<th>
-								Importanta
-							</th>
-							<th>
-								Feedback
-							</th>
-							<th></th>
-						</tr>
+				<tr>
+					<th>
+						IdTichet
+					</th>
+					<th>
+						DataEmitere
+					</th>
+					<th>
+						DateRezolvare
+					</th>
+					<th>
+						StatusTichet
+					</th>
+					<th>
+						Detalii
+					</th>
+					<th>
+						NrCamera
+					</th>
+					<th>
+						Importanta
+					</th>
+					<th>
+						Feedback
+					</th>
+					<th>
+						Image
+					</th>
+					<th></th>
+				</tr>
 						@foreach (var item in tichete)
 						{
 							string importanta = (item.TipTichet ? "DA" : "NU");
 							string rezolvat = (item.StatusTichet ? "Rezolvat" : "Nerezolvat");
+							string file_name = item.FileName;
 							<tr>
 								<td>
 									@item.IdTichet
@@ -106,6 +110,9 @@
 								</td>
 								<td>
 									@item.Feedback
+								</td>
+								<td>
+									<a href="@Url.Content("~/TichetImages/" + file_name)"><img src="@Url.Content("~/TichetImages/" + file_name)" width="40" height="40" /></a>
 								</td>
 								<td>
 									<a asp-action="Details" asp-route-id="@item.IdTichet">Detalii</a>

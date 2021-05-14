@@ -10,6 +10,10 @@ using System.Dynamic;
 using Microsoft.AspNetCore.Authorization;
 using SendGrid;
 using SendGrid.Helpers.Mail;
+using Microsoft.AspNetCore.Http;
+using Azure.Storage.Blobs;
+using Azure.Storage.Blobs.Models;
+using System.IO;
 
 namespace AplicatieCamine
 {
@@ -44,11 +48,11 @@ namespace AplicatieCamine
             return View(await dBSistemContext.ToListAsync());
         }
         [HttpPost]
-        public async Task<IActionResult> Index(string x = "")
+        public IActionResult Index(string x = "")
         {
-            return await Tichete();
+            return RedirectToAction("Tichete");
         }
-        public async Task<IActionResult> Tichete()
+        public IActionResult Tichete()
         {
             var stid = _context.Student.Where(a => a.Email == User.Identity.Name).Select(a => a.IdStudent).AsEnumerable();
             if(stid.Count() > 0)
@@ -103,6 +107,19 @@ namespace AplicatieCamine
             return View(tichet);
         }
 
+        private async Task<bool> Add_Image(IFormFile file, string file_name)
+		{
+            BlobServiceClient serviceClient = new BlobServiceClient("DefaultEndpointsProtocol=https;AccountName=camineuvtstorage;AccountKey=s9ifIu1cH0Y9KXCFhQTNED+VmEy1eECvG5HAFrUHWtmsO5zLC9eV1V+vj4rG2yJPntm7gOHE0baigX5YW8dQ/A==;EndpointSuffix=core.windows.net");
+            BlobContainerClient containerClient = serviceClient.GetBlobContainerClient("tichete");
+            string path = Url.Content("wwwroot/TichetImages/") + file_name;
+            using (FileStream stream = new FileStream(path, FileMode.Create))
+            {
+                await file.CopyToAsync(stream);
+            }
+            await containerClient.UploadBlobAsync(file_name, new FileStream(path, FileMode.Open));
+            return true;
+        }
+
         // GET: Tichets/Create
         [HttpGet]
         public IActionResult Create()
@@ -120,11 +137,11 @@ namespace AplicatieCamine
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CreateTichetST([Bind("IdTichet,IdStudent,DataEmitere,DateRezolvare,StatusTichet,Detalii,TipTichet,IdCamera,Feedback")] Tichet tichet)
+        public async Task<IActionResult> CreateTichetST([Bind("IdTichet,IdStudent,DataEmitere,DateRezolvare,StatusTichet,Detalii,TipTichet,IdCamera,Feedback,FileName")] Tichet tichet, IFormFile file)
         {
             if (ModelState.IsValid)
             {
-                tichet.IdTichet = id_tichet++;
+                tichet.IdTichet = id_tichet;
                 tichet.DataEmitere = DateTime.Now;
                 tichet.DateRezolvare = null;
                 tichet.StatusTichet = false;
@@ -150,11 +167,21 @@ namespace AplicatieCamine
 				}
                 if(tichet.Detalii != null && tichet.IdCamera != -1)
 				{
+                    if(file != null)
+					{
+                        string[] user = User.Identity.Name.Split("@")[0].Split(".");
+                        user[1] = user[1][0..^2];
+                        string idt = id_tichet.ToString();
+                        string file_name = user[1] + "_" + user[0] + "_" + idt + "." + file.FileName.Split(".")[1];
+                        tichet.FileName = file_name;
+                        await Add_Image(file, file_name);
+                    }
                     _context.Add(tichet);
                     await _context.SaveChangesAsync();
+                    id_tichet++;
                     System.Diagnostics.Debug.WriteLine("Am adaugat cu succes!!!");
 				}
-                return await Tichete();
+                return RedirectToAction("Tichete");
             }
             ViewData["IdStudent"] = new SelectList(_context.Student, "IdStudent", "IdStudent", tichet.IdStudent);
             return View(tichet);
@@ -165,10 +192,19 @@ namespace AplicatieCamine
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("IdTichet,IdStudent,DataEmitere,DateRezolvare,StatusTichet,Detalii,TipTichet,IdCamera,Feedback")] Tichet tichet)
+        public async Task<IActionResult> Create([Bind("IdTichet,IdStudent,DataEmitere,DateRezolvare,StatusTichet,Detalii,TipTichet,IdCamera,Feedback,FileName")] Tichet tichet, IFormFile file)
         {
             if (ModelState.IsValid)
             {
+                if (file != null)
+                {
+                    string[] user = User.Identity.Name.Split("@")[0].Split(".");
+                    string idt = id_tichet.ToString();
+                    string file_name = user[1] + "_" + user[0] + "_" + idt + "." + file.Name.Split(".")[1];
+                    tichet.FileName = file_name;
+                    await Add_Image(file, file_name);
+                }
+                tichet.IdTichet = id_tichet++;
                 AddTichet(tichet);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -202,16 +238,6 @@ namespace AplicatieCamine
         public async Task<IActionResult> Edit(int id, [Bind("IdTichet,IdStudent,DataEmitere,DateRezolvare,StatusTichet,Detalii,TipTichet,IdCamera,Feedback")] Tichet tichet)
         {
             tichet.IdTichet = id;
-/*            var updated_tichet = await _context.Tichet.FindAsync(id);
-            updated_tichet.IdStudent = tichet.IdStudent;
-            updated_tichet.DataEmitere = tichet.DataEmitere;
-            updated_tichet.DateRezolvare = tichet.DateRezolvare;
-            updated_tichet.StatusTichet = tichet.StatusTichet;
-            updated_tichet.Detalii = tichet.Detalii;
-            updated_tichet.TipTichet = tichet.TipTichet;
-            updated_tichet.IdCamera = tichet.IdCamera;
-            updated_tichet.Feedback = tichet.Feedback;*/
-
             if (id != tichet.IdTichet)
             {
                 return NotFound();
@@ -224,7 +250,6 @@ namespace AplicatieCamine
                     var tc = _context.Tichet.First(entry => entry.IdTichet == id);
                     tichet.IdCamera = tc.IdCamera;
                     _context.Entry(tc).CurrentValues.SetValues(tichet);
-                    //_context.Tichet.Update(tichet);
                     await _context.SaveChangesAsync();
                     var email_student = _context.Student.Where(a => a.IdStudent == tichet.IdStudent).Select(a => a.Email).First();
                     var apiKey = "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";

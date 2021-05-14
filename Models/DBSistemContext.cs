@@ -282,6 +282,10 @@ namespace AplicatieCamine.Models
 
                 entity.Property(e => e.IdCamera).HasColumnName("id_camera");
 
+                entity.Property(e => e.FileName)
+                .HasColumnName("file_name")
+                .IsUnicode(false);
+
                 entity.HasOne(d => d.IdStudentNavigation)
                     .WithMany(p => p.Tichet)
                     .HasForeignKey(d => d.IdStudent)
