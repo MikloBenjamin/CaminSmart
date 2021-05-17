@@ -43,10 +43,10 @@ namespace AplicatieCamine
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            var dBSistemContext = _context.Tichet.Include(t => t.IdStudentNavigation);
-            System.Diagnostics.Debug.WriteLine(dBSistemContext);
-            return View(await dBSistemContext.ToListAsync());
+            var dBSistemContext = await _context.Tichet.Include(t => t.IdStudentNavigation).ToListAsync();
+            return View(dBSistemContext);
         }
+
         [HttpPost]
         public IActionResult Index(string x = "")
         {
@@ -70,6 +70,7 @@ namespace AplicatieCamine
             }
             return RedirectToAction("Index", "Applicant");
         }
+
         // GET: Tichets/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -322,5 +323,12 @@ namespace AplicatieCamine
         {
             return _context.Tichet.Any(e => e.IdTichet == id);
         }
+
+        [HttpPost]
+        public IActionResult UpdateView(bool isChecked)
+		{
+            System.Diagnostics.Debug.WriteLine("Button is " + (isChecked ? "checked" : "not checked") + "\n");
+            return View("Index");
+		}
     }
 }
