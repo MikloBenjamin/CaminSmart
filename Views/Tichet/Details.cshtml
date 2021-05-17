@@ -2,13 +2,7 @@
 
 @{
     ViewData["Title"] = "Details";
-    string u = User.Identity.Name;
-    string usr = u.Split('@')[0];
-    bool isAdmin = false;
-    if (!char.IsDigit(usr[usr.Length - 1]))
-    {
-        isAdmin = true;
-    }
+    bool isAdmin = AplicatieCamine.Models.GlobalVariables.IsAdmin;
     string imp;
     string im;
     string rez;
@@ -75,7 +69,6 @@
             </div>
             <div class="col-sm-15">
                 <p style="font-family:Garamond,serif; font-size: 18px; text-align:center">
-               
                     @if (Model.StatusTichet)
                     {
                         rez = "Tichetul este REZOLVAT!";
@@ -87,7 +80,6 @@
                         re = "nerezolvat";
                     }
                 <p class="@re"><b>@rez</b></p>
-                </p>
             </div>
             <div class="col-sm-15">
                 <p style="font-family:Garamond,serif; font-size: 18px;text-align:center">
@@ -97,7 +89,6 @@
             </div>
             <div class="col-sm-15">
                 <p style="font-family:Garamond,serif; font-size: 18px; text-align:center">
-                   
                     @if (Model.TipTichet)
                     {
                         imp = "Tichetul este IMPORTANT!";
@@ -109,7 +100,6 @@
                         im = "neimportant";
                     }
                     <p class="@im"><b> @imp</b></p>
-                </p>
             </div>
             <div class="col-sm-15">
                 <p style="font-family:Garamond,serif; font-size: 18px; text-align:center">
@@ -130,11 +120,11 @@
         <div class="mx-auto mb-2">
             @if (isAdmin)
             {
-                <a asp-action="Tichete" class="create_button">Înapoi</a>
+                <a asp-action="Index" class="create_button">Înapoi</a>
             }
             else
             {
-                <a asp-action="Index" class="create_button">Înapoi</a>
+                <a asp-action="Tichete" class="create_button">Înapoi</a>
             }
         </div>
     </div>

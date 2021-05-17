@@ -26,6 +26,10 @@ namespace AplicatieCamine
         public IActionResult Home()
 		{
             string user = User.Identity.Name;
+            if (!char.IsDigit(user.Split("@")[0][^1]))
+            {
+                GlobalVariables.IsAdmin = true;
+            }
             var model = _context.Student.Where(st => st.Email == user).Select(st => st).AsEnumerable();
             if(model.Count() == 0)
 			{

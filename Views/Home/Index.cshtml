@@ -5,16 +5,10 @@
 @{
     ViewData["Title"] = "Home Page";
     int count = System.IO.Directory.EnumerateFiles(@"wwwroot/Images/camine").Count<string>();
-    string u = User.Identity.Name;
-    string usr = u.Split('@')[0];
-    bool isAdmin = false;
-    if (!char.IsDigit(usr[usr.Length - 1]))
-    {
-        isAdmin = true;
-    }
+    bool isAdmin = AplicatieCamine.Models.GlobalVariables.IsAdmin;
 }
 
-@if (!isAdmin)
+@if (isAdmin)
 {
 
     @section Styles{
