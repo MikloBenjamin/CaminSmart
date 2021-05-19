@@ -10,6 +10,7 @@ using Azure;
 using Azure.Storage.Blobs;
 using Azure.Storage.Blobs.Models;
 using AplicatieCamine.Models;
+using Microsoft.AspNetCore.Mvc.NewtonsoftJson;
 
 namespace AplicatieCamine
 {
@@ -26,6 +27,7 @@ namespace AplicatieCamine
         public IActionResult Home()
 		{
             string user = User.Identity.Name;
+            GlobalVariables.IsAdmin = false;
             if (!char.IsDigit(user.Split("@")[0][^1]))
             {
                 GlobalVariables.IsAdmin = true;
@@ -41,8 +43,9 @@ namespace AplicatieCamine
         // GET: Student
         public async Task<IActionResult> Index()
         {
-            var dBSistemContext = _context.Student.Include(s => s.IdCameraNavigation);
-            return View(await dBSistemContext.ToListAsync());
+            var dBSistemContext = await _context.Student.Include(s => s.IdCameraNavigation).ToListAsync();
+            
+            return View(dBSistemContext);
         }
 
         public IActionResult Status()

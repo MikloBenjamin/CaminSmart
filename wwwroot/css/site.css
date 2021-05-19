@@ -72,6 +72,8 @@ button.accept-policy {
 main {
     display: flex;
     flex: 1;
+    flex-flow: wrap;
+    flex-direction: column;
 /*    display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     grid-column-gap: 5em;*/
