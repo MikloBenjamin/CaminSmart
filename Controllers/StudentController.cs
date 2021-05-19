@@ -27,7 +27,8 @@ namespace AplicatieCamine
         public IActionResult Home()
 		{
             string user = User.Identity.Name;
-            GlobalVariables.IsAdmin = false;
+            GlobalVariables.IsAdmin = true;
+
             if (!char.IsDigit(user.Split("@")[0][^1]))
             {
                 GlobalVariables.IsAdmin = true;

@@ -29,17 +29,17 @@
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <input type="hidden" asp-for="IdCamera" />
                 <div class="form-group">
-                    <label asp-for="IdCamin" class="control-label"></label>
+                    <label asp-for="IdCamin" class="control-label">ID Cămin:</label>
                     <select asp-for="IdCamin" class="form-control" asp-items="ViewBag.IdCamin"></select>
                     <span asp-validation-for="IdCamin" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="LimitaNrStudenti" class="control-label"></label>
+                    <label asp-for="LimitaNrStudenti" class="control-label">Limita nr. de studenți:</label>
                     <input asp-for="LimitaNrStudenti" class="form-control" />
                     <span asp-validation-for="LimitaNrStudenti" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="NrStudentiCazati" class="control-label"></label>
+                    <label asp-for="NrStudentiCazati" class="control-label">Nr. studenți cazați:</label>
                     <input asp-for="NrStudentiCazati" class="form-control" />
                     <span asp-validation-for="NrStudentiCazati" class="text-danger"></span>
                 </div>
@@ -49,7 +49,7 @@
                     <span asp-validation-for="Descriere" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="NrCamera" class="control-label"></label>
+                    <label asp-for="NrCamera" class="control-label">Număr Cameră:</label>
                     <input asp-for="NrCamera" class="form-control" />
                     <span asp-validation-for="NrCamera" class="text-danger"></span>
                 </div>

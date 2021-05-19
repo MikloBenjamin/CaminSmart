@@ -52,7 +52,7 @@
 		});
 
         function loadMore() {
-            var pana_la = (i + 20 < listaStudenti.length ? i + 20 : listaStudenti.length);
+            var pana_la = (i + 10 < listaStudenti.length ? i + 10 : listaStudenti.length);
 			for (j = i; j < pana_la; j++) {
                 content.append(displayStudent(listaStudenti[j]));
                 i += 1;
@@ -60,12 +60,12 @@
         }
 
         function loadLess() {
-            var pana_la = (i - 20 > 0 ? i - 20 : 0);
-			var childs = content.children();
-			for (var j = childs.length - 1; j >= pana_la; j--) {
-				childs[j].remove();
-				i -= 1;
-			}
+            var pana_la = (i - 10 > 0 ? i - 10 : 0);
+            var childs = content.children();
+            for (var j = childs.length - 1; j >= pana_la; j--) {
+                childs[j].remove();
+                i -= 1;
+            }
         }
 
         function displayStudent(student) {
@@ -96,48 +96,58 @@
 			</div>
 		</div>
 
-		<div class="table-responsive">
-			<table class="table table-hover">
-				<thead>
-					<tr>
-						<th>
-							@Html.DisplayNameFor(model => model.IdStudent)
-						</th>
-						<th>
-							@Html.DisplayNameFor(model => model.Nume)
-						</th>
-						<th>
-							@Html.DisplayNameFor(model => model.Prenume)
-						</th>
-						<th>
-							@Html.DisplayNameFor(model => model.Facultate)
-						</th>
-						<th>
-							@Html.DisplayNameFor(model => model.Varsta)
-						</th>
-						<th>
-							@Html.DisplayNameFor(model => model.Adresa)
-						</th>
-						<th>
-							@Html.DisplayNameFor(model => model.Email)
-						</th>
-						<th>
-							IdCamera
-						</th>
-						<th>NrCamera</th>
-					</tr>
-				</thead>
-				<tbody id="tbody-student">
-				</tbody>
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>
+                            ID Student
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Nume)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Prenume)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Facultate)
+                        </th>
+                        <th>
+                            Vârstă
+                        </th>
+                        <th>
+                            Adresă
+                        </th>
+                        <th>
+                            E-mail
+                        </th>
+                        <th>
+                           ID Cameră
+                        </th>
+                        <th>
+                            ID Cămin
+                        </th>
+                    </tr>
+                </thead>
+                <tbody id="tbody-student">
+                </tbody>
 				<tr>
 					<td colspan="4">
-						<p id="less" class="show"> LESS </p>
+						<p id="l" class="show"> LESS </p>
 					</td>
 					<td colspan="4">
-						<p id="more" class="show"> MORE </p>
+						<p id="m" class="show"> MORE </p>
 					</td>
 				</tr>
-			</table>
-		</div>
-	</div>
+            </table>
+        </div>
+    </div>
+</div>
+<div class="mx-auto mt-2">
+    <svg id="more" xmlns="http://www.w3.org/2000/svg" width="55" height="55" fill="#008CBA" class="bi bi-arrow-down-circle-fill show" viewBox="0 0 16 16">
+        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v5.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V4.5z" />
+    </svg>
+    <svg id="less" xmlns="http://www.w3.org/2000/svg" width="55" height="55" fill="#008CBA" class="bi bi-arrow-up-circle-fill show" viewBox="0 0 16 16">
+        <path d="M16 8A8 8 0 1 0 0 8a8 8 0 0 0 16 0zm-7.5 3.5a.5.5 0 0 1-1 0V5.707L5.354 7.854a.5.5 0 1 1-.708-.708l3-3a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 5.707V11.5z" />
+    </svg>
 </div>

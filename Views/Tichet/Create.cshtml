@@ -16,36 +16,36 @@
 				<form asp-action="Create">
 					<div asp-validation-summary="ModelOnly" class="text-danger"></div>
 					<div class="form-group">
-						<label asp-for="IdTichet" class="control-label"></label>
+						<label asp-for="IdTichet" class="control-label">ID Tichet:</label>
 						<input asp-for="IdTichet" class="form-control" />
 						<span asp-validation-for="IdTichet" class="text-danger"></span>
 					</div>
 					<div class="form-group">
-						<label asp-for="IdStudent" class="control-label"></label>
+						<label asp-for="IdStudent" class="control-label">ID Student:</label>
 						<select asp-for="IdStudent" class="form-control" asp-items="ViewBag.IdStudent"></select>
 					</div>
 					<div class="form-group">
-						<label asp-for="IdCamera" class="control-label"></label>
+						<label asp-for="IdCamera" class="control-label">ID Cameră:</label>
 						<input asp-for="IdCamera" class="form-control" />
 						<span asp-validation-for="IdCamera" class="text-danger"></span>
 					</div>
 					<div class="form-group">
-						<label asp-for="DataEmitere" class="control-label"></label>
+						<label asp-for="DataEmitere" class="control-label">Dată Emitere:</label>
 						<input asp-for="DataEmitere" class="form-control" />
 						<span asp-validation-for="DataEmitere" class="text-danger"></span>
 					</div>
 					<div class="form-group">
-						<label asp-for="DateRezolvare" class="control-label"></label>
+						<label asp-for="DateRezolvare" class="control-label">Dată Rezolvare:</label>
 						<input asp-for="DateRezolvare" class="form-control" />
 						<span asp-validation-for="DateRezolvare" class="text-danger"></span>
 					</div>
 					<div class="form-group form-check">
 						<label class="form-check-label">
-							<input class="form-check-input" asp-for="StatusTichet" /> @Html.DisplayNameFor(model => model.StatusTichet)
+							<input class="form-check-input" asp-for="StatusTichet" /> Rezolvat?
 						</label>
 					</div>
 					<div class="form-group">
-						<label asp-for="Detalii" class="control-label"></label>
+						<label asp-for="Detalii" class="control-label">Detalii:</label>
 						<input asp-for="Detalii" class="form-control" autocomplete="off" />
 						<span asp-validation-for="Detalii" class="text-danger"></span>
 					</div>
@@ -55,7 +55,7 @@
 						</label>
 					</div>
 					<div class="form-group">
-						<label asp-for="Feedback" class="control-label"></label>
+						<label asp-for="Feedback" class="control-label">Feedback:</label>
 						<input asp-for="Feedback" class="form-control" />
 						<span asp-validation-for="Feedback" class="text-danger"></span>
 					</div>

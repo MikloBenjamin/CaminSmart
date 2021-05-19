@@ -33,7 +33,7 @@
 			<form asp-action="CreateTichetST" method="post" enctype="multipart/form-data">
 				<div asp-validation-summary="ModelOnly" class="text-danger"></div>
 				<div class="form-group">
-					<label asp-for="Detalii" class="control-label"></label>
+					<label asp-for="Detalii" class="control-label">Scrie detaliile problemei tale:</label>
 					<input asp-for="Detalii" class="form-control" autocomplete="off" />
 					<span asp-validation-for="Detalii" class="text-danger"></span>
 				</div>
