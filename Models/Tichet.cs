@@ -18,6 +18,9 @@ namespace AplicatieCamine.Models
         public bool TipTichet { get; set; }
         public int IdCamera { get; set; }
         public string Feedback { get; set; }
+#nullable enable
+        public string? FileName { get; set; }
+#nullable disable
         public virtual Student IdStudentNavigation { get; set; }
        // public virtual Camere IdCameraNavigation { get; set; }
 

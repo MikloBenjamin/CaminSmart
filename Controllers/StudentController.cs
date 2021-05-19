@@ -20,11 +20,18 @@ namespace AplicatieCamine
         public StudentController(DBSistemContext context)
         {
             _context = context;
+            id_student = context.Student.ToList().Last().IdStudent + 1;
         }
 
         public IActionResult Home()
 		{
             string user = User.Identity.Name;
+            GlobalVariables.IsAdmin = true;
+
+            if (!char.IsDigit(user.Split("@")[0][^1]))
+            {
+                GlobalVariables.IsAdmin = true;
+            }
             var model = _context.Student.Where(st => st.Email == user).Select(st => st).AsEnumerable();
             if(model.Count() == 0)
 			{
@@ -40,7 +47,7 @@ namespace AplicatieCamine
             return View(await dBSistemContext.ToListAsync());
         }
 
-        public async Task<IActionResult> Status()
+        public IActionResult Status()
 		{
             var id = _context.Student.Where(st => st.Email == User.Identity.Name).Select(st => st);
             if(id.Count() > 0)
@@ -81,17 +88,86 @@ namespace AplicatieCamine
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("IdStudent,Nume,Prenume,Facultate,Varsta,Adresa,Email,An,StatusCazare,IdCamera,DataCazare,DataDecazare")] Student student)
+        public async Task<IActionResult> Create([Bind("IdStudent,Nume,Prenume,Facultate,Varsta,Adresa,Email,An,IdCamera,DataCazare")] Student student)
         {
             if (ModelState.IsValid)
             {
                 _context.Add(student);
                 await _context.SaveChangesAsync();
                 id_student++;
-                return RedirectToAction(nameof(Index));
+                string controller = "Student", action = "Index";
+                return RedirectToAction("UpdateNrStudentCazati", "Camere", new { id = (int)student.IdCamera, raction = action, rcontroller = controller });
             }
             ViewData["IdCamera"] = new SelectList(_context.Camere, "IdCamera", "IdCamera", student.IdCamera);
             return View(student);
+        }
+
+        private async Task<bool> DeleteApplicant(string bname, int id)
+		{
+            var aplc = _context.Applicant.Where(apl => apl.IdApplicant == id);
+            if (aplc.Count() > 0)
+            {
+                _context.Remove(aplc.First());
+            }
+            await _context.SaveChangesAsync();
+            BlobServiceClient serviceClient = new BlobServiceClient("DefaultEndpointsProtocol=https;AccountName=camineuvtstorage;AccountKey=s9ifIu1cH0Y9KXCFhQTNED+VmEy1eECvG5HAFrUHWtmsO5zLC9eV1V+vj4rG2yJPntm7gOHE0baigX5YW8dQ/A==;EndpointSuffix=core.windows.net");
+            BlobContainerClient containerClient = serviceClient.GetBlobContainerClient("inscrieri");
+            if(containerClient.GetBlobClient(bname).Exists())
+			{
+                containerClient.DeleteBlob(bname);
+			}
+            return true;
+		}
+
+        public async Task<IActionResult> AcceptApplicant(
+            int id, string nume, string prenume, string facultate, 
+            string email, string adresa, int an, int varsta
+           )
+        {
+            System.Diagnostics.Debug.WriteLine("Id student = " + id_student.ToString() + "\n");
+            Student student = new Student
+			{
+				IdStudent = id_student++,
+				Nume = nume,
+				Prenume = prenume,
+				Facultate = facultate,
+				Adresa = adresa,
+				Email = email,
+				Varsta = varsta,
+				An = an,
+				DataCazare = DateTime.Now,
+				IdCamera = -1
+			};
+			var camine = _context.Camine.ToList();
+            foreach(var camin in camine)
+			{
+                bool found = false;
+                var camere = _context.Camere.Where(cam => cam.IdCamin == camin.IdCamin).ToList();
+                foreach(var camera in camere)
+				{
+                    if(camera.NrStudentiCazati < camera.LimitaNrStudenti)
+					{
+                        found = true;
+                        student.IdCamera = camera.IdCamera;
+                        break;
+					}
+				}
+                if(found == true)
+				{
+                    break;
+				}
+			}
+
+
+            if(student.IdCamera != -1)
+			{
+                _context.Add(student);
+                await _context.SaveChangesAsync();
+                await DeleteApplicant(nume + "_" + prenume + "_" + id, id);
+                string controller = "Applicant", action = "Applicants";
+                return RedirectToAction("UpdateNrStudentCazati", "Camere", new { id = (int)student.IdCamera, raction = action, rcontroller = controller });
+			}
+            return NotFound();
         }
 
         // GET: Student/Edit/5
@@ -116,7 +192,7 @@ namespace AplicatieCamine
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("IdStudent,Nume,Prenume,Facultate,Varsta,Adresa,Email,An,StatusCazare,IdCamera,DataCazare,DataDecazare")] Student student)
+        public async Task<IActionResult> Edit(int id, [Bind("IdStudent,Nume,Prenume,Facultate,Varsta,Adresa,Email,An,IdCamera,DataCazare")] Student student)
         {
             if (id != student.IdStudent)
             {
@@ -181,5 +257,32 @@ namespace AplicatieCamine
         {
             return _context.Student.Any(e => e.IdStudent == id);
         }
+
+        public IActionResult CleanServer()
+		{
+            BlobServiceClient serviceClient = new BlobServiceClient("DefaultEndpointsProtocol=https;AccountName=camineuvtstorage;AccountKey=s9ifIu1cH0Y9KXCFhQTNED+VmEy1eECvG5HAFrUHWtmsO5zLC9eV1V+vj4rG2yJPntm7gOHE0baigX5YW8dQ/A==;EndpointSuffix=core.windows.net");
+            BlobContainerClient containerClient = serviceClient.GetBlobContainerClient("inscrieri");
+            var files = System.IO.Directory.GetFiles(@"wwwroot/UploadFiles");
+            var blobs = containerClient.GetBlobs().Select(bl => bl.Name);
+            foreach(string file in files)
+			{
+				if (!blobs.Contains(file))
+				{
+                    System.IO.File.Delete(file);
+				}
+			}
+
+            containerClient = serviceClient.GetBlobContainerClient("tichete");
+            files = System.IO.Directory.GetFiles(@"wwwroot/TichetImages");
+            blobs = containerClient.GetBlobs().Select(bl => bl.Name);
+            foreach (string file in files)
+            {
+                if (!blobs.Contains(file))
+                {
+                    System.IO.File.Delete(file);
+                }
+            }
+            return RedirectToAction("Home");
+		}
     }
 }

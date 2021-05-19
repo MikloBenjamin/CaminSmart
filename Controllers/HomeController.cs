@@ -20,49 +20,49 @@ namespace AplicatieCamine.Controllers
             _logger = logger;
         }
 
-        public async Task<IActionResult> Camine()
+        public IActionResult Camine()
 		{
             return RedirectToAction("Index", "Camine");
         }
 
-        public async Task<IActionResult> Camere()
+        public IActionResult Camere()
         {
             return RedirectToAction("Index", "Camere");
         }
-        public async Task<IActionResult> Tichet()
+        public IActionResult Tichet()
         {
             return RedirectToAction("Index", "Tichet");
         }
-        public async Task<IActionResult> Student()
+        public IActionResult Student()
         {
             return RedirectToAction("Index", "Student");
         }
-        public async Task<IActionResult> Administratori()
+        public IActionResult Administratori()
         {
             return RedirectToAction("Index", "Administratori");
         }
-        public async Task<IActionResult> Inscriere()
+        public IActionResult Inscriere()
         {
             return RedirectToAction("Index", "Applicant");
         }
-        public async Task<IActionResult> Tichete()
+        public IActionResult Tichete()
         {
             return RedirectToAction("Tichete", "Tichet");
         }
 
-        public async Task<IActionResult> CamineST()
+        public IActionResult CamineST()
         {
             return RedirectToAction("Camine", "Camine");
         }
-        public async Task<IActionResult> Applicants()
+        public IActionResult Applicants()
         {
             return RedirectToAction("Applicants", "Applicant");
         }
-        public async Task<IActionResult> Status()
+        public IActionResult Status()
         {
             return RedirectToAction("Status", "Student");
         }
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
             return RedirectToAction("Home", "Student");
         }

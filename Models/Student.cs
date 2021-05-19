@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json;
 
 // Code scaffolded by EF Core assumes nullable reference types (NRTs) are not used or disabled.
 // If you have enabled NRTs for your project, then un-comment the following line:
@@ -22,12 +23,11 @@ namespace AplicatieCamine.Models
         public string Adresa { get; set; }
         public string Email { get; set; }
         public int An { get; set; }
-        public int StatusCazare { get; set; } // 0 -> PENDING, 1 -> Acceptat, 2 -> Refuzat
         public int? IdCamera { get; set; }
         public DateTime? DataCazare { get; set; }
-        public DateTime? DataDecazare { get; set; }
-
+        [System.Text.Json.Serialization.JsonIgnore]
         public virtual Camere IdCameraNavigation { get; set; }
+        [System.Text.Json.Serialization.JsonIgnore]
         public virtual ICollection<Tichet> Tichet { get; set; }
     }
 }

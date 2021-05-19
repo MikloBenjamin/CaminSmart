@@ -1,7 +1,8 @@
 ﻿@model IEnumerable<AplicatieCamine.Models.Camere>
-
+@using System.Text.Json;
 @{
     ViewData["Title"] = "Index";
+    var serializer = Json.Serialize(Model);
 }
 <link rel="stylesheet" href="~/css/styleTable.css">
 <style>
@@ -37,22 +38,22 @@
                 <thead>
                     <tr>
                         <th>
-                            @Html.DisplayNameFor(model => model.IdCamera)
+                            ID Cameră
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.LimitaNrStudenti)
+                            Limita Nr. Studenți
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.NrStudentiCazati)
+                            Nr. Studenți Cazați
                         </th>
                         <th>
                             @Html.DisplayNameFor(model => model.Descriere)
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.NrCamera)
+                            Nr. Cameră
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.IdCaminNavigation)
+                            ID Cămin
                         </th>
                         <th></th>
                     </tr>

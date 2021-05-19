@@ -32,7 +32,7 @@
 		<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom shadow-lg mb-3 rounded">
 			<div class="container">
 				<a asp-area="" asp-controller="Home" asp-action="Index">
-                    <img src="@Url.Content("/Images/icons/CamineUVT.jpg")" width="200" height="110" />
+					<img src="@Url.Content("/Images/icons/CamineUVT.jpg")" width="200" height="110" />
 				</a>
 				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
 						aria-expanded="false" aria-label="Toggle navigation">
@@ -52,12 +52,26 @@
 	<div id="page">
 		<main role="main">
 			@RenderBody()
-@*			<div class="con">
-				<div class="row">
-				</div>
-			</div>*@
+			@*			<div class="con">
+					<div class="row">
+					</div>
+				</div>*@
 		</main>
 	</div>
+	<footer>
+		<div><img class="logouvt" src="@Url.Content("/Images/icons/uvt.png")" /></div>
+		<div>
+			<div><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></div>
+			<div><p style="font-family:Garamond, serif; font-size: 32px">Smart Cămine UVT</p></div>
+		</div>
+		<div class="footer-icons">
+			<a href="https://www.facebook.com/uvtromania"><i class="fa fa-facebook"></i></a>
+			<a href="https://twitter.com/uvtromania"><i class="fa fa-twitter"></i></a>
+			<a href="https://www.instagram.com/uvt_romania/"><i class="fa fa-instagram"></i></a>
+			<a href="https://www.linkedin.com/school/west-university-of-timisoara/"><i class="fa fa-linkedin"></i></a>
+			<a href="https://www.youtube.com/channel/UC9rKWeN__ZbmqP3s-H6VcLA"><i class="fa fa-youtube"></i></a>
+		</div>
+	</footer>
 	@RenderSection("Footer", false)
 
 	<script src="~/lib/jquery/dist/jquery.min.js"></script>

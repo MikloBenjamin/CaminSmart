@@ -29,59 +29,49 @@
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <input type="hidden" asp-for="IdStudent" />
                 <div class="form-group">
-                    <label asp-for="Nume" class="control-label"></label>
+                    <label asp-for="Nume" class="control-label">Nume:</label>
                     <input asp-for="Nume" class="form-control" />
                     <span asp-validation-for="Nume" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="Prenume" class="control-label"></label>
+                    <label asp-for="Prenume" class="control-label">Prenume:</label>
                     <input asp-for="Prenume" class="form-control" />
                     <span asp-validation-for="Prenume" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="Facultate" class="control-label"></label>
+                    <label asp-for="Facultate" class="control-label">Facultate:</label>
                     <input asp-for="Facultate" class="form-control" />
                     <span asp-validation-for="Facultate" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="Varsta" class="control-label"></label>
+                    <label asp-for="Varsta" class="control-label">Vârstă:</label>
                     <input asp-for="Varsta" class="form-control" />
                     <span asp-validation-for="Varsta" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="Adresa" class="control-label"></label>
+                    <label asp-for="Adresa" class="control-label">Adresă:</label>
                     <input asp-for="Adresa" class="form-control" />
                     <span asp-validation-for="Adresa" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="Email" class="control-label"></label>
+                    <label asp-for="Email" class="control-label">E-mail:</label>
                     <input asp-for="Email" class="form-control" />
                     <span asp-validation-for="Email" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="An" class="control-label"></label>
+                    <label asp-for="An" class="control-label">Anul:</label>
                     <input asp-for="An" class="form-control" />
                     <span asp-validation-for="An" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="StatusCazare" class="control-label"></label>
-                    <input asp-for="StatusCazare" class="form-control" />
-                    <span asp-validation-for="StatusCazare" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="IdCamera" class="control-label"></label>
+                    <label asp-for="IdCamera" class="control-label">ID Cameră:</label>
                     <select asp-for="IdCamera" class="form-control" asp-items="ViewBag.IdCamera"></select>
                     <span asp-validation-for="IdCamera" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="DataCazare" class="control-label"></label>
+                    <label asp-for="DataCazare" class="control-label">Dată cazare:</label>
                     <input asp-for="DataCazare" class="form-control" />
                     <span asp-validation-for="DataCazare" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="DataDecazare" class="control-label"></label>
-                    <input asp-for="DataDecazare" class="form-control" />
-                    <span asp-validation-for="DataDecazare" class="text-danger"></span>
                 </div>
                 <div class="justify-content-center">
                     <input type="submit" value="Salvează" class="create_button" />

@@ -69,25 +69,13 @@
             </div>
             <div class="col-sm-15">
                 <p style="font-family:Garamond,serif; font-size: 18px; text-align:center">
-                    <b>Status Cazare: </b>
-                    @Html.DisplayFor(model => model.StatusCazare)
-                </p>
-            </div>
-            <div class="col-sm-15">
-                <p style="font-family:Garamond,serif; font-size: 18px; text-align:center">
-                    <b>Dată cazare: </b>
+                    <b>@Html.DisplayNameFor(model => model.DataCazare): </b>
                     @Html.DisplayFor(model => model.DataCazare)
                 </p>
             </div>
             <div class="col-sm-15">
                 <p style="font-family:Garamond,serif; font-size: 18px; text-align:center">
-                    <b>Dată decazare: </b>
-                    @Html.DisplayFor(model => model.DataDecazare)
-                </p>
-            </div>
-            <div class="col-sm-15">
-                <p style="font-family:Garamond,serif; font-size: 18px; text-align:center">
-                    <b>ID Cameră: </b>
+                    <b>@Html.DisplayNameFor(model => model.IdCameraNavigation.IdCamera): </b>
                     @Html.DisplayFor(model => model.IdCameraNavigation.IdCamera)
                 </p>
             </div>

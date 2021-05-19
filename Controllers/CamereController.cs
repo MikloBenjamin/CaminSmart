@@ -25,8 +25,22 @@ namespace AplicatieCamine
             return View(await dBSistemContext.ToListAsync());
         }
 
+        public async Task<IActionResult> UpdateNrStudentCazati(int id, string raction, string rcontroller)
+		{
+            var camera = _context.Camere.First(entry => entry.IdCamera == id);
+            var new_camera = new Camere();
+            new_camera.IdCamera = camera.IdCamera;
+            new_camera.IdCamin = camera.IdCamin;
+            new_camera.LimitaNrStudenti = camera.LimitaNrStudenti;
+            new_camera.NrStudentiCazati = camera.NrStudentiCazati + 1;
+            new_camera.Descriere = camera.Descriere;
+            new_camera.NrCamera = camera.NrCamera;
+            _context.Entry(camera).CurrentValues.SetValues(new_camera);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(raction, rcontroller);
+		}
 
-        public async Task<IActionResult> CamereCamin(int id)
+        public IActionResult CamereCamin(int id)
         {
             var camere = _context.Camere.Where(c => c.IdCamin == id).Select(a => a).AsEnumerable();
             return View("CamereCamin", camere);

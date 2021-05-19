@@ -72,7 +72,7 @@ button.accept-policy {
 main {
     display: flex;
     flex: 1;
-/*    display: grid;
+    /*    display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     grid-column-gap: 5em;*/
     padding-top: 5em;
@@ -109,8 +109,8 @@ footer > div a, footer > div p{
 .self-col {
     margin-top: 2.5%;
     margin-bottom: 2.5%;
-    max-width: 25%;
-    flex: 1;
+    width: 90%;
+    flex-grow: 1;
     padding: 30px;
     border-radius: 10px;
     background-color: white;
@@ -130,7 +130,7 @@ footer > div a, footer > div p{
 }
 
 .self-col p{
-    font-size: 30px;
+    font-size: 28px;
     text-align: center;
     font-family: Garamond, serif;
 }
@@ -139,17 +139,18 @@ footer > div a, footer > div p{
     float: left;
     margin-left: 15%;
     width: 70%;
+    height: 50px;
     border: none;
     color: white;
     background-color: #008CBA;
-    padding: 20px 35px;
     text-align: center;
     text-decoration: none;
-    font-size: 20px;
+    font-size: 0.7em;
     cursor: pointer;
     transition-duration: 0.6s;
-    justify-content: flex-end;
+    justify-content: center;
     margin-bottom: 5px;
+    align-items: center;
 }
 
 .checkImportant {
@@ -176,22 +177,37 @@ footer > div a, footer > div p{
     background-color: #e7e7e7;
  }
 
-@media (max-width: 800px) {
-    .unde .nume {
-        display: none;
-    }
+.center-divs {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-gap: 2em 1em;
+    padding: 0px 20px 0px 50px;
+}
 
-    main {
+@media (max-width: 1000px) {
+
+    .center-divs{
+        grid-template-columns: auto auto auto;
+    }
+    #statistica {
+        grid-column-start: 1;
+        grid-column-end: 4;
+        width: 97%;
+    }
+}
+
+@media (max-width: 800px) {
+   /* main {
         flex-direction: column;
         padding: 3em;
+    }*/
+    .center-divs {
+        grid-template-columns: 1fr 1fr;
     }
-
-    .self-col{
-        max-width: 100%;
-    }
-
-    .self-col p{
-        font-size: 24px;
+    #statistica {
+        grid-column-start: 2;
+        grid-column-end: 3;
+        width: 97%;
     }
     footer > div a, footer > div p {
         font-size: 20px;
@@ -199,6 +215,16 @@ footer > div a, footer > div p{
 }
 
 @media (max-width: 600px) {
+    .center-divs {
+        grid-template-columns: 1fr;
+    }
+
+    #statistica {
+        grid-column-start: 1;
+        grid-column-end: 2;
+        width: 90%;
+    }
+
     footer {
         grid-template-columns: 1fr;
     }

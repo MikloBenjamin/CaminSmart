@@ -47,17 +47,20 @@
                         string link = "/UploadFiles/" + @item.Name;
                         <tr>
                             <td>
-                                <form asp-action="ViewFile" method="post">
-                                    <input type="submit" value="@item.Name" name="file" style="background: none; border: none; color: darkred;" />
+                                <a href="@link" target="_blank" style="background: none; border: none; color: darkred;">@Html.DisplayFor(modelItem => item.Name)</a>
+                            </td>
+                            <td>
+                                <form asp-action="Accept" method="post" enctype="multipart/form-data">
+                                    <input type="hidden" name="file" value="@item.Name"/>
+                                    <input type="submit" value="Accept" />
                                 </form>
-                                @*<a href="@link" target="_blank">@Html.DisplayFor(modelItem => item.Name)</a>*@
                             </td>
-                            <td>
-                                <a asp-action="Accept">Accept</a>
-                            </td>
-                            <td>
-                                <a asp-action="Refuse">Refuzare</a>
-                            </td>
+							<td>
+								<form asp-action="Refuse" method="post" enctype="multipart/form-data">
+									<input type="hidden" name="file" value="@item.Name" />
+									<input type="submit" value="Refuzare" />
+								</form>
+							</td>
                         </tr>
                     }
                 </tbody>

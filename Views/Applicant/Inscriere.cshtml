@@ -32,7 +32,7 @@
         </div>
 
         <div class="container-fluid">
-            <form asp-action="Inscriere" method="post">
+            <form asp-action="Inscriere" method="post" enctype="multipart/form-data">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="form-group">
                     <label asp-for="Nume" class="control-label"></label>
@@ -66,7 +66,7 @@
                 </div>
                 <div class="form-group">
                     <label>Document: </label>
-                    <input type="file" name="FilePath" accept=".pdf" required />
+                    <input type="file" name="file" accept="application/pdf" required />
                 </div>
                 <div class="mx-auto">
                     <input class="create_button" type="submit" value="Trimite" />
