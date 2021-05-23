@@ -111,8 +111,9 @@ namespace AplicatieCamine
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("IdCamera,IdCamin,LimitaNrStudenti,NrStudentiCazati,Descriere,TipCamera")] Camere camere)
+        public async Task<IActionResult> Edit(int id, [Bind("IdCamera,IdCamin,LimitaNrStudenti,NrStudentiCazati,Descriere,NrCamera")] Camere camere)
         {
+
             if (id != camere.IdCamera)
             {
                 return NotFound();

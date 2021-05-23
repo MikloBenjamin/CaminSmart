@@ -1,6 +1,7 @@
-﻿@model IEnumerable<AplicatieCamine.Models.Camere>
+﻿@model dynamic 
 @{
-    var el = (Model.Count() > 0 ? Model.First() : null);
+    var listaCamere = Model.Camere;
+    var el = (Enumerable.Count(listaCamere) > 0 ? Enumerable.First(listaCamere) : null);
     string[] t = { null, null, null };
     if (el != null) {
         t[0] = el.LimitaNrStudenti.ToString();
@@ -9,7 +10,7 @@
     }
     ViewData["Title"] = "Camin " + t[1];
     var cimages = Url.Content("~/Images/camere/");
-	int i = 0;
+    int i = 0;
 }
 @section Styles{
 	<link rel="stylesheet" href="~/css/CamereCamin.css" />
@@ -21,13 +22,13 @@
 	}
 </style>
 
-<h1 style="text-align: right; font-family: Garamond, serif; font-size:65px">
-    Cămin @t[1]
-</h1>
+<div id="admin-contact">
+    Cămin @t[1] <h3><b>Administrator:</b> @Model.Admin.Nume  <b>Tel.:</b> @Model.Admin.NrTelefon  <b>E-mail:</b> @Model.Admin.Email</h3> 
+</div>
 @if (el != null)
 {
 	<div class="gridCamere">
-		@foreach (var item in Model)
+		@foreach (var item in listaCamere)
         {
             if (i == 24) { i = 0; }
             i = i + 1;
@@ -37,10 +38,10 @@
 			<div class="fiecare">
 				<img class="poza" src=@rand width="200" height="110" />
                 <div>
-                    <p> <b>CAMERA @Html.DisplayFor(modelItem => item.NrCamera)</b> </p>
+                    <p> <b>CAMERA @item.NrCamera</b> </p>
                     @if (ocupat == "liber")
                     {
-                        <p>@Html.DisplayFor(modelItem => item.Descriere)</p>
+                        <p>@item.Descriere</p>
                     }
                     else
                     {
@@ -54,22 +55,14 @@
                     }
                 </div>
 				<div class="@ocupat">
-					@if (ocupat == "ocupat")
+					@if (ocupat != "ocupat")
 					{
-						//pass
-					}
-					else
-					{
-						<p>Sunt cazați <b>@Html.DisplayFor(modelItem => item.NrStudentiCazati)</b> studenți.</p>
+						<p>Sunt cazați <b>@item.NrStudentiCazati</b> studenți.</p>
 					}
 				</div>
 				<div class="@ocupat">
-					@if (ocupat == "ocupat")
-					{
-						//pass
-					}
-					else
-					{
+					@if (ocupat != "ocupat")
+                    {
 						<p>
 							<b>
 								LIBER

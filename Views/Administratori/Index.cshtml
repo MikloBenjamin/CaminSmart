@@ -1,7 +1,9 @@
 ﻿@model IEnumerable<AplicatieCamine.Models.Administratori>
-
+@using System.Text.Json;
 @{
     ViewData["Title"] = "Index";
+    var serializer = Json.Serialize(Model);
+
 }
 <link rel="stylesheet" href="~/css/styleTable.css">
 <style>
@@ -22,11 +24,132 @@
         margin: 5px 0 5px 10px;
     }
 </style>
+
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            i = 0;
+			content = $("#admin-data");
+            listaAdmini = @serializer;
+            loadMore();
+            console.log(content.children())
+			if (content.children().length <= 11) {
+				$("#less").css({ "display": "none" });
+			}
+            $("#more").click(function (event) {
+                loadMore();
+				if ((content.children().length - 1) % 10 != 0) {
+					$("#more").css({ "display": "none" });
+                }
+				if (content.children().length > 10) {
+					$("#less").css({ "display": "inline-block" });
+				}
+            });
+
+			$("#less").click(function (event) {
+                loadLess();
+                if (content.children().length <= 11) {
+					$("#less").css({ "display": "none" });
+                }
+                if (content.children().length != listaAdmini.length) {
+                    $("#more").css({ "display": "inline-block" });
+				}
+            });
+
+            $("#find_admin_by_id").change(function (event) {
+                $("#tempRow").empty();
+                $("#more").css({ "display": "none" });
+				$("#less").css({ "display": "none" });
+				$("#tempRow").css({ "display": "none" });
+                if ($("#find_admin_by_id").val() != 0) {
+					hideRows(parseInt($("#find_admin_by_id").val()));
+                } else {
+                    showRows();
+					if (content.children().length > 11) {
+						$("#less").css({ "display": "inline-block" });
+					}
+					if (content.children().length != listaAdmini.length) {
+						$("#more").css({ "display": "inline-block" });
+					}
+				}
+            });
+		});
+
+        function loadMore() {
+            var pana_la = (i + 10 < listaAdmini.length ? i + 10 : listaAdmini.length);
+			for (j = i; j < pana_la; j++) {
+                content.append(displayAdmin(listaAdmini[j]));
+                i += 1;
+            }
+        }
+
+        function loadLess() {
+            var pana_la = (i - 10 > 0 ? i - 10 : 0);
+            var childs = content.children();
+            for (var j = childs.length - 1; j > pana_la; j--) {
+                childs[j].remove();
+                i -= 1;
+            }
+        }
+
+        function displayAdmin(admin) {
+            row = "<tr>";
+            row += "<td>" + admin.idAdmin + "</td>";
+            row += "<td>" + admin.nume + "</td>";
+            row += "<td>" + admin.adresa + "</td>";
+            row += "<td>" + admin.nrTelefon + "</td>";
+            row += "<td>" + admin.email + "</td>";
+            row += "<td>" + admin.idCamin + "</td>";
+            row += "<td><a href=\"/Administratori/Edit/" + admin.idadmin + "\">Editează</a> | ";
+            row += "<a href=\"/Administratori/Details/" + admin.idadmin + "\">Detalii</a> | ";
+            row += "<a href=\"/Administratori/Delete/" + admin.idadmin + "\">Șterge</a> </td>";
+			row += "</tr>";
+			return row;
+		}
+
+        function hideRows(admin_id) {
+            var c = content.children();
+            var [f1, ...childs] = c;
+            var found = false;
+            for (var pos = 0; pos < childs.length; pos++) {
+                var id = parseInt(childs[pos].children[0].innerText);
+                if (id != admin_id) {
+                    childs[pos].style.display = "none";
+                } else {
+                    found = true;
+				}
+            }
+            if (!found) {
+                temprowContent = displayAdmin(findadmin(admin_id));
+                $("#tempRow").append(temprowContent.substr(4, temprowContent.length - 5));
+                $("#tempRow").css({ "display": "table-row" });
+			}
+        }
+
+        function showRows() {
+            var childs = content.children();
+			for (var pos = 0; pos < childs.length; pos++) {
+				childs[pos].style.display = "table-row";
+			}
+        }
+
+        function findadmin(id) {
+            for (var pos = 0; pos < listaAdmini.length; pos++) {
+                if (listaAdmini[pos].idadmin == id) {
+                    return listaAdmini[pos];
+				}
+			}
+		}
+    </script>
+}
+
 <div class="container-fluid d-flex justify-content-center mb-auto">
     <div class="card">
         <div class="card-header header-elements-inline">
             <h5 style="font-family:Garamond,serif;font-size: 40px">Administratori</h5>
             <div class="mb-2">
+                <label for="admin_finder">Caută după ID Administrator: </label>
+                <input type="number" min="0" max="@Model.Count()" id="find_admin_by_id" name="admin_finder" value="0" />
                 <a asp-action="Create" class="create_button">Adaugă!</a>
                 <a asp-controller="Home" asp-action="Index" class="create_button">Înapoi</a>
             </div>
@@ -57,35 +180,8 @@
                         <th></th>
                     </tr>
                 </thead>
-                <tbody>
-                    @foreach (var item in Model)
-                    {
-                        <tr>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.IdAdmin)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Nume)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Adresa)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.NrTelefon)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Email)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.IdCaminNavigation.IdCamin)
-                            </td>
-                            <td>
-                                <a asp-action="Edit" asp-route-id="@item.IdAdmin">Editeză</a> |
-                                <a asp-action="Details" asp-route-id="@item.IdAdmin">Detalii</a> |
-                                <a asp-action="Delete" asp-route-id="@item.IdAdmin">Șterge</a>
-                            </td>
-                        </tr>
-                    }
+                <tbody id="admin-data">
+                    <tr id="tempRow" style="display: none;"></tr>
                 </tbody>
             </table>
         </div>

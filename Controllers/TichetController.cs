@@ -27,7 +27,6 @@ namespace AplicatieCamine
         {
             _context = context;
             var tichets = _context.Tichet.Select(a => a).AsEnumerable();
-            id_tichet = 1;
             if(tichets.Count() > 0)
 			{
                 id_tichet = tichets.Last().IdTichet + 1;
@@ -43,8 +42,7 @@ namespace AplicatieCamine
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            var dBSistemContext = await _context.Tichet.Include(t => t.IdStudentNavigation).ToListAsync();
-            return View(dBSistemContext);
+            return View(await _context.Tichet.Include(t => t.IdStudentNavigation).ToListAsync());
         }
 
         [HttpPost]
@@ -110,14 +108,16 @@ namespace AplicatieCamine
 
         private async Task<bool> Add_Image(IFormFile file, string file_name)
 		{
-            BlobServiceClient serviceClient = new BlobServiceClient("DefaultEndpointsProtocol=https;AccountName=camineuvtstorage;AccountKey=s9ifIu1cH0Y9KXCFhQTNED+VmEy1eECvG5HAFrUHWtmsO5zLC9eV1V+vj4rG2yJPntm7gOHE0baigX5YW8dQ/A==;EndpointSuffix=core.windows.net");
-            BlobContainerClient containerClient = serviceClient.GetBlobContainerClient("tichete");
             string path = Url.Content("wwwroot/TichetImages/") + file_name;
+			if (System.IO.Directory.GetFiles(Url.Content("wwwroot/TichetImages/")).Contains("file_name"))
+			{
+                return false;
+			}
             using (FileStream stream = new FileStream(path, FileMode.Create))
             {
                 await file.CopyToAsync(stream);
             }
-            await containerClient.UploadBlobAsync(file_name, new FileStream(path, FileMode.Open));
+            await GlobalVariables.BlobClient.GetBlobContainerClient("tichete").UploadBlobAsync(file_name, new FileStream(path, FileMode.Open));
             return true;
         }
 
@@ -149,23 +149,7 @@ namespace AplicatieCamine
                 tichet.Detalii = Request.Form["Detalii"];
                 var stid = _context.Student.Where(a => a.Email == User.Identity.Name).Select(a => a).AsEnumerable();
                 tichet.IdStudent = stid.First().IdStudent;
-                if (stid.Count() > 0)
-                {
-                    var x = _context.Tichet.Where(a => a.IdStudent == stid.First().IdStudent).Select(a => a.IdCamera).AsEnumerable();
-                    
-                    if (x.Count() > 0)
-                    {
-                        tichet.IdCamera = x.First();
-                    }
-                    else
-                    {
-                        tichet.IdCamera = (int)stid.First().IdCamera;
-                    }
-                }
-                else
-				{
-                    tichet.IdCamera = -1;
-				}
+                tichet.IdCamera = (int)stid.First().IdCamera;
                 if(tichet.Detalii != null && tichet.IdCamera != -1)
 				{
                     if(file != null)
@@ -180,7 +164,6 @@ namespace AplicatieCamine
                     _context.Add(tichet);
                     await _context.SaveChangesAsync();
                     id_tichet++;
-                    System.Diagnostics.Debug.WriteLine("Am adaugat cu succes!!!");
 				}
                 return RedirectToAction("Tichete");
             }

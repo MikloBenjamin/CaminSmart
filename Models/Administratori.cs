@@ -15,6 +15,7 @@ namespace AplicatieCamine.Models
         public string Adresa { get; set; }
         public string NrTelefon { get; set; }
         public string Email { get; set; }
+        [System.Text.Json.Serialization.JsonIgnore]
         public virtual Camine IdCaminNavigation { get; set; }
     }
 }

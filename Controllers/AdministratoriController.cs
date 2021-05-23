@@ -51,6 +51,29 @@ namespace AplicatieCamine
             return View();
         }
 
+        // GET: Administratori/Camine
+        public IActionResult Camine()
+        {
+            return View();
+        }
+
+        // GET: Administratori/Tichete
+        public IActionResult Tichete()
+        {
+            return View();
+        }
+
+        // GET: Administratori/Studenti
+        public IActionResult Studenti()
+        {
+            return View();
+        }
+
+        // GET: Administratori/StatisticaAdmin
+        public IActionResult StatisticaAdmin()
+        {
+            return View();
+        }
         // POST: Administratori/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.

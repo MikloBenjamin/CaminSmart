@@ -1,213 +1,206 @@
 ﻿@model IEnumerable<AplicatieCamine.Models.Tichet>
 @using System.Text.Json;
-<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
 @{
     ViewData["Title"] = "Index";
     var serializer = Json.Serialize(Model);
-    var filtered = Json.Serialize(Model);
-    string important;
-    string rezolvat;
-    string da;
-    string path;
-    string feedb;
+    var filtered = Json.Serialize(Model.Where(entry => entry.StatusTichet == false));
+    var important = Json.Serialize(Model.Where(entry => entry.TipTichet == true));
+    var importantNerezolvat = Json.Serialize(Model.Where(entry => (entry.TipTichet == true)&&(entry.StatusTichet == false)));
 
 }
+
+<link rel="stylesheet" href="~/css/styleTable.css">
+
+<style>
+    main {
+        flex-direction: column;
+    }
+
+    .create_button {
+        border: none;
+        color: white;
+        background-color: #008CBA;
+        padding: 5px 15px;
+        text-align: center;
+        text-decoration: none;
+        font-size: 16px;
+        cursor: pointer;
+        transition-duration: 0.6s;
+        margin: 5px 0 5px 10px;
+    }
+</style>
+
 @section Scripts{
     <script>
-		$(document).ready(function () {
+        $(document).ready(function () {
 			content = $("#tichet_body");
 			$("#filterTichets").attr("checked", true);
 			loadData(@filtered);
 			$("#filterTichets").click(function (event) {
-				if ($("#filterTichets").is(":checked")) {
-					@{
-						filtered = Json.Serialize(Model.Where(entry => entry.StatusTichet == true));
-					}
-					loadData(@filtered);
-				} else {
-					loadData(@serializer);
-				}
+
+                if (($("#impTichets").is(":checked")) && ($("#filterTichets").is(":checked"))) {
+                    loadData(@importantNerezolvat);
+                } else if (($("#impTichets").is(":checked")) && (!($("#filterTichets").is(":checked")))) {
+                    loadData(@important);
+                }else if ((!($("#impTichets").is(":checked"))) && ($("#filterTichets").is(":checked"))) {
+                    loadData(@filtered);
+                } else {
+                    loadData(@serializer);
+                }
+            });
+            $("#impTichets").click(function (event) {
+                if (($("#impTichets").is(":checked")) && ($("#filterTichets").is(":checked"))) {
+                    loadData(@importantNerezolvat);
+                } else if (($("#impTichets").is(":checked")) && (!($("#filterTichets").is(":checked")))) {
+                    loadData(@important);
+                }else if ((!($("#impTichets").is(":checked"))) && ($("#filterTichets").is(":checked"))) {
+                    loadData(@filtered);
+                } else {
+                    loadData(@serializer);
+                }
 			});
 		});
 
-		function loadData(jsonData) {
+        $("#find_tichet_by_id").change(function (event) {
+            $("#tempRow").empty();
+            $("#more").css({ "display": "none" });
+            $("#less").css({ "display": "none" });
+            $("#tempRow").css({ "display": "none" });
+            if ($("#find_tichet_by_id").val() != 0) {
+                hideRows(parseInt($("#find_tichet_by_id").val()));
+            } else {
+                showRows();
+                if (content.children().length > 11) {
+                    $("#less").css({ "display": "inline-block" });
+                }
+                if (content.children().length != listaTichet.length) {
+                    $("#more").css({ "display": "inline-block" });
+                }
+            }
+		});
+
+        function loadData(jsonData) {
 			content.empty();
-			jsonData.forEach(function (item) {
-				content.append(displayItem(item));
+			jsonData.forEach(function (tichet) {
+				content.append(displayTichet(tichet));
 			});
 		}
 
-		function displayItem(item) {
-			statusTichet = (item["statusTichet"] === false ? "NEREZOLVAT" : "REZOLVAT");
-			row = "<tr>";
-			item.forEach((key, value) => {
-				row += "<td>" + value + "</td>";
-			});
-			row += "<td>" + statusTichet + "</td>" + "</tr>";
+        function displayTichet(tichet) {
+            statusTichet = (tichet["statusTichet"] === false ? "<b style=\"color:red;\"> NEREZOLVAT </b>" : "<b style=\"color:green;\"> REZOLVAT </b>");
+            important = (tichet["tipTichet"] === false ? "<b style=\"color:red;\"> NU </b>" : "<b style=\"color:green;\"> DA </b>");
+            row = "<tr>";
+            row += "<td>" + tichet.idTichet + "</td>";
+            row += "<td>" + tichet.dataEmitere.substr(0, 9) + "</td>";
+            row += "<td>" + (tichet.dateRezolvare != null ? tichet.dateRezolvare.substr(0, 9) : "-----") + "</td>";
+            row += "<td>" + statusTichet + "</td>";
+            row += "<td>" + tichet.detalii + "</td>";
+            row += "<td>" + important + "</td>";
+            row += "<td>" + tichet.idStudent  + "</td>";
+            row += "<td>" + tichet.idCamera + "</td>";
+            row += "<td>" + (tichet.feedback != null ? tichet.feedback : "<u> Niciun feedback! </u>" )  + "</td>";
+            row += "<td>" + (tichet.filename != null ? tichet.filename : "<i> Fără poză! </i>") + "</td>";
+            row += "<td><a href=\"/Tichet/Edit/" + tichet.idTichet + "\">Editează</a> | ";
+            row += "<a href=\"/Tichet/Details/" + tichet.idTichet + "\">Detalii</a> | ";
+            row += "<a href=\"/Tichet/Delete/" + tichet.idTichet + "\">Șterge</a> </td> </tr>";
+            console.log(tichet);
 			return row;
-		}
+        }
+
+        function hideRows(tichet_id) {
+            var c = content.children();
+            var [f1, ...childs] = c;
+            var found = false;
+            for (var pos = 0; pos < childs.length; pos++) {
+                var id = parseInt(childs[pos].children[0].innerText);
+                if (id != tichet_id) {
+                    childs[pos].style.display = "none";
+                } else {
+                    found = true;
+                }
+            }
+            if (!found) {
+                temprowContent = displayTichet(findtichet(tichet_id));
+                $("#tempRow").append(temprowContent.substr(4, temprowContent.length - 5));
+                $("#tempRow").css({ "display": "table-row" });
+            }
+        }
+
+        function showRows() {
+            var childs = content.children();
+            for (var pos = 0; pos < childs.length; pos++) {
+                childs[pos].style.display = "table-row";
+            }
+        }
+
+        function findtichet(id) {
+            for (var pos = 0; pos < listaTichet.length; pos++) {
+                if (listaTichet[pos].idtichet == id) {
+                    return listaTichet[pos];
+                }
+            }
+        }
 
     </script>
 }
-    <link rel="stylesheet" href="~/css/styleTable.css">
 
-    <style>
-        main {
-            flex-direction: column;
-        }
-
-        .create_button {
-            border: none;
-            color: white;
-            background-color: #008CBA;
-            padding: 5px 15px;
-            text-align: center;
-            text-decoration: none;
-            font-size: 16px;
-            cursor: pointer;
-            transition-duration: 0.6s;
-            margin: 5px 0 5px 10px;
-        }
-
-        .da {
-            color: green;
-        }
-
-        .nu {
-            color: red;
-        }
-    </style>
-
-    <div class="container-fluid d-flex justify-content-center mb-auto">
-        <div class="card">
-            <div class="card-header header-elements-inline">
-                <h5 style="font-family:Garamond,serif; font-size: 40px">Tichet</h5>
-                <div class="mb-2">
-                    <label for="checker">Nerezolvate:  </label> <input type="checkbox" name="checker" id="checker filterTichets" />
-                    <a asp-action="Create" class="create_button">Adaugă!</a>
-                    <a asp-controller="Home" asp-action="Index" class="create_button">Înapoi</a>
-                </div>
-            </div>
-
-            <div class="table-responsive ">
-               
-                <table class="table table-hover">
-                    <thead>
-                        <tr>
-                            <th>
-                                ID Tichet
-                            </th>
-                            <th>
-                                Data Emiterii
-                            </th>
-                            <th>
-                                Data Rezolvare
-                            </th>
-                            <th>
-                                Rezolvat?
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.Detalii)
-                            </th>
-                            <th>
-                                Important?
-                            </th>
-                            <th>
-                                ID Student
-                            </th>
-                            <th>
-                                ID Cameră
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.Feedback)
-                            </th>
-                            <th>
-                                Poză
-                            </th>
-                            <th></th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody id="tbody">
-                        @foreach (var item in Model)
-                        {
-                            string file_name = item.FileName;
-                            <tr>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.IdTichet)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.DataEmitere)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.DateRezolvare)
-                                </td>
-                                <td>
-                                    @if (@item.StatusTichet)
-                                    {
-                                        important = "DA";
-                                        da = "da";
-                                    }
-                                    else
-                                    {
-                                        important = "NU";
-                                        da = "nu";
-                                    }
-                                    <p class="@da"><b>@important</b></p>
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Detalii)
-                                </td>
-                                <td>
-                                    @if (@item.TipTichet)
-                                    {
-                                        rezolvat = "DA";
-                                        da = "da";
-                                    }
-                                    else
-                                    {
-                                        rezolvat = "NU";
-                                        da = "nu";
-                                    }
-                                    <p class="@da"><b>@rezolvat</b></p>
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.IdStudentNavigation.IdStudent)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.IdCamera)
-                                </td>
-                                <td>
-                                    @if (item.Feedback == null)
-                                    {
-                                        <p>Niciun feedback.</p>
-                                    }
-                                    else
-                                    {
-                                        @Html.DisplayFor(modelItem => item.Feedback)
-                                    }
-                                </td>
-                                <td>
-                                    @{path = "~/TichetImages/" + file_name;}
-                                    @if (path == "~/TichetImages/")
-                                    {
-                                        <p><u>Fără poză!</u></p>
-                                    }
-                                    else
-                                    {
-
-                                        <a href="@Url.Content("~/TichetImages/" + file_name)"><img src="@Url.Content("~/TichetImages/" + file_name)" width="40" height="40" /></a>
-                                    }
-                                </td>
-                                <td colspan="3">
-                                    <a asp-action="Edit" asp-route-id="@item.IdTichet">Editează</a> |
-                                    <a asp-action="Details" asp-route-id="@item.IdTichet">Detalii</a> |
-                                    <a asp-action="Delete" asp-route-id="@item.IdTichet">Șterge</a>
-                                </td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
+<div class="container-fluid d-flex justify-content-center mb-auto">
+    <div class="card">
+        <div class="card-header header-elements-inline">
+            <h5 style="font-family:Garamond,serif; font-size: 40px">Tichet</h5>
+            <div class="mb-2">
+                <label for="tichet_finder">Caută după ID Tichet: </label>
+                <input type="number" min="0" max="@Model.Count()" id="find_tichet_by_id" name="tichet_finder" value="0" />
+                <label for="checker">Importante:  </label> <input type="checkbox" name="checker" id="impTichets" />
+                <label for="checker">Nerezolvate:  </label> <input type="checkbox" name="checker" id="filterTichets" />
+                <a asp-action="Create" class="create_button">Adaugă!</a>
+                <a asp-controller="Home" asp-action="Index" class="create_button">Înapoi</a>
             </div>
         </div>
+
+        <div class="table-responsive">
+
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>
+                            ID Tichet
+                        </th>
+                        <th>
+                            Data Emiterii
+                        </th>
+                        <th>
+                            Data Rezolvare
+                        </th>
+                        <th>
+                            Rezolvat?
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Detalii)
+                        </th>
+                        <th>
+                            Important?
+                        </th>
+                        <th>
+                            ID Student
+                        </th>
+                        <th>
+                            ID Cameră
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Feedback)
+                        </th>
+                        <th>
+                            Poză
+                        </th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody id="tichet_body">
+                    <tr id="tempRow" style="display: none;"></tr>
+                </tbody>
+            </table>
+        </div>
     </div>
+</div>

@@ -1,7 +1,7 @@
 ﻿@using System;
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 
-@model IEnumerable<AplicatieCamine.Models.Student>
+@model AplicatieCamine.Models.Student
 @{
     ViewData["Title"] = "Home Page";
     int count = System.IO.Directory.EnumerateFiles(@"wwwroot/Images/camine").Count<string>();
@@ -15,7 +15,6 @@
         <link rel="stylesheet" href="~/css/HomeAdmin.css" />
     }
 
-    //<button class="admin">Admin</button>
     <div class="text-center">
         <h1 class="display-4">Selectează</h1>
         <p>pentru a vizualiza, a adăuga, a șterge și pentru a edita datele</p>
@@ -28,24 +27,28 @@
                 <input class="adminButtons" type="submit" value="Cămine" />
             </form>
 
-			<form class="right left-room-stud-admin top-student-tichet" asp-controller="Home" asp-action="Student" method="post">
-				<input class="adminButtons" type="submit" value="Studenți" />
-			</form>
+            <form class="right left-room-stud-admin top-student-tichet" asp-controller="Home" asp-action="Student" method="post">
+                <input class="adminButtons" type="submit" value="Studenți" />
+            </form>
 
-			<form class="left tothetop right-camin-tichet-aplic top-student-tichet" asp-controller="Home" asp-action="Tichet" method="post">
-				<input class="adminButtons" type="submit" value="Tichete" />
-			</form>
+            <form class="left tichet-admin-aplic-top right-camin-tichet-aplic top-student-tichet" asp-controller="Home" asp-action="Tichet" method="post">
+                <input class="adminButtons" type="submit" value="Tichete" />
+            </form>
 
-			<form class="tothetop left-room-stud-admin top-admin-aplic" asp-controller="Home" asp-action="Administratori" method="post">
-				<input class="adminButtons" type="submit" value="Administratori" />
-			</form>
+            <form class="tichet-admin-aplic-top left-room-stud-admin top-admin-aplic" asp-controller="Home" asp-action="Administratori" method="post">
+                <input class="adminButtons" type="submit" value="Administratori" />
+            </form>
 
-            <form class="right tothetop right-camin-tichet-aplic top-admin-aplic" asp-controller="Home" asp-action="Applicants" method="post">
+            <form class="right tichet-admin-aplic-top right-camin-tichet-aplic top-admin-aplic" asp-controller="Home" asp-action="Applicants" method="post">
                 <input class="adminButtons" type="submit" value="Aplicanți" />
             </form>
-            
-            <form class="left left-room-stud-admin" asp-action="CleanServer" method="post">
-                <input class="adminButtons" type="submit" value="Clean Server" />
+
+            <form class="statistica statistica-cleanserver-top right-camin-tichet-aplic top-student-tichet" asp-controller="Home" asp-action="StatisticaAdmin" method="post">
+                <input class="statistic-color" type="submit" value="Statistică" />
+            </form>
+
+            <form class="cleanserver statistica-cleanserver-top right-camin-tichet-aplic top-student-tichet" asp-action="CleanServer" method="post">
+                <input class="statistic-color" type="submit" value="Clean Server" />
             </form>
         </div>
     </div>
@@ -54,8 +57,8 @@ else
 {
     <div class="center-divs">
         <div class="self-col text-center">
-            <p style="font-size: 34px"><b>Structură Cămine</b></p>
-            <p class="flexible">Vizualizare structură cămine.   Poți vedea informațiile despre fiecare cămin. </p>
+            <p style="font-size: 30px"><b>Structură Cămine</b></p>
+            <p class="flexible">Vizualizează structura căminelor.   Poți vedea informațiile despre fiecare cămin. </p>
             <p class="flexible">
                 <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-building" viewBox="0 0 16 16">
                     <path fill-rule="evenodd" d="M14.763.075A.5.5 0 0 1 15 .5v15a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5V14h-1v1.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V10a.5.5 0 0 1 .342-.474L6 7.64V4.5a.5.5 0 0 1 .276-.447l8-4a.5.5 0 0 1 .487.022zM6 8.694 1 10.36V15h5V8.694zM7 15h2v-1.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 .5.5V15h2V1.309l-7 3.5V15z" />
@@ -67,7 +70,7 @@ else
             </form>
         </div>
         <div class="self-col text-center">
-            <p style="font-size: 34px"><b>Am o problemă!</b></p>
+            <p style="font-size: 30px"><b>Am o problemă!</b></p>
             <p>Trimite tichet pentru a remedia problema sau vizualizază statusul tichetelor tale. </p>
             <p class="ic">
                 <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-exclamation-triangle-fill" viewBox="0 0 16 16">
@@ -81,9 +84,9 @@ else
         @if (Model != null)
         {
         <div class="self-col text-center">
-            <p style="font-size: 34px"><b>Status Cazare</b></p>
+            <p style="font-size: 30px"><b>Status Cazare</b></p>
             <p>
-                Verifică statusul tău de cazare.
+                Ești cazat în căminul dorit? Verifică statusul tău de cazare.
             </p>
             <p>
                 <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-bookmark-check" viewBox="0 0 16 16">
@@ -100,7 +103,7 @@ else
         else
         {
         <div class="self-col text-center">
-            <p style="font-size: 34px"><b>Vreau un loc în cămin!</b></p>
+            <p style="font-size: 30px"><b>Vreau un loc în cămin!</b></p>
             <p>
                 Nu ești înscris?
                 Înscrie-te pe pagină și ocupă locul în căminul dorit.
@@ -118,16 +121,16 @@ else
         </div>
         }
         <div class="self-col text-center" id="statistica">
-            <p style="font-size: 34px"><b>Statistică</b></p>
+            <p style="font-size: 30px"><b>Statistică</b></p>
             <p>Vizualizează statisticile căminelor UVT. </p>
             <p class="ic">
                 <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-bar-chart-line-fill" viewBox="0 0 16 16">
                     <path d="M11 2a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v12h.5a.5.5 0 0 1 0 1H.5a.5.5 0 0 1 0-1H1v-3a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3h1V7a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v7h1V2z" />
                 </svg>
             </p>
-            <form asp-controller="Home" asp-action="Tichete">
+            <form asp-controller="Home" asp-action="Statistica">
                 <input class="submit" type="submit" value="Check it!" />
             </form>
         </div>
-    </div>
+</div>
 }

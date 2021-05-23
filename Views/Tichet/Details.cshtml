@@ -99,7 +99,7 @@
                         imp = "Tichetul NU este important!";
                         im = "neimportant";
                     }
-                    <p class="@im"><b> @imp</b></p>
+                <p class="@im"><b> @imp</b></p>
             </div>
             <div class="col-sm-15">
                 <p style="font-family:Garamond,serif; font-size: 18px; text-align:center">
@@ -113,9 +113,12 @@
                     @Html.DisplayFor(model => model.IdCamera)
                 </p>
             </div>
-			<div class="col-sm-15">
-				<a href="@Url.Content("~/TichetImages/" + Model.FileName)"><img src="@Url.Content("~/TichetImages/" + Model.FileName)" width="60" height="60" /></a>
-			</div>
+            @if ("~/tichet/" + Model.FileName == null)
+            {
+                <div class="container-fluid">
+                    <a href="@Url.Content("~/tichet/" + Model.FileName)"><img src="@Url.Content("~/tichet/" + Model.FileName)" width="60" height="60" /></a>
+                </div>
+            }
         </div>
         <div class="mx-auto mb-2">
             @if (isAdmin)

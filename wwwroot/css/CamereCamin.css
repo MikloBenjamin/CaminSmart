@@ -26,6 +26,7 @@
 	display: grid;
 	grid-template-columns: 1fr 1fr 1fr 1fr;
 	grid-gap: 15px;
+	margin-top: 2%;
 }
 
 .fiecare {
@@ -66,6 +67,15 @@
 	border: none;
 	text-decoration: none;
 	pointer-events: none;
+}
+
+#admin-contact {
+	background: linear-gradient(to right, rgba(255,255,255, 0.5), white, rgba(255,255,255, 0));
+	text-align: center;
+	font-family: Garamond, serif;
+	font-size: 65px;
+	display: inline-block;
+	width: 100%;
 }
 
 @media (max-width: 1100px){

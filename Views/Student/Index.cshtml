@@ -31,8 +31,6 @@
 
 	.show:hover{
 		cursor: pointer;
-		color: blue;
-		text-shadow: 2px 2px 2px black;
 	}
 </style>
 
@@ -41,14 +39,49 @@
         $(document).ready(function () {
             i = 0;
 			content = $("#tbody-student");
-			listaStudenti = @serializer;
-			loadMore();
+            listaStudenti = @serializer;
+            loadMore();
+            console.log(content.children())
+			if (content.children().length <= 11) {
+				$("#less").css({ "display": "none" });
+			}
             $("#more").click(function (event) {
                 loadMore();
-			});
+				if ((content.children().length - 1) % 10 != 0) {
+					$("#more").css({ "display": "none" });
+                }
+				if (content.children().length > 10) {
+					$("#less").css({ "display": "inline-block" });
+				}
+            });
+
 			$("#less").click(function (event) {
-				loadLess();
-			});
+                loadLess();
+                if (content.children().length <= 11) {
+					$("#less").css({ "display": "none" });
+                }
+                if (content.children().length != listaStudenti.length) {
+                    $("#more").css({ "display": "inline-block" });
+				}
+            });
+
+            $("#find_student_by_id").change(function (event) {
+                $("#tempRow").empty();
+                $("#more").css({ "display": "none" });
+				$("#less").css({ "display": "none" });
+				$("#tempRow").css({ "display": "none" });
+                if ($("#find_student_by_id").val() != 0) {
+					hideRows(parseInt($("#find_student_by_id").val()));
+                } else {
+                    showRows();
+					if (content.children().length > 11) {
+						$("#less").css({ "display": "inline-block" });
+					}
+					if (content.children().length != listaStudenti.length) {
+						$("#more").css({ "display": "inline-block" });
+					}
+				}
+            });
 		});
 
         function loadMore() {
@@ -62,7 +95,7 @@
         function loadLess() {
             var pana_la = (i - 10 > 0 ? i - 10 : 0);
             var childs = content.children();
-            for (var j = childs.length - 1; j >= pana_la; j--) {
+            for (var j = childs.length - 1; j > pana_la; j--) {
                 childs[j].remove();
                 i -= 1;
             }
@@ -73,16 +106,57 @@
 			delete student["idCameraNavigation"];
 			delete student["tichet"];
 			delete student["dataCazare"];
-			student_values = Object.values(student);
-			for (var pos = 0; pos < student_values.length; pos++) {
-				row += "<td>" + student_values[pos] + "</td>";
-			}
-			row += "<td><a asp-action='Edit' asp-route-id='" + student.idStudent + "'>Editeaza</a> | <a asp-action='Details' asp-route-id='" + student.idStudent + "'>Detalii</a> | ";
-			row += "<a asp-action='Delete' asp-route-id='" + student.idStudent + "'>Sterge</a> </td>";
+            student_values = Object.values(student);
+            console.log(student);
+			row += "<td>" + student.idStudent + "</td>";
+			row += "<td>" + student.nume + "</td>";
+			row += "<td>" + student.prenume + "</td>";
+			row += "<td>" + student.facultate + "</td>";
+			row += "<td>" + student.varsta + "</td>";
+            row += "<td>" + student.adresa + "</td>";
+            row += "<td>" + student.email + "</td>";
+            row += "<td>" + student.an + "</td>";
+			row += "<td>" + student.idCamera + "</td>";
+            row += "<td><a href=\"/Student/Edit/" + student.idStudent + "\">Editează</a> | ";
+            row += "<a href=\"/Student/Details/" + student.idStudent + "\">Detalii</a> | ";
+			row += "<a href=\"/Student/Delete/" + student.idStudent + "\">Șterge</a> </td>";
 			row += "</tr>";
 			return row;
 		}
 
+        function hideRows(student_id) {
+            var c = content.children();
+            var [f1, ...childs] = c;
+            var found = false;
+            for (var pos = 0; pos < childs.length; pos++) {
+                var id = parseInt(childs[pos].children[0].innerText);
+                if (id != student_id) {
+                    childs[pos].style.display = "none";
+                } else {
+                    found = true;
+				}
+            }
+            if (!found) {
+                temprowContent = displayStudent(findStudent(student_id));
+                $("#tempRow").append(temprowContent.substr(4, temprowContent.length - 5));
+                $("#tempRow").css({ "display": "table-row" });
+			}
+        }
+
+        function showRows() {
+            var childs = content.children();
+			for (var pos = 0; pos < childs.length; pos++) {
+				childs[pos].style.display = "table-row";
+			}
+        }
+
+        function findStudent(id) {
+            for (var pos = 0; pos < listaStudenti.length; pos++) {
+                if (listaStudenti[pos].idStudent == id) {
+                    return listaStudenti[pos];
+				}
+			}
+		}
 	</script>
 }
 
@@ -91,6 +165,8 @@
 		<div class="card-header header-elements-inline">
 			<h5 style="font-family:Garamond,serif;font-size: 40px">Studenți</h5>
 			<div class="mb-2">
+                <label for="student_finder">Caută după ID Student: </label>
+                <input type="number" min="0" max="@Model.Count()" id="find_student_by_id" name="student_finder" value="0"/>
 				<a asp-action="Create" class="create_button">Adaugă!</a>
 				<a asp-controller="Home" asp-action="Index" class="create_button">Înapoi</a>
 			</div>
@@ -122,23 +198,16 @@
                             E-mail
                         </th>
                         <th>
-                           ID Cameră
+                            An Fac.
                         </th>
-                        <th>
-                            ID Cămin
-                        </th>
+						<th>
+							ID Cameră
+						</th>
                     </tr>
                 </thead>
                 <tbody id="tbody-student">
+                    <tr id="tempRow" style="display: none;"></tr>
                 </tbody>
-				<tr>
-					<td colspan="4">
-						<p id="l" class="show"> LESS </p>
-					</td>
-					<td colspan="4">
-						<p id="m" class="show"> MORE </p>
-					</td>
-				</tr>
             </table>
         </div>
     </div>

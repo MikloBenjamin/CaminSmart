@@ -23,11 +23,128 @@
         margin: 5px 0 5px 10px;
     }
 </style>
+
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            i = 0;
+			content = $("#data-camere");
+            listaCamere = @serializer;
+            loadMore();
+			if (content.children().length <= 11) {
+				$("#less").css({ "display": "none" });
+			}
+            $("#more").click(function (event) {
+                loadMore();
+				if ((content.children().length - 1) % 10 != 0) {
+					$("#more").css({ "display": "none" });
+                }
+				if (content.children().length > 10) {
+					$("#less").css({ "display": "inline-block" });
+				}
+            });
+
+			$("#less").click(function (event) {
+                loadLess();
+                if (content.children().length <= 11) {
+					$("#less").css({ "display": "none" });
+                }
+                if (content.children().length != listaCamere.length) {
+                    $("#more").css({ "display": "inline-block" });
+				}
+            });
+
+            $("#find_camere_by_id").change(function (event) {
+                $("#tempRow").empty();
+                $("#more").css({ "display": "none" });
+				$("#less").css({ "display": "none" });
+				$("#tempRow").css({ "display": "none" });
+                if ($("#find_camere_by_id").val() != 0) {
+					hideRows(parseInt($("#find_camere_by_id").val()));
+                } else {
+                    showRows();
+					if (content.children().length > 11) {
+						$("#less").css({ "display": "inline-block" });
+					}
+					if (content.children().length != listaCamere.length) {
+						$("#more").css({ "display": "inline-block" });
+					}
+				}
+            });
+		});
+
+        function loadMore() {
+            var pana_la = (i + 10 < listaCamere.length ? i + 10 : listaCamere.length);
+			for (j = i; j < pana_la; j++) {
+                content.append(displayCamera(listaCamere[j]));
+                i += 1;
+            }
+        }
+
+        function loadLess() {
+            var pana_la = (i - 10 > 0 ? i - 10 : 0);
+            var childs = content.children();
+            for (var j = childs.length - 1; j > pana_la; j--) {
+                childs[j].remove();
+                i -= 1;
+            }
+        }
+
+        function displayCamera(camera) {
+            row = "<tr>";
+            row += "<td>" + camera.idCamera + "</td>";
+            row += "<td>" + camera.nrStudentiCazati + "</td>";
+            row += "<td>" + camera.nrCamera + "</td>";
+            row += "<td><a href=\"/Camera/Edit/" + camera.idCamera + "\">Editează</a> | ";
+            row += "<a href=\"/Camera/Details/" + camera.idCamera + "\">Detalii</a> | ";
+			row += "<a href=\"/Camera/Delete/" + camera.idCamera + "\">Șterge</a> </td>";
+			row += "</tr>";
+			return row;
+		}
+
+        function hideRows(camera_id) {
+            var c = content.children();
+            var [f1, ...childs] = c;
+            var found = false;
+            for (var pos = 0; pos < childs.length; pos++) {
+                var id = parseInt(childs[pos].children[0].innerText);
+                if (id != camera_id) {
+                    childs[pos].style.display = "none";
+                } else {
+                    found = true;
+				}
+            }
+            if (!found) {
+                temprowContent = displayCamera(findcamera(camera_id));
+                $("#tempRow").append(temprowContent.substr(4, temprowContent.length - 5));
+                $("#tempRow").css({ "display": "table-row" });
+			}
+        }
+
+        function showRows() {
+            var childs = content.children();
+			for (var pos = 0; pos < childs.length; pos++) {
+				childs[pos].style.display = "table-row";
+			}
+        }
+
+        function findcamera(id) {
+            for (var pos = 0; pos < listaCamere.length; pos++) {
+                if (listaCamere[pos].idCamera == id) {
+                    return listaCamere[pos];
+				}
+            }
+		}
+    </script>
+}
+
 <div class="container-fluid d-flex justify-content-center mb-auto">
-    <div class="card">
+    <div class="card w-75">
         <div class="card-header header-elements-inline">
             <h5 style="font-family:Garamond,serif;font-size: 40px">Camere</h5>
             <div class="mb-2">
+                <label for="camere_finder">Caută după ID Cameră: </label>
+                <input type="number" min="0" max="@Model.Count()" id="find_camere_by_id" name="camere_finder" value="0" />
                 <a asp-action="Create" class="create_button">Adaugă!</a>
                 <a asp-controller="Home" asp-action="Index" class="create_button">Înapoi</a>
             </div>
@@ -41,54 +158,26 @@
                             ID Cameră
                         </th>
                         <th>
-                            Limita Nr. Studenți
-                        </th>
-                        <th>
                             Nr. Studenți Cazați
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Descriere)
                         </th>
                         <th>
                             Nr. Cameră
                         </th>
-                        <th>
-                            ID Cămin
-                        </th>
                         <th></th>
                     </tr>
                 </thead>
-                <tbody>
-                    @foreach (var item in Model)
-                    {
-                        <tr>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.IdCamera)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.LimitaNrStudenti)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.NrStudentiCazati)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Descriere)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.NrCamera)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.IdCaminNavigation.IdCamin)
-                            </td>
-                            <td>
-                                <a asp-action="Edit" asp-route-id="@item.IdCamera">Editeză</a> |
-                                <a asp-action="Details" asp-route-id="@item.IdCamera">Detalii</a> |
-                                <a asp-action="Delete" asp-route-id="@item.IdCamera">Șterge</a>
-                            </td>
-                        </tr>
-                    }
+                <tbody id="data-camere">
+                    <tr id="tempRow" style="display: none;"></tr>
                 </tbody>
             </table>
         </div>
     </div>
+</div>
+<div class="mx-auto mt-2">
+    <svg id="more" xmlns="http://www.w3.org/2000/svg" width="55" height="55" fill="#008CBA" class="bi bi-arrow-down-circle-fill show" viewBox="0 0 16 16">
+        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v5.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V4.5z" />
+    </svg>
+    <svg id="less" xmlns="http://www.w3.org/2000/svg" width="55" height="55" fill="#008CBA" class="bi bi-arrow-up-circle-fill show" viewBox="0 0 16 16">
+        <path d="M16 8A8 8 0 1 0 0 8a8 8 0 0 0 16 0zm-7.5 3.5a.5.5 0 0 1-1 0V5.707L5.354 7.854a.5.5 0 1 1-.708-.708l3-3a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 5.707V11.5z" />
+    </svg>
 </div>

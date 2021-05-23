@@ -41,6 +41,12 @@ namespace AplicatieCamine.Controllers
         {
             return RedirectToAction("Index", "Administratori");
         }
+
+        public IActionResult StatisticaAdmin()
+        {
+            return RedirectToAction("StatisticaAdmin", "Administratori");
+        }
+
         public IActionResult Inscriere()
         {
             return RedirectToAction("Index", "Applicant");
@@ -62,6 +68,12 @@ namespace AplicatieCamine.Controllers
         {
             return RedirectToAction("Status", "Student");
         }
+
+        public IActionResult Statistica()
+        {
+            return RedirectToAction("Statistica", "Student");
+        }
+
         public IActionResult Index()
         {
             return RedirectToAction("Home", "Student");

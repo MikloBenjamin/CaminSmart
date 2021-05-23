@@ -21,6 +21,8 @@ namespace AplicatieCamine.Models
 #nullable enable
         public string? FileName { get; set; }
 #nullable disable
+        [System.Text.Json.Serialization.JsonIgnore]
+
         public virtual Student IdStudentNavigation { get; set; }
        // public virtual Camere IdCameraNavigation { get; set; }
 

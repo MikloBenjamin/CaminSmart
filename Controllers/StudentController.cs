@@ -10,7 +10,6 @@ using Azure;
 using Azure.Storage.Blobs;
 using Azure.Storage.Blobs.Models;
 using AplicatieCamine.Models;
-using Microsoft.AspNetCore.Mvc.NewtonsoftJson;
 
 namespace AplicatieCamine
 {
@@ -21,42 +20,47 @@ namespace AplicatieCamine
         public StudentController(DBSistemContext context)
         {
             _context = context;
-            id_student = context.Student.ToList().Last().IdStudent + 1;
+        }
+
+        private void setup()
+		{
+            id_student = (_context.Student.Count() > 0 ? _context.Student.ToList().Last().IdStudent + 1 : 1);
+            GlobalVariables.IsAdmin = true;
+
+            if (!char.IsDigit(User.Identity.Name.Split("@")[0][^1]))
+            {
+                GlobalVariables.IsAdmin = true;
+            }
+            var model = _context.Student.Where(st => st.Email == User.Identity.Name).Select(st => st).FirstOrDefault();
+            if (model != null)
+            {
+                GlobalVariables.Student = model;
+            }
+            GlobalVariables.isSetUp = true;
         }
 
         public IActionResult Home()
 		{
-            string user = User.Identity.Name;
-            GlobalVariables.IsAdmin = true;
-
-            if (!char.IsDigit(user.Split("@")[0][^1]))
-            {
-                GlobalVariables.IsAdmin = true;
-            }
-            var model = _context.Student.Where(st => st.Email == user).Select(st => st).AsEnumerable();
-            if(model.Count() == 0)
+            if(GlobalVariables.isSetUp == false)
 			{
-                model = null;
+                setup();
 			}
-            return View("/Views/Home/Index.cshtml", model);
+            return View("/Views/Home/Index.cshtml", GlobalVariables.Student);
 		}
         
         // GET: Student
         public async Task<IActionResult> Index()
-        {
-            var dBSistemContext = await _context.Student.Include(s => s.IdCameraNavigation).ToListAsync();
-            
-            return View(dBSistemContext);
+        {            
+            return View(await _context.Student.Include(s => s.IdCameraNavigation).ToListAsync());
         }
 
         public IActionResult Status()
 		{
-            var id = _context.Student.Where(st => st.Email == User.Identity.Name).Select(st => st);
-            if(id.Count() > 0)
+            if(GlobalVariables.Student != null)
 			{
-                return View(id.First());
+                return View(GlobalVariables.Student);
 			}
-            return View(null);
+            return RedirectToAction("Inscriere", "Applicant");
         }
 
         // GET: Student/Details/5
@@ -85,6 +89,12 @@ namespace AplicatieCamine
             return View();
         }
 
+        // GET: Student/Statistica
+        public IActionResult Statistica()
+        {
+            return View();
+        }
+
         // POST: Student/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
@@ -94,11 +104,15 @@ namespace AplicatieCamine
         {
             if (ModelState.IsValid)
             {
-                _context.Add(student);
-                await _context.SaveChangesAsync();
-                id_student++;
-                string controller = "Student", action = "Index";
-                return RedirectToAction("UpdateNrStudentCazati", "Camere", new { id = (int)student.IdCamera, raction = action, rcontroller = controller });
+                var camera = _context.Camere.Where(entry => entry.IdCamera == student.IdCamera).Select(entry => new { limit = entry.LimitaNrStudenti, cazati = entry.NrStudentiCazati}).FirstOrDefault();
+                if (camera.limit > camera.cazati)
+                {
+                    _context.Add(student);
+                    await _context.SaveChangesAsync();
+                    id_student++;
+                    string controller = "Student", action = "Index";
+                    return RedirectToAction("UpdateNrStudentCazati", "Camere", new { id = (int)student.IdCamera, raction = action, rcontroller = controller });
+                }
             }
             ViewData["IdCamera"] = new SelectList(_context.Camere, "IdCamera", "IdCamera", student.IdCamera);
             return View(student);
@@ -110,10 +124,9 @@ namespace AplicatieCamine
             if (aplc.Count() > 0)
             {
                 _context.Remove(aplc.First());
+                await _context.SaveChangesAsync();
             }
-            await _context.SaveChangesAsync();
-            BlobServiceClient serviceClient = new BlobServiceClient("DefaultEndpointsProtocol=https;AccountName=camineuvtstorage;AccountKey=s9ifIu1cH0Y9KXCFhQTNED+VmEy1eECvG5HAFrUHWtmsO5zLC9eV1V+vj4rG2yJPntm7gOHE0baigX5YW8dQ/A==;EndpointSuffix=core.windows.net");
-            BlobContainerClient containerClient = serviceClient.GetBlobContainerClient("inscrieri");
+            BlobContainerClient containerClient = GlobalVariables.BlobClient.GetBlobContainerClient("inscrieri");
             if(containerClient.GetBlobClient(bname).Exists())
 			{
                 containerClient.DeleteBlob(bname);
@@ -144,7 +157,7 @@ namespace AplicatieCamine
             foreach(var camin in camine)
 			{
                 bool found = false;
-                var camere = _context.Camere.Where(cam => cam.IdCamin == camin.IdCamin).ToList();
+                var camere = await _context.Camere.Where(cam => cam.IdCamin == camin.IdCamin).ToListAsync();
                 foreach(var camera in camere)
 				{
                     if(camera.NrStudentiCazati < camera.LimitaNrStudenti)
@@ -250,6 +263,14 @@ namespace AplicatieCamine
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var student = await _context.Student.FindAsync(id);
+            var tichete = await _context.Tichet.Where(entry => entry.IdStudent == student.IdStudent).ToListAsync();
+            foreach(var tichet in tichete)
+			{
+                _context.Tichet.Remove(tichet);
+			}
+            var camera = _context.Camere.Where(entry => entry.IdCamera == student.IdCamera).First();
+            camera.NrStudentiCazati -= 1;
+            _context.Camere.Update(camera);
             _context.Student.Remove(student);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
@@ -262,9 +283,8 @@ namespace AplicatieCamine
 
         public IActionResult CleanServer()
 		{
-            BlobServiceClient serviceClient = new BlobServiceClient("DefaultEndpointsProtocol=https;AccountName=camineuvtstorage;AccountKey=s9ifIu1cH0Y9KXCFhQTNED+VmEy1eECvG5HAFrUHWtmsO5zLC9eV1V+vj4rG2yJPntm7gOHE0baigX5YW8dQ/A==;EndpointSuffix=core.windows.net");
-            BlobContainerClient containerClient = serviceClient.GetBlobContainerClient("inscrieri");
-            var files = System.IO.Directory.GetFiles(@"wwwroot/UploadFiles");
+            BlobContainerClient containerClient = GlobalVariables.BlobClient.GetBlobContainerClient("inscrieri");
+            var files = Directory.GetFiles(@"wwwroot/UploadFiles");
             var blobs = containerClient.GetBlobs().Select(bl => bl.Name);
             foreach(string file in files)
 			{
@@ -274,8 +294,8 @@ namespace AplicatieCamine
 				}
 			}
 
-            containerClient = serviceClient.GetBlobContainerClient("tichete");
-            files = System.IO.Directory.GetFiles(@"wwwroot/TichetImages");
+            containerClient = GlobalVariables.BlobClient.GetBlobContainerClient("tichete");
+            files = Directory.GetFiles(@"wwwroot/TichetImages");
             blobs = containerClient.GetBlobs().Select(bl => bl.Name);
             foreach (string file in files)
             {
