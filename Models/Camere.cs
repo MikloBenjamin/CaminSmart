@@ -20,7 +20,9 @@ namespace AplicatieCamine.Models
         public int NrStudentiCazati { get; set; }
         public string Descriere { get; set; }
         public int NrCamera { get; set; }
+        [System.Text.Json.Serialization.JsonIgnore]   
         public virtual Camine IdCaminNavigation { get; set; }
+        [System.Text.Json.Serialization.JsonIgnore]
         public virtual ICollection<Student> Student { get; set; }
     }
 }

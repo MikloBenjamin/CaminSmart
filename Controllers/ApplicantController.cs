@@ -31,7 +31,13 @@ namespace AplicatieCamine
         }
         public ActionResult Index()
 		{
-			return View("Inscriere");
+			var applicant = _context.Applicant.Where(entry => entry.Email == User.Identity.Name);
+			bool is_applicant = applicant.Count() > 0;
+			if (is_applicant == true)
+            {
+				return RedirectToAction("Home","Student");
+            }
+			return View("Inscriere", new Applicant());
 		}
 
 		[HttpPost]
@@ -48,16 +54,13 @@ namespace AplicatieCamine
 				{
 					await file.CopyToAsync(stream);
 				}
-				BlobServiceClient serviceClient = new BlobServiceClient("DefaultEndpointsProtocol=https;AccountName=camineuvtstorage;AccountKey=s9ifIu1cH0Y9KXCFhQTNED+VmEy1eECvG5HAFrUHWtmsO5zLC9eV1V+vj4rG2yJPntm7gOHE0baigX5YW8dQ/A==;EndpointSuffix=core.windows.net");
-				BlobContainerClient containerClient = serviceClient.GetBlobContainerClient("inscrieri");
 				FileStream fl = new FileStream(path, FileMode.Open);
-				await containerClient.UploadBlobAsync(fileName, fl);
+				await GlobalVariables.BlobClient.GetBlobContainerClient("inscrieri").UploadBlobAsync(fileName, fl);
 				_context.Add(apl);
 				await _context.SaveChangesAsync();
 				idAppl++;
 
-				var apiKey = "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";
-				var client = new SendGridClient(apiKey);
+				var client = new SendGridClient(GlobalVariables.SendGridApiKey);
 				var from = new EmailAddress("florin.marut99@e-uvt.ro", "Florin");
 				var to = new EmailAddress(apl.Email, apl.Prenume);
 				var subject = "Cazarea ta a fost înregistrată cu succes!";
@@ -72,7 +75,7 @@ namespace AplicatieCamine
 					);
 				await client.SendEmailAsync(msg);
 				System.Diagnostics.Debug.WriteLine("Email successfully sent!");
-				return RedirectToAction("Index", "Home");
+				return RedirectToAction("Home", "Student");
 			}
 			return View();
 		}
@@ -87,10 +90,9 @@ namespace AplicatieCamine
 		public async Task<IActionResult> Applicants()
 		{
 			var applicants = _context.Applicant.Select(apl => apl.Nume + "_" + apl.Prenume + "_" + apl.IdApplicant).AsEnumerable();
-			BlobServiceClient serviceClient = new BlobServiceClient("DefaultEndpointsProtocol=https;AccountName=camineuvtstorage;AccountKey=s9ifIu1cH0Y9KXCFhQTNED+VmEy1eECvG5HAFrUHWtmsO5zLC9eV1V+vj4rG2yJPntm7gOHE0baigX5YW8dQ/A==;EndpointSuffix=core.windows.net");
-			BlobContainerClient containerClient = serviceClient.GetBlobContainerClient("inscrieri");
+			BlobContainerClient containerClient = GlobalVariables.BlobClient.GetBlobContainerClient("inscrieri");
 			var model = GetAllBlobs(containerClient, applicants);
-			var files = System.IO.Directory.GetFiles(@"wwwroot/UploadFiles");
+			var files = Directory.GetFiles(@"wwwroot/UploadFiles");
 			foreach (BlobItem blob in containerClient.GetBlobs(BlobTraits.None, BlobStates.None, string.Empty))
 			{
 				if (!files.Contains(blob.Name)){
@@ -109,7 +111,7 @@ namespace AplicatieCamine
 		public IActionResult Accept()
 		{
 			string applNameID = Request.Form["file"];
-			int toAccept = Int32.Parse(applNameID.Split(".")[0].Split("_")[2]);
+			int toAccept = int.Parse(applNameID.Split(".")[0].Split("_")[2]);
 
 			Applicant aplc = _context.Applicant.Where(apl => apl.IdApplicant == toAccept).First();
 			
@@ -123,7 +125,7 @@ namespace AplicatieCamine
 		public async Task<IActionResult> Refuse()
 		{
 			string applNameID = Request.Form["file"];
-			int toAccept = Int32.Parse(applNameID.Split(".")[0].Split("_")[2]);
+			int toAccept = int.Parse(applNameID.Split(".")[0].Split("_")[2]);
 
 			var aplc = _context.Applicant.Where(apl => apl.IdApplicant == toAccept);
 			if (aplc.Count() > 0)
@@ -131,9 +133,7 @@ namespace AplicatieCamine
 				_context.Remove(aplc.First());
 			}
 			await _context.SaveChangesAsync();
-			BlobServiceClient serviceClient = new BlobServiceClient("DefaultEndpointsProtocol=https;AccountName=camineuvtstorage;AccountKey=s9ifIu1cH0Y9KXCFhQTNED+VmEy1eECvG5HAFrUHWtmsO5zLC9eV1V+vj4rG2yJPntm7gOHE0baigX5YW8dQ/A==;EndpointSuffix=core.windows.net");
-			BlobContainerClient containerClient = serviceClient.GetBlobContainerClient("inscrieri");
-			containerClient.DeleteBlob(applNameID);
+			GlobalVariables.BlobClient.GetBlobContainerClient("inscrieri").DeleteBlob(applNameID);
 			return RedirectToAction("Applicants");
 		}
 	}

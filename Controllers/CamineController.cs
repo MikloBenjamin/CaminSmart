@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using AplicatieCamine.Models;
+using System.Dynamic;
 
 namespace AplicatieCamine
 {
@@ -17,13 +18,15 @@ namespace AplicatieCamine
         {
             _context = context;
         }
-        public async Task<IActionResult> Camere()
+        public IActionResult Camere()
         {
 			if (Request.Form.ContainsKey("cnr"))
 			{
-                int id = Int32.Parse(Request.Form["cnr"]);
-                var nrc = _context.Camere.Where(a => a.IdCamin == id).Select(a => a).AsEnumerable();
-                return View("CamereCamin", nrc);
+                int id = int.Parse(Request.Form["cnr"]);
+                dynamic model = new ExpandoObject();
+                model.Camere = _context.Camere.Where(a => a.IdCamin == id).Select(a => a).AsEnumerable();
+                model.Admin = _context.Administratori.Where(a => a.IdCamin == id).Select(a => a).AsEnumerable().FirstOrDefault();
+                return View("CamereCamin", model);
 			}
             return RedirectToAction(nameof(Index));
         }
@@ -34,16 +37,13 @@ namespace AplicatieCamine
         {
             return View("Index", await _context.Camine.ToListAsync());
         }
-        [HttpPost]
-        public async Task<IActionResult> Index(string x = "")
-        {
-            return await Camine();
-        }
-        public async Task<IActionResult> Camine()
+        [HttpGet]
+        public IActionResult Camine()
         {
             var model = _context.Camine.AsEnumerable();
             return View("Camine", model);
         }
+
         // GET: Camine/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -75,7 +75,6 @@ namespace AplicatieCamine
         {
             if (ModelState.IsValid)
             {
-                //camine.Images = "This should be a path";
                 _context.Add(camine);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));

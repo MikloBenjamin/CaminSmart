@@ -23,11 +23,138 @@
         margin: 5px 0 5px 10px;
     }
 </style>
+
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            i = 0;
+            pag = 0;
+			content = $("#data-camere");
+            listaCamere = @serializer;
+            loadMore();
+			$("#less").css({ "display": "none" });
+            $("#more").click(function (event) {
+                loadMore();
+                if (i == listaCamere.length) {
+					$("#more").css({ "display": "none" });
+                }
+				if (pag > 1) {
+					$("#less").css({ "display": "inline-block" });
+				}
+            });
+
+			$("#less").click(function (event) {
+                loadLess();
+                if (pag <= 1) {
+					$("#less").css({ "display": "none" });
+                }
+                if (i < listaCamere.length) {
+                    $("#more").css({ "display": "inline-block" });
+				}
+            });
+
+            $("#find_camere_by_id").change(function (event) {
+                $("#tempRow").empty();
+                $("#more").css({ "display": "none" });
+				$("#less").css({ "display": "none" });
+				$("#tempRow").css({ "display": "none" });
+                if ($("#find_camere_by_id").val() != 0) {
+					hideRows(parseInt($("#find_camere_by_id").val()));
+                } else {
+                    showRows();
+                    if (pag > 1) {
+                        $("#less").css({ "display": "inline-block" });
+                    }
+					if (i < listaCamere.length) {
+						$("#more").css({ "display": "inline-block" });
+					}
+				}
+            });
+		});
+
+        function emptyContent() {
+            var childs = content.children();
+            for (var i = childs.length - 1; i > 0; i--) {
+                childs[i].remove();
+            }
+        }
+
+        function loadMore() {
+            emptyContent();
+            var pana_la = (i + 6 < listaCamere.length ? i + 6 : listaCamere.length);
+			for (j = i; j < pana_la; j++) {
+                content.append(displayCamera(listaCamere[j]));
+                i += 1;
+            }
+            pag += 1;
+        }
+
+        function loadLess() {
+            emptyContent();
+            var pana_la = (i - 6 > 0 ? i - 6 : 0);
+            de_la = pana_la - 6;
+            for (var j = de_la; j < pana_la; j++) {
+                content.append(displayCamera(listaCamere[j]));
+                i -= 1;
+            }
+            pag -= 1;
+        }
+
+        function displayCamera(camera) {
+            row = "<tr>";
+            row += "<td>" + camera.idCamera + "</td>";
+            row += "<td>" + camera.nrStudentiCazati + "</td>";
+            row += "<td>" + camera.nrCamera + "</td>";
+            row += "<td><a href=\"/Camere/Edit/" + camera.idCamera + "\">Editează</a> | ";
+            row += "<a href=\"/Camere/Details/" + camera.idCamera + "\">Detalii</a> | ";
+			row += "<a href=\"/Camere/Delete/" + camera.idCamera + "\">Șterge</a> </td>";
+			row += "</tr>";
+			return row;
+		}
+
+        function hideRows(camera_id) {
+            var c = content.children();
+            var [f1, ...childs] = c;
+            var found = false;
+            for (var pos = 0; pos < childs.length; pos++) {
+                var id = parseInt(childs[pos].children[0].innerText);
+                if (id != camera_id) {
+                    childs[pos].style.display = "none";
+                } else {
+                    found = true;
+				}
+            }
+            if (!found) {
+                temprowContent = displayCamera(findcamera(camera_id));
+                $("#tempRow").append(temprowContent.substr(4, temprowContent.length - 5));
+                $("#tempRow").css({ "display": "table-row" });
+			}
+        }
+
+        function showRows() {
+            var childs = content.children();
+			for (var pos = 0; pos < childs.length; pos++) {
+				childs[pos].style.display = "table-row";
+            }
+        }
+
+        function findcamera(id) {
+            for (var pos = 0; pos < listaCamere.length; pos++) {
+                if (listaCamere[pos].idCamera == id) {
+                    return listaCamere[pos];
+				}
+            }
+		}
+    </script>
+}
+
 <div class="container-fluid d-flex justify-content-center mb-auto">
-    <div class="card">
+    <div class="card w-75">
         <div class="card-header header-elements-inline">
             <h5 style="font-family:Garamond,serif;font-size: 40px">Camere</h5>
             <div class="mb-2">
+                <label for="camere_finder">Caută după ID Cameră: </label>
+                <input type="number" min="0" max="@Model.Count()" id="find_camere_by_id" name="camere_finder" value="0" />
                 <a asp-action="Create" class="create_button">Adaugă!</a>
                 <a asp-controller="Home" asp-action="Index" class="create_button">Înapoi</a>
             </div>
@@ -41,54 +168,26 @@
                             ID Cameră
                         </th>
                         <th>
-                            Limita Nr. Studenți
-                        </th>
-                        <th>
                             Nr. Studenți Cazați
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Descriere)
                         </th>
                         <th>
                             Nr. Cameră
                         </th>
-                        <th>
-                            ID Cămin
-                        </th>
                         <th></th>
                     </tr>
                 </thead>
-                <tbody>
-                    @foreach (var item in Model)
-                    {
-                        <tr>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.IdCamera)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.LimitaNrStudenti)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.NrStudentiCazati)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Descriere)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.NrCamera)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.IdCaminNavigation.IdCamin)
-                            </td>
-                            <td>
-                                <a asp-action="Edit" asp-route-id="@item.IdCamera">Editeză</a> |
-                                <a asp-action="Details" asp-route-id="@item.IdCamera">Detalii</a> |
-                                <a asp-action="Delete" asp-route-id="@item.IdCamera">Șterge</a>
-                            </td>
-                        </tr>
-                    }
+                <tbody id="data-camere">
+                    <tr id="tempRow" style="display: none;"></tr>
                 </tbody>
             </table>
         </div>
     </div>
+</div>
+<div class="mx-auto mt-2">
+    <svg id="less" xmlns="http://www.w3.org/2000/svg" width="55" height="55" fill="#008CBA" class="bi bi-arrow-left-circle-fill" viewBox="0 0 16 16">
+        <path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zm3.5 7.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5z" />
+    </svg>
+    <svg id="more" xmlns="http://www.w3.org/2000/svg" width="55" height="55" fill="#008CBA" class="bi bi-arrow-right-circle-fill" viewBox="0 0 16 16">
+        <path d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0zM4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5z" />
+    </svg>
 </div>

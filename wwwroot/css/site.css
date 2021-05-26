@@ -110,6 +110,7 @@ footer > div a, footer > div p{
     margin-top: 2.5%;
     margin-bottom: 2.5%;
     width: 90%;
+    height: 95%;
     flex-grow: 1;
     padding: 30px;
     border-radius: 10px;

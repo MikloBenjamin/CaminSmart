@@ -62,7 +62,7 @@
 						Data Rezolvare
 					</th>
 					<th>
-						Rezolvat?
+						Status Tichet
 					</th>
 					<th>
 						Detalii
@@ -71,7 +71,7 @@
 						Nr. Cameră
 					</th>
 					<th>
-						Important?
+						Importanta Tichet
 					</th>
 					<th>
 						Feedback
@@ -112,7 +112,13 @@
 									@item.Feedback
 								</td>
 								<td>
+									@if ("~/TichetImages/" + file_name != null)
+                                    {	
 									<a href="@Url.Content("~/TichetImages/" + file_name)"><img src="@Url.Content("~/TichetImages/" + file_name)" width="40" height="40" /></a>
+									}else
+									{
+										<i>Fără poză!</i>
+									}
 								</td>
 								<td>
 									<a asp-action="Details" asp-route-id="@item.IdTichet">Detalii</a>
