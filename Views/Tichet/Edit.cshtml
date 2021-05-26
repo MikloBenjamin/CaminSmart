@@ -66,6 +66,11 @@
                     <input asp-for="Feedback" class="form-control" />
                     <span asp-validation-for="Feedback" class="text-danger"></span>
                 </div>
+
+                @if (System.IO.File.Exists(GlobalVariables.env + "\\TichetImages\\1.jpg"))
+                {
+                    <a href="@Url.Content("/TichetImages/1.jpg")" target="_blank"><img src="@Url.Content("/TichetImages/1.jpg")" style="width:50%; height:50%;" /></a>
+                }
                 <div class="justify-content-center">
                     <input type="submit" value="Salvează" class="create_button" />
                     <a class="create_button" asp-action="Index">Înapoi</a>
@@ -73,12 +78,6 @@
             </form>
         </div>
     </div>
-    @if ("~/tichet/" + Model.FileName == null)
-    {
-        <div class="cardCreate">
-            <a href="@Url.Content("~/tichet/" + Model.FileName)"><img src="@Url.Content("~/tichet/" + Model.FileName)" width="60" height="60" /></a>
-        </div>
-    }
 </div>
     @section Scripts {
         @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

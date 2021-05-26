@@ -113,7 +113,7 @@ namespace AplicatieCamine
         {
             if (ModelState.IsValid)
             {
-                var camera = _context.Camere.Where(entry => entry.IdCamera == student.IdCamera).Select(entry => new { limit = entry.LimitaNrStudenti, cazati = entry.NrStudentiCazati}).FirstOrDefault();
+                var camera = _context.Camere.Where(entry => entry.IdCamera == student.IdCamera).Select(entry => new { limit = entry.LimitaNrStudenti, cazati = entry.NrStudentiCazati }).FirstOrDefault();
                 if (camera.limit > camera.cazati)
                 {
                     _context.Add(student);
@@ -126,6 +126,7 @@ namespace AplicatieCamine
             ViewData["IdCamera"] = new SelectList(_context.Camere, "IdCamera", "IdCamera", student.IdCamera);
             return View(student);
         }
+
 
         private async Task<bool> DeleteApplicant(string bname, int id)
 		{
@@ -140,57 +141,56 @@ namespace AplicatieCamine
             System.Diagnostics.Debug.WriteLine(bname);
             await containerClient.DeleteBlobIfExistsAsync(bname);
             return true;
-		}
+        }
 
         public async Task<IActionResult> AcceptApplicant(
-            int id, string nume, string prenume, string facultate, 
+            int id, string nume, string prenume, string facultate,
             string email, string adresa, int an, int varsta
            )
         {
             System.Diagnostics.Debug.WriteLine("Id student = " + id_student + "\n");
             Student student = new Student
-			{
-				IdStudent = _context.Student.ToList().Last().IdStudent + 1,
-				Nume = nume,
-				Prenume = prenume,
-				Facultate = facultate,
-				Adresa = adresa,
-				Email = email,
-				Varsta = varsta,
-				An = an,
-				DataCazare = DateTime.Now,
-				IdCamera = -1
-			};
-            id_student += 1;
+            {
+                IdStudent = _context.Student.ToList().Last().IdStudent + 1,
+                Nume = nume,
+                Prenume = prenume,
+                Facultate = facultate,
+                Adresa = adresa,
+                Email = email,
+                Varsta = varsta,
+                An = an,
+                DataCazare = DateTime.Now,
+                IdCamera = -1
+            };
             var camine = _context.Camine.ToList();
-            foreach(var camin in camine)
-			{
+            foreach (var camin in camine)
+            {
                 bool found = false;
                 var camere = await _context.Camere.Where(cam => cam.IdCamin == camin.IdCamin).ToListAsync();
-                foreach(var camera in camere)
-				{
-                    if(camera.NrStudentiCazati < camera.LimitaNrStudenti)
-					{
+                foreach (var camera in camere)
+                {
+                    if (camera.NrStudentiCazati < camera.LimitaNrStudenti)
+                    {
                         found = true;
                         student.IdCamera = camera.IdCamera;
                         break;
-					}
-				}
-                if(found == true)
-				{
+                    }
+                }
+                if (found == true)
+                {
                     break;
-				}
-			}
+                }
+            }
 
 
-            if(student.IdCamera != -1)
-			{
+            if (student.IdCamera != -1)
+            {
                 _context.Add(student);
                 await _context.SaveChangesAsync();
                 await DeleteApplicant(nume + "_" + prenume + "_" + id, id);
                 string controller = "Applicant", action = "Applicants";
                 return RedirectToAction("UpdateNrStudentCazati", "Camere", new { id = (int)student.IdCamera, raction = action, rcontroller = controller });
-			}
+            }
             return NotFound();
         }
 
@@ -273,10 +273,10 @@ namespace AplicatieCamine
         {
             var student = await _context.Student.FindAsync(id);
             var tichete = await _context.Tichet.Where(entry => entry.IdStudent == student.IdStudent).ToListAsync();
-            foreach(var tichet in tichete)
-			{
+            foreach (var tichet in tichete)
+            {
                 _context.Tichet.Remove(tichet);
-			}
+            }
             var camera = _context.Camere.Where(entry => entry.IdCamera == student.IdCamera).First();
             camera.NrStudentiCazati -= 1;
             _context.Camere.Update(camera);
@@ -295,13 +295,13 @@ namespace AplicatieCamine
             BlobContainerClient containerClient = GlobalVariables.BlobClient.GetBlobContainerClient("inscrieri");
             var files = Directory.GetFiles(@"wwwroot/UploadFiles");
             var blobs = containerClient.GetBlobs().Select(bl => bl.Name);
-            foreach(string file in files)
-			{
-				if (!blobs.Contains(file))
-				{
+            foreach (string file in files)
+            {
+                if (!blobs.Contains(file))
+                {
                     System.IO.File.Delete(file);
-				}
-			}
+                }
+            }
 
             containerClient = GlobalVariables.BlobClient.GetBlobContainerClient("tichete");
             files = Directory.GetFiles(@"wwwroot/TichetImages");
@@ -315,6 +315,6 @@ namespace AplicatieCamine
                 }
             }
             return RedirectToAction("Home");
-		}
+        }
     }
 }

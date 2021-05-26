@@ -2,7 +2,6 @@
 
 @{
     ViewData["Title"] = "Details";
-    bool isAdmin = AplicatieCamine.Models.GlobalVariables.IsAdmin;
     string imp;
     string im;
     string rez;
@@ -20,7 +19,6 @@
         font-size: 16px;
         cursor: pointer;
         transition-duration: 0.6s;
-        margin: 5px 0 5px 10px;
     }
     .rezolvat{
         color: green;
@@ -83,7 +81,7 @@
             </div>
             <div class="col-sm-15">
                 <p style="font-family:Garamond,serif; font-size: 18px;text-align:center">
-                    <b>@Html.DisplayNameFor(model => model.Detalii):</b>
+                    <b>Detalii Problemă:</b>
                     @Html.DisplayFor(model => model.Detalii)
                 </p>
             </div>
@@ -103,7 +101,7 @@
             </div>
             <div class="col-sm-15">
                 <p style="font-family:Garamond,serif; font-size: 18px; text-align:center">
-                    <b>Numarul Studentului: </b>
+                    <b>Numărul Studentului: </b>
                     @Html.DisplayFor(model => model.IdStudentNavigation.IdStudent)
                 </p>
             </div>
@@ -113,15 +111,15 @@
                     @Html.DisplayFor(model => model.IdCamera)
                 </p>
             </div>
-            @if ("~/tichet/" + Model.FileName == null)
+            @if (System.IO.File.Exists(GlobalVariables.env + "\\TichetImages\\1.jpg"))
             {
-                <div class="container-fluid">
-                    <a href="@Url.Content("~/tichet/" + Model.FileName)"><img src="@Url.Content("~/tichet/" + Model.FileName)" width="60" height="60" /></a>
+                <div style="width:40%;margin-left:30%;height:100px;">
+                    <a href="@Url.Content("/TichetImages/1.jpg")" target="_blank"><img src="@Url.Content("/TichetImages/1.jpg")" style="width:100%; height:80%;" /></a>
                 </div>
             }
         </div>
         <div class="mx-auto mb-2">
-            @if (isAdmin)
+            @if (AplicatieCamine.Models.GlobalVariables.IsAdmin)
             {
                 <a asp-action="Index" class="create_button">Înapoi</a>
             }

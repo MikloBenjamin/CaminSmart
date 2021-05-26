@@ -1,38 +1,38 @@
 ﻿@model IEnumerable<AplicatieCamine.Models.Tichet>
 @using System.Text.Json;
 @{
-	ViewData["Title"] = "Index";
-	var serializer = Json.Serialize(Model);
-	var filtered = Json.Serialize(Model.Where(entry => entry.StatusTichet == false));
-	var important = Json.Serialize(Model.Where(entry => entry.TipTichet == true));
-	var importantNerezolvat = Json.Serialize(Model.Where(entry => (entry.TipTichet == true) && (entry.StatusTichet == false)));
+    ViewData["Title"] = "Index";
+    var serializer = Json.Serialize(Model);
+    var filtered = Json.Serialize(Model.Where(entry => entry.StatusTichet == false));
+    var important = Json.Serialize(Model.Where(entry => entry.TipTichet == true));
+    var importantNerezolvat = Json.Serialize(Model.Where(entry => (entry.TipTichet == true) && (entry.StatusTichet == false)));
 
 }
 
 <link rel="stylesheet" href="~/css/styleTable.css">
 
 <style>
-	main {
-		flex-direction: column;
-	}
+    main {
+        flex-direction: column;
+    }
 
-	.create_button {
-		border: none;
-		color: white;
-		background-color: #008CBA;
-		padding: 5px 15px;
-		text-align: center;
-		text-decoration: none;
-		font-size: 16px;
-		cursor: pointer;
-		transition-duration: 0.6s;
-		margin: 5px 0 5px 10px;
-	}
+    .create_button {
+        border: none;
+        color: white;
+        background-color: #008CBA;
+        padding: 5px 15px;
+        text-align: center;
+        text-decoration: none;
+        font-size: 16px;
+        cursor: pointer;
+        transition-duration: 0.6s;
+        margin: 5px 0 5px 10px;
+    }
 </style>
 
 @section Scripts{
 
-	<script>
+    <script>
         $(document).ready(function () {
             content = $("#tichet_body");
             $("#filterTichets").prop("checked", true);
@@ -190,7 +190,6 @@
             row += "<td>" + tichet.idStudent + "</td>";
             row += "<td>" + tichet.idCamera + "</td>";
             row += "<td>" + (tichet.feedback != null ? tichet.feedback : "<u> Niciun feedback! </u>") + "</td>";
-            row += "<td>" + (tichet.filename != null ? tichet.filename : "<i> Fără poză! </i>") + "</td>";
             row += "<td><a href=\"/Tichet/Edit/" + tichet.idTichet + "\">Editează</a> | ";
             row += "<a href=\"/Tichet/Details/" + tichet.idTichet + "\">Detalii</a> | ";
             row += "<a href=\"/Tichet/Delete/" + tichet.idTichet + "\">Șterge</a> </td> </tr>";
@@ -252,70 +251,67 @@
 }
 
 <div class="container-fluid d-flex justify-content-center mb-auto">
-	<div class="card">
-		<div class="card-header header-elements-inline">
-			<h5 style="font-family:Garamond,serif; font-size: 40px">Tichet</h5>
-			<div class="mb-2">
-				<label for="tichet_finder">Caută după ID Tichet: </label>
-				<input type="number" min="0" max="@Model.Count()" id="find_tichet_by_id" name="tichet_finder" value="0" />
-				<label for="checker">Importante:  </label> <input type="checkbox" name="checker" id="impTichets" />
-				<label for="checker">Nerezolvate:  </label> <input type="checkbox" name="checker" id="filterTichets" />
-				<a asp-action="Create" class="create_button">Adaugă!</a>
-				<a asp-controller="Home" asp-action="Index" class="create_button">Înapoi</a>
-			</div>
-		</div>
+    <div class="card">
+        <div class="card-header header-elements-inline">
+            <h5 style="font-family:Garamond,serif; font-size: 40px">Tichet</h5>
+            <div class="mb-2">
+                <label for="tichet_finder">Caută după ID Tichet: </label>
+                <input type="number" min="0" max="@Model.Count()" id="find_tichet_by_id" name="tichet_finder" value="0" />
+                <label for="checker">Importante:  </label> <input type="checkbox" name="checker" id="impTichets" />
+                <label for="checker">Nerezolvate:  </label> <input type="checkbox" name="checker" id="filterTichets" />
+                <a asp-action="Create" class="create_button">Adaugă!</a>
+                <a asp-controller="Home" asp-action="Index" class="create_button">Înapoi</a>
+            </div>
+        </div>
 
-		<div class="table-responsive">
+        <div class="table-responsive">
 
-			<table class="table table-hover">
-				<thead>
-					<tr>
-						<th>
-							ID Tichet
-						</th>
-						<th>
-							Data Emiterii
-						</th>
-						<th>
-							Data Rezolvare
-						</th>
-						<th>
-							Rezolvat?
-						</th>
-						<th>
-							@Html.DisplayNameFor(model => model.Detalii)
-						</th>
-						<th>
-							Important?
-						</th>
-						<th>
-							ID Student
-						</th>
-						<th>
-							ID Cameră
-						</th>
-						<th>
-							@Html.DisplayNameFor(model => model.Feedback)
-						</th>
-						<th>
-							Poză
-						</th>
-						<th></th>
-						<th></th>
-					</tr>
-				</thead>
-				<tbody id="tichet_body">
-					<tr id="tempRow" style="display: none;"></tr>
-				</tbody>
-			</table>
-		</div>
-	</div>
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>
+                            ID Tichet
+                        </th>
+                        <th>
+                            Data Emiterii
+                        </th>
+                        <th>
+                            Data Rezolvare
+                        </th>
+                        <th>
+                            Rezolvat?
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Detalii)
+                        </th>
+                        <th>
+                            Important?
+                        </th>
+                        <th>
+                            ID Student
+                        </th>
+                        <th>
+                            ID Cameră
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Feedback)
+                        </th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody id="tichet_body">
+                    <tr id="tempRow" style="display: none;"></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
-<div class="mx-auto mt-2" id="page_controller_buttons">
-	<svg id="less" xmlns="http://www.w3.org/2000/svg" width="55" height="55" fill="#008CBA" class="bi bi-arrow-left-circle-fill" viewBox="0 0 16 16">
-		<path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zm3.5 7.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5z" />
-	</svg>
-	<svg id="more" xmlns="http://www.w3.org/2000/svg" width="55" height="55" fill="#008CBA" class="bi bi-arrow-right-circle-fill" viewBox="0 0 16 16">
-		<path d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0zM4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5z" />
-	</svg>
+<div class="mx-auto mt-2">
+    <svg id="less" xmlns="http://www.w3.org/2000/svg" width="55" height="55" fill="#008CBA" class="bi bi-arrow-left-circle-fill" viewBox="0 0 16 16">
+        <path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zm3.5 7.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5z" />
+    </svg>
+    <svg id="more" xmlns="http://www.w3.org/2000/svg" width="55" height="55" fill="#008CBA" class="bi bi-arrow-right-circle-fill" viewBox="0 0 16 16">
+        <path d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0zM4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5z" />
+    </svg>
 </div>

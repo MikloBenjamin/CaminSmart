@@ -3,7 +3,6 @@
 @{
 	ViewData["Title"] = "Index";
 	var serializer = Json.Serialize(Model);
-    System.IO.File.Exists("asd");
 }
 
 <style>
@@ -39,31 +38,29 @@
 	<script>
         $(document).ready(function () {
             i = 0;
+            pag = 0;
 			content = $("#tbody-student");
             listaStudenti = @serializer;
             loadMore();
-            console.log(content.children())
-			if (content.children().length <= 11) {
-				$("#less").css({ "display": "none" });
-			}
+			$("#less").css({ "display": "none" });
             $("#more").click(function (event) {
                 loadMore();
-				if ((content.children().length - 1) % 10 != 0) {
-					$("#more").css({ "display": "none" });
+                if (i == listaStudenti.length) {
+                    $("#more").css({ "display": "none" });
                 }
-				if (content.children().length > 10) {
-					$("#less").css({ "display": "inline-block" });
-				}
+                if (pag > 1) {
+                    $("#less").css({ "display": "inline-block" });
+                }
             });
 
-			$("#less").click(function (event) {
+            $("#less").click(function (event) {
                 loadLess();
-                if (content.children().length <= 11) {
-					$("#less").css({ "display": "none" });
+                if (pag <= 1) {
+                    $("#less").css({ "display": "none" });
                 }
-                if (content.children().length != listaStudenti.length) {
+                if (i < listaStudenti.length) {
                     $("#more").css({ "display": "inline-block" });
-				}
+                }
             });
 
             $("#find_student_by_id").change(function (event) {
@@ -75,30 +72,41 @@
 					hideRows(parseInt($("#find_student_by_id").val()));
                 } else {
                     showRows();
-					if (content.children().length > 11) {
-						$("#less").css({ "display": "inline-block" });
-					}
-					if (content.children().length != listaStudenti.length) {
-						$("#more").css({ "display": "inline-block" });
+                    if (pag > 1) {
+                        $("#less").css({ "display": "inline-block" });
+                    }
+                    if (i < listaStudenti.length) {
+                        $("#more").css({ "display": "inline-block" });
 					}
 				}
             });
 		});
 
         function loadMore() {
-            var pana_la = (i + 10 < listaStudenti.length ? i + 10 : listaStudenti.length);
-			for (j = i; j < pana_la; j++) {
+            emptyContent();
+            var pana_la = (i + 6 < listaStudenti.length ? i + 6 : listaStudenti.length);
+            for (j = i; j < pana_la; j++) {
                 content.append(displayStudent(listaStudenti[j]));
                 i += 1;
             }
+            pag += 1;
         }
 
         function loadLess() {
-            var pana_la = (i - 10 > 0 ? i - 10 : 0);
-            var childs = content.children();
-            for (var j = childs.length - 1; j > pana_la; j--) {
-                childs[j].remove();
+            emptyContent();
+            var pana_la = (i - 6 > 0 ? i - 6 : 0);
+            de_la = pana_la - 6;
+            for (var j = de_la; j < pana_la; j++) {
+                content.append(displayStudent(listaStudenti[j]));
                 i -= 1;
+            }
+            pag -= 1;
+        }
+
+        function emptyContent() {
+            var childs = content.children();
+            for (var i = childs.length - 1; i > 0; i--) {
+                childs[i].remove();
             }
         }
 
@@ -215,10 +223,10 @@
     </div>
 </div>
 <div class="mx-auto mt-2">
-    <svg id="more" xmlns="http://www.w3.org/2000/svg" width="55" height="55" fill="#008CBA" class="bi bi-arrow-down-circle-fill show" viewBox="0 0 16 16">
-        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v5.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V4.5z" />
+    <svg id="less" xmlns="http://www.w3.org/2000/svg" width="55" height="55" fill="#008CBA" class="bi bi-arrow-left-circle-fill" viewBox="0 0 16 16">
+        <path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zm3.5 7.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5z" />
     </svg>
-    <svg id="less" xmlns="http://www.w3.org/2000/svg" width="55" height="55" fill="#008CBA" class="bi bi-arrow-up-circle-fill show" viewBox="0 0 16 16">
-        <path d="M16 8A8 8 0 1 0 0 8a8 8 0 0 0 16 0zm-7.5 3.5a.5.5 0 0 1-1 0V5.707L5.354 7.854a.5.5 0 1 1-.708-.708l3-3a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 5.707V11.5z" />
+    <svg id="more" xmlns="http://www.w3.org/2000/svg" width="55" height="55" fill="#008CBA" class="bi bi-arrow-right-circle-fill" viewBox="0 0 16 16">
+        <path d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0zM4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5z" />
     </svg>
 </div>
