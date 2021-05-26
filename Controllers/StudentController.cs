@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using Azure;
 using Azure.Storage.Blobs;
 using Azure.Storage.Blobs.Models;
+using Microsoft.AspNetCore.Hosting;
 using AplicatieCamine.Models;
 
 namespace AplicatieCamine
@@ -17,20 +18,28 @@ namespace AplicatieCamine
     {
         private readonly DBSistemContext _context;
         int id_student = 1;
-        public StudentController(DBSistemContext context)
+        public StudentController(DBSistemContext context, IWebHostEnvironment env)
         {
             _context = context;
+            GlobalVariables.env = env.WebRootPath;
         }
 
         private void setup()
 		{
             id_student = (_context.Student.Count() > 0 ? _context.Student.ToList().Last().IdStudent + 1 : 1);
+            if(_context.Student.Count() > 0)
+			{
+                id_student = _context.Student.ToList().Last().IdStudent + 1;
+                System.Diagnostics.Debug.WriteLine("ID_STUDENT = " + id_student);
+                System.Diagnostics.Debug.WriteLine("CONTEXT STUDENT COUNT = " + _context.Student.Count());
+			}
             GlobalVariables.IsAdmin = true;
 
             if (!char.IsDigit(User.Identity.Name.Split("@")[0][^1]))
             {
                 GlobalVariables.IsAdmin = true;
             }
+            //GlobalVariables.IsAdmin = (_context.Administratori.Where(entry => entry.Email == User.Identity.Name).Count() > 0 ? true : false);
             var model = _context.Student.Where(st => st.Email == User.Identity.Name).Select(st => st).FirstOrDefault();
             if (model != null)
             {
@@ -120,6 +129,7 @@ namespace AplicatieCamine
 
         private async Task<bool> DeleteApplicant(string bname, int id)
 		{
+            bname = bname + ".pdf";
             var aplc = _context.Applicant.Where(apl => apl.IdApplicant == id);
             if (aplc.Count() > 0)
             {
@@ -127,10 +137,8 @@ namespace AplicatieCamine
                 await _context.SaveChangesAsync();
             }
             BlobContainerClient containerClient = GlobalVariables.BlobClient.GetBlobContainerClient("inscrieri");
-            if(containerClient.GetBlobClient(bname).Exists())
-			{
-                containerClient.DeleteBlob(bname);
-			}
+            System.Diagnostics.Debug.WriteLine(bname);
+            await containerClient.DeleteBlobIfExistsAsync(bname);
             return true;
 		}
 
@@ -139,10 +147,10 @@ namespace AplicatieCamine
             string email, string adresa, int an, int varsta
            )
         {
-            System.Diagnostics.Debug.WriteLine("Id student = " + id_student.ToString() + "\n");
+            System.Diagnostics.Debug.WriteLine("Id student = " + id_student + "\n");
             Student student = new Student
 			{
-				IdStudent = id_student++,
+				IdStudent = _context.Student.ToList().Last().IdStudent + 1,
 				Nume = nume,
 				Prenume = prenume,
 				Facultate = facultate,
@@ -153,7 +161,8 @@ namespace AplicatieCamine
 				DataCazare = DateTime.Now,
 				IdCamera = -1
 			};
-			var camine = _context.Camine.ToList();
+            id_student += 1;
+            var camine = _context.Camine.ToList();
             foreach(var camin in camine)
 			{
                 bool found = false;
@@ -299,6 +308,7 @@ namespace AplicatieCamine
             blobs = containerClient.GetBlobs().Select(bl => bl.Name);
             foreach (string file in files)
             {
+                System.Diagnostics.Debug.WriteLine(file);
                 if (!blobs.Contains(file))
                 {
                     System.IO.File.Delete(file);

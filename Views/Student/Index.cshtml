@@ -3,6 +3,7 @@
 @{
 	ViewData["Title"] = "Index";
 	var serializer = Json.Serialize(Model);
+    System.IO.File.Exists("asd");
 }
 
 <style>
@@ -203,6 +204,7 @@
 						<th>
 							ID Cameră
 						</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody id="tbody-student">

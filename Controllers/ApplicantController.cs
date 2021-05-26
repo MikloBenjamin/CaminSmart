@@ -31,13 +31,13 @@ namespace AplicatieCamine
         }
         public ActionResult Index()
 		{
-			var applicant = _context.Applicant.Where(entry => entry.Email == User.Identity.Name);
-			bool is_applicant = applicant.Count() > 0;
+			var applicant = _context.Applicant.Where(entry => entry.Email == User.Identity.Name).FirstOrDefault();
+			bool is_applicant = applicant != null;
 			if (is_applicant == true)
 			{
 				return RedirectToAction("Home", "Student");
 			}
-			return View("Inscriere", new Applicant());
+			return View("Inscriere", applicant);
 		}
 
 		[HttpPost]
@@ -75,7 +75,7 @@ namespace AplicatieCamine
 					);
 				await client.SendEmailAsync(msg);
 				System.Diagnostics.Debug.WriteLine("Email successfully sent!");
-				return View("Inscriere", true);
+				return RedirectToAction("Home", "Student");
 			}
 			return View();
 		}

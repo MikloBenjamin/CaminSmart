@@ -130,7 +130,15 @@ footer > div a, footer > div p{
     flex-grow: 1;
 }
 
-.self-col p{
+#page_controller_buttons{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+    width: 100%;
+}
+
+.self-col p {
     font-size: 28px;
     text-align: center;
     font-family: Garamond, serif;

@@ -1,46 +1,26 @@
-﻿.left {
-	position: relative;
-	left: 35%;
-}
-
-.right {
-	position: relative;
-	right: 35%;
-}
-
-.tichet-admin-aplic-top {
-	position: relative;
-	bottom: 35%;
-}
-
-.statistica-cleanserver-top {
-	position: relative;
-	bottom: 70%;
-}
-
-.statistica {
-	position: relative;
-	left: 63%;
-}
-.cleanserver {
-	position: relative;
-	left: 30%;
-}
-
+﻿
 .gridAdmins {
-	flex: 1;
+	flex: 0.6;
 	display: grid;
 	grid-template-columns: 1fr 1fr 1fr;
-}
+	align-items: center;
+	justify-content: center;
+}	
 
 .gridAdmins form{
 	width: 100%;
 	height: 100%;
+	display: inline-block;
 }
 
-.adminButtons, .statistic-color {
-	width: 60%;
-	height: 60%;
+.adminButtons{
+	float: left;
+	width: 70%;
+	height: 80%;
+	margin-top: 5%;
+}
+
+.adminButtons, .statisticButton {
 	border: none;
 	text-align: center;
 	text-decoration: none;
@@ -50,74 +30,75 @@
 	transition-duration: 0.6s;
 }
 
-	.adminButtons:hover {
-		background-color: white;
-		color: black;
-		border: 1px solid #008CBA;
-		text-decoration: underline;
-	}
+.center{
+	margin-left: 10%;
+	width: 80%;
+}
+.right {
+	float: right;
+}
 
-.adminButtons {
+.adminButtons:hover, .statisticButton:hover{
+	background-color: white;
+	color: black;
+	border: 1px solid #008CBA;
+	text-decoration: underline;
+}
+
+.adminButtons, .statisticButton {
 	background-color: #008CBA;
 	color: white;
 }
 
-.statistic-color {
-	background-color: #808080;
-	color: white;
+.statisticButton:hover{
+	border: 1px solid #808080;
 }
 
-	.statistic-color:hover {
-		background-color: white;
-		color: black;
-		border: 1px solid #808080;
-		text-decoration: underline;
-	}
+.statisticButton{
+	width: 100%;
+	height: 100%;
+	background-color: #808080;
+}
 
 .text-center {
 	flex: 0.8;
 	display: flex;
 	flex-direction: column;
-	justify-content: space-around;
 }
 
-
-
+#stat-clean{
+	flex: 0.2;
+	width: 80%;
+	margin-left: 10%;
+	display: flex;
+	justify-content: space-evenly;
+}
+#stat-clean form {
+	width: 33.3%;
+	height: 100%;
+}
 @media(max-width:1195px){
 	.gridAdmins {
-		grid-template-columns: auto auto;
+		grid-template-columns: 1fr 1fr;
 	}
-	.left{left: unset;}
-	.right{right: unset;}
-	.tothetop{bottom: unset;}
+	.adminButtons{
+		margin-left: 15%;
+		margin-top: 2.5%;
+	}
+	.right{
+		float: left;
+	}
+	.center{
+		width: 70%;
+	}
 
-	.left-room-stud-admin{
-		position: relative;
-		left: 15%;
+	#stat-clean{
+		justify-content: space-between;
 	}
-	.right-camin-tichet-aplic {
-		position: relative;
-		right: 20%;
-	}
-	.top-student-tichet {
-		position: relative;
-		bottom: 30%;
-	}
-	.top-admin-aplic {
-		position: relative;
-		bottom: 60%;
-	}
-	.statistica-cleanserver-top {
-		position: relative;
-		bottom: 90%;
-	}
-	.statistica {
-		position: relative;
-		left: 15%;
-	}
-	.cleanserver {
-		position: relative;
-		left: -20%;
+
+	#stat-clean form {
+		width: 35%;
+		height: 80%;
 	}
 }
 
@@ -126,34 +107,16 @@
 		grid-template-columns: 1fr;
 		grid-gap: 5px 1px;
 	}
-	.left {left: unset;}
-	.right {right: unset;}
-	.tothetop {bottom: unset;}
-	.left-room-stud-admin {left: unset;}
-	.right-camin-tichet-aplic {right: unset;}
-	.top-student-tichet{bottom: unset;}
-	.top-admin-aplic{bottom: unset;}
-	.adminButtons {
-		padding: 0px 50px 40px 50px;
+	.adminButtons{
+		margin-top: 1%;
 	}
-	.cleanserver-color {
-		padding: 0px 50px 40px 50px;
+	#stat-clean{
+		flex-direction: column;
 	}
-	.statistic-color {
-		padding: 0px 50px 40px 50px;
-	}
-	.statistica-cleanserver-top {
-		position: unset;
-		bottom: unset;
-	}
-
-	.statistica {
-		position: unset;
-		left: unset;
-	}
-
-	.cleanserver {
-		position: unset;
-		left: unset;
+	#stat-clean form {
+		width: 88%;
+		height: 40%;
+		margin-left: 6%;
+		margin-top: 2%;
 	}
 }

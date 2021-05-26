@@ -109,7 +109,7 @@ namespace AplicatieCamine
         private async Task<bool> Add_Image(IFormFile file, string file_name)
 		{
             string path = Url.Content("wwwroot/TichetImages/") + file_name;
-			if (System.IO.Directory.GetFiles(Url.Content("wwwroot/TichetImages/")).Contains("file_name"))
+			if (System.IO.Directory.GetFiles(Url.Content("wwwroot/TichetImages/")).Contains(file_name))
 			{
                 return false;
 			}

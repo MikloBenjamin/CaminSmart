@@ -1,11 +1,6 @@
 ﻿@{ 
     string u = User.Identity.Name;
     string usr = u.Split('@')[0];
-    bool isAdmin = false;
-    if (!char.IsDigit(usr[usr.Length - 1]))
-    {
-        isAdmin = true;
-    }
 }
 
 <!DOCTYPE html>
@@ -23,7 +18,6 @@
 	<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
 	<link rel="stylesheet" href="~/css/site.css" />
 	<link rel="stylesheet" href="~/css/selfDesign.css" />
-	<link rel="stylesheet" href="~/css/footer-distributed-with-contact-form.css">
 	<link rel="stylesheet" href="@Url.Content("/css/styleCamine.css")" type="text/css" />
 	@RenderSection("Styles", false)
 </head>
