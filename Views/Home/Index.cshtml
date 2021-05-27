@@ -3,19 +3,20 @@
 
 @model AplicatieCamine.Models.Student
 @{
-    ViewData["Title"] = "Home Page";
-    int count = System.IO.Directory.EnumerateFiles(@"wwwroot/Images/camine").Count<string>();
-    bool isAdmin = AplicatieCamine.Models.GlobalVariables.IsAdmin;
+	ViewData["Title"] = "Home Page";
+	int count = System.IO.Directory.EnumerateFiles(@"wwwroot/Images/camine").Count<string>();
+	bool isAdmin = AplicatieCamine.Models.GlobalVariables.IsAdmin;
+
 }
 
 @if (isAdmin)
 {
 
-    @section Styles{
-        <link rel="stylesheet" href="~/css/HomeAdmin.css" />
-    }
+@section Styles{
+	<link rel="stylesheet" href="~/css/HomeAdmin.css" />
+}
 
-<div class="text-center">
+<div class="text-center" id="admin-content">
 	<h1 class="display-4" style="margin-top: -5%;">Selectează</h1>
 	<p>pentru a vizualiza, a adăuga, a șterge și pentru a edita datele</p>
 	<div class="gridAdmins">
@@ -56,82 +57,105 @@
 }
 else
 {
-    <div class="center-divs">
-        <div class="self-col text-center">
-            <p style="font-size: 30px"><b>Structură Cămine</b></p>
-            <p class="flexible">Vizualizează structura căminelor.   Poți vedea informațiile despre fiecare cămin. </p>
-            <p class="flexible">
-                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-building" viewBox="0 0 16 16">
-                    <path fill-rule="evenodd" d="M14.763.075A.5.5 0 0 1 15 .5v15a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5V14h-1v1.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V10a.5.5 0 0 1 .342-.474L6 7.64V4.5a.5.5 0 0 1 .276-.447l8-4a.5.5 0 0 1 .487.022zM6 8.694 1 10.36V15h5V8.694zM7 15h2v-1.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 .5.5V15h2V1.309l-7 3.5V15z" />
-                    <path d="M2 11h1v1H2v-1zm2 0h1v1H4v-1zm-2 2h1v1H2v-1zm2 0h1v1H4v-1zm4-4h1v1H8V9zm2 0h1v1h-1V9zm-2 2h1v1H8v-1zm2 0h1v1h-1v-1zm2-2h1v1h-1V9zm0 2h1v1h-1v-1zM8 7h1v1H8V7zm2 0h1v1h-1V7zm2 0h1v1h-1V7zM8 5h1v1H8V5zm2 0h1v1h-1V5zm2 0h1v1h-1V5zm0-2h1v1h-1V3z" />
-                </svg>
-            </p>
-            <form asp-controller="Home" asp-action="CamineST">
-                <input class="submit" type="submit" value="Cămine!" />
-            </form>
-        </div>
-        <div class="self-col text-center">
-            <p style="font-size: 30px"><b>Am o problemă!</b></p>
-            <p>Trimite tichet pentru a remedia problema sau vizualizază statusul tichetelor tale. </p>
-            <p class="ic">
-                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-exclamation-triangle-fill" viewBox="0 0 16 16">
-                    <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
-                </svg>
-            </p>
-            <form asp-controller="Home" asp-action="Tichete">
-                <input class="submit" type="submit" value="Tichet!" />
-            </form>
-        </div>
-        @if (Model != null)
-        {
-        <div class="self-col text-center">
-            <p style="font-size: 30px"><b>Status Cazare</b></p>
-            <p>
-                Ești cazat în căminul dorit? Verifică statusul tău de cazare.
-            </p>
-            <p>
-                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-bookmark-check" viewBox="0 0 16 16">
-                    <path fill-rule="evenodd" d="M10.854 5.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 7.793l2.646-2.647a.5.5 0 0 1 .708 0z" />
-                    <path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z" />
-                </svg>
-            </p>
-            <form asp-action="Status">
-                <input type="text" name="goTo" value="Status" style="display:none;" />
-                <input class="submit" type="submit" value="Status!" />
-            </form>
-        </div>
-        }
-        else
-        {
-        <div class="self-col text-center">
-            <p style="font-size: 30px"><b>Vreau un loc în cămin!</b></p>
-            <p>
-                Nu ești înscris?
-                Înscrie-te pe pagină și ocupă locul în căminul dorit.
-            </p>
-            <p>
-                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-bookmark-check" viewBox="0 0 16 16">
-                    <path fill-rule="evenodd" d="M10.854 5.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 7.793l2.646-2.647a.5.5 0 0 1 .708 0z" />
-                    <path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z" />
-                </svg>
-            </p>
-            <form asp-controller="Home" asp-action="Inscriere">
-                <input type="text" name="goTo" value="Inscriere" style="display:none;" />
-                <input class="submit" type="submit" value="Înscrie-te!" />
-            </form>
-        </div>
-        }
-        <div class="self-col text-center" id="statistica">
-            <p style="font-size: 30px"><b>Statistică</b></p>
-            <p>Vizualizează statisticile căminelor UVT. </p>
-            <p class="ic">
-                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-bar-chart-line-fill" viewBox="0 0 16 16">
-                    <path d="M11 2a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v12h.5a.5.5 0 0 1 0 1H.5a.5.5 0 0 1 0-1H1v-3a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3h1V7a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v7h1V2z" />
-                </svg>
-            </p>
-            <form asp-controller="Home" asp-action="Statistica">
-                <input class="submit" type="submit" value="Check it!" />
-            </form>
-        </div>
+<div class="center-divs" id="student-content">
+	<div class="self-col text-center">
+		<p style="font-size: 30px"><b>Structură Cămine</b></p>
+		<p class="flexible">Vizualizează structura căminelor.   Poți vedea informațiile despre fiecare cămin. </p>
+		<p class="flexible">
+			<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-building" viewBox="0 0 16 16">
+				<path fill-rule="evenodd" d="M14.763.075A.5.5 0 0 1 15 .5v15a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5V14h-1v1.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V10a.5.5 0 0 1 .342-.474L6 7.64V4.5a.5.5 0 0 1 .276-.447l8-4a.5.5 0 0 1 .487.022zM6 8.694 1 10.36V15h5V8.694zM7 15h2v-1.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 .5.5V15h2V1.309l-7 3.5V15z" />
+				<path d="M2 11h1v1H2v-1zm2 0h1v1H4v-1zm-2 2h1v1H2v-1zm2 0h1v1H4v-1zm4-4h1v1H8V9zm2 0h1v1h-1V9zm-2 2h1v1H8v-1zm2 0h1v1h-1v-1zm2-2h1v1h-1V9zm0 2h1v1h-1v-1zM8 7h1v1H8V7zm2 0h1v1h-1V7zm2 0h1v1h-1V7zM8 5h1v1H8V5zm2 0h1v1h-1V5zm2 0h1v1h-1V5zm0-2h1v1h-1V3z" />
+			</svg>
+		</p>
+		<form asp-controller="Home" asp-action="CamineST">
+			<input class="submit" type="submit" value="Cămine!" />
+		</form>
+	</div>
+	<div class="self-col text-center">
+		<p style="font-size: 30px"><b>Am o problemă!</b></p>
+		<p>Trimite tichet pentru a remedia problema sau vizualizază statusul tichetelor tale. </p>
+		<p class="ic">
+			<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-exclamation-triangle-fill" viewBox="0 0 16 16">
+				<path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
+			</svg>
+		</p>
+		<form asp-controller="Home" asp-action="Tichete">
+			<input class="submit" type="submit" value="Tichet!" />
+		</form>
+	</div>
+	@if (Model != null)
+	{
+		<div class="self-col text-center">
+			<p style="font-size: 30px"><b>Status Cazare</b></p>
+			<p>
+				Ești cazat în căminul dorit? Verifică statusul tău de cazare.
+			</p>
+			<p>
+				<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-bookmark-check" viewBox="0 0 16 16">
+					<path fill-rule="evenodd" d="M10.854 5.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 7.793l2.646-2.647a.5.5 0 0 1 .708 0z" />
+					<path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z" />
+				</svg>
+			</p>
+			<form asp-action="Status">
+				<input type="text" name="goTo" value="Status" style="display:none;" />
+				<input class="submit" type="submit" value="Status!" />
+			</form>
+		</div>
+	}
+	else
+	{
+		<div class="self-col text-center">
+			<p style="font-size: 30px"><b>Vreau un loc în cămin!</b></p>
+			<p>
+				Nu ești înscris?
+				Înscrie-te pe pagină și ocupă locul în căminul dorit.
+			</p>
+			<p>
+				<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-bookmark-check" viewBox="0 0 16 16">
+					<path fill-rule="evenodd" d="M10.854 5.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 7.793l2.646-2.647a.5.5 0 0 1 .708 0z" />
+					<path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z" />
+				</svg>
+			</p>
+			<form asp-controller="Home" asp-action="Inscriere">
+				<input type="text" name="goTo" value="Inscriere" style="display:none;" />
+				<input class="submit" type="submit" value="Înscrie-te!" />
+			</form>
+		</div>
+	}
+	<div class="self-col text-center" id="statistica">
+		<p style="font-size: 30px"><b>Statistică</b></p>
+		<p>Vizualizează statisticile căminelor UVT. </p>
+		<p class="ic">
+			<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-bar-chart-line-fill" viewBox="0 0 16 16">
+				<path d="M11 2a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v12h.5a.5.5 0 0 1 0 1H.5a.5.5 0 0 1 0-1H1v-3a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3h1V7a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v7h1V2z" />
+			</svg>
+		</p>
+		<form asp-controller="Home" asp-action="Statistica">
+			<input class="submit" type="submit" value="Check it!" />
+		</form>
+	</div>
 </div>
 }
+
+@*@section Scripts{
+	<script>
+		$("#student-content").hide();
+		var isAdmin = true;
+		$("#student").hide();
+		$("#admin").show();
+		$("document").ready(function () {
+			$("#student").click(function () {
+				$("#student").hide();
+				$("#admin").show();
+				$("#student-content").hide();
+				$("#admin-content").show();
+			});
+			$("#admin").click(function () {
+				$("#admin").hide();
+				$("#student").show();
+				$("#admin-content").hide();
+				$("#student-content").show();
+			});
+		});
+	</script>
+}*@

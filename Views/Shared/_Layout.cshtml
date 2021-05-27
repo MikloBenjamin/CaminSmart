@@ -1,6 +1,5 @@
 ﻿@{ 
-    string u = User.Identity.Name;
-    string usr = u.Split('@')[0];
+    string usr = User.Identity.Name.Split('@')[0];
 }
 
 <!DOCTYPE html>
@@ -28,6 +27,8 @@
 				<a asp-area="" asp-controller="Home" asp-action="Index">
 					<img src="@Url.Content("/Images/icons/CamineUVT.jpg")" width="200" height="110" />
 				</a>
+				<button id="student">STUDENT</button>
+				<button id="admin">ADMIN</button>
 				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
 						aria-expanded="false" aria-label="Toggle navigation">
 					<span class="navbar-toggler-icon"></span>
@@ -46,16 +47,12 @@
 	<div id="page">
 		<main role="main">
 			@RenderBody()
-			@*			<div class="con">
-					<div class="row">
-					</div>
-				</div>*@
 		</main>
 	</div>
 	<footer>
 		<div><img class="logouvt" src="@Url.Content("/Images/icons/uvt.png")" /></div>
 		<div>
-			<div><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></div>
+			<a href="https://www.uvt.ro/ro/" target="_blank">www.uvt.ro</a>
 			<div><p style="font-family:Garamond, serif; font-size: 32px">Smart Cămine UVT</p></div>
 		</div>
 		<div class="footer-icons">
@@ -71,6 +68,10 @@
 	<script src="~/lib/jquery/dist/jquery.min.js"></script>
 	<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 	<script src="~/js/site.js" asp-append-version="true"></script>
+	<script>
+		$("#student").hide();
+		$("#admin").hide();
+	</script>
 	@RenderSection("Scripts", required: false)
 </body>
 </html>

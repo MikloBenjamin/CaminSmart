@@ -41,6 +41,7 @@
             pag = 0;
 			content = $("#tbody-student");
             listaStudenti = @serializer;
+            $("#find_student_by_id").attr({ "max": listaStudenti[listaStudenti.length - 1].idStudent });
             loadMore();
 			$("#less").css({ "display": "none" });
             $("#more").click(function (event) {
@@ -116,15 +117,14 @@
 			delete student["tichet"];
 			delete student["dataCazare"];
             student_values = Object.values(student);
-            console.log(student);
 			row += "<td>" + student.idStudent + "</td>";
 			row += "<td>" + student.nume + "</td>";
-			row += "<td>" + student.prenume + "</td>";
-			row += "<td>" + student.facultate + "</td>";
-			row += "<td>" + student.varsta + "</td>";
-            row += "<td>" + student.adresa + "</td>";
-            row += "<td>" + student.email + "</td>";
-            row += "<td>" + student.an + "</td>";
+			row += "<td class =\"hide_at_500\">" + student.prenume + "</td>";
+			row += "<td class = \"hide_at_1065\">" + student.facultate + "</td>";
+			row += "<td class = \"hide_at_1065\">" + student.varsta + "</td>";
+			row += "<td class = \"hide_at_890\">" + student.adresa + "</td>";
+            row += "<td class = \"hide_at_740\">" + student.email + "</td>";
+			row += "<td class = \"hide_at_890\">" + student.an + "</td>";
 			row += "<td>" + student.idCamera + "</td>";
             row += "<td><a href=\"/Student/Edit/" + student.idStudent + "\">Editează</a> | ";
             row += "<a href=\"/Student/Details/" + student.idStudent + "\">Detalii</a> | ";
@@ -149,6 +149,8 @@
                 temprowContent = displayStudent(findStudent(student_id));
                 $("#tempRow").append(temprowContent.substr(4, temprowContent.length - 5));
                 $("#tempRow").css({ "display": "table-row" });
+            } else {
+                showRows();
 			}
         }
 
@@ -171,11 +173,14 @@
 
 <div class="container-fluid d-flex justify-content-center mb-auto">
 	<div class="card">
-		<div class="card-header header-elements-inline">
+		<div class="card-header header-elements-inline" id="hcontent-student">
 			<h5 style="font-family:Garamond,serif;font-size: 40px">Studenți</h5>
 			<div class="mb-2">
-                <label for="student_finder">Caută după ID Student: </label>
-                <input type="number" min="0" max="@Model.Count()" id="find_student_by_id" name="student_finder" value="0"/>
+				<label for="student_finder">
+					Caută după ID Student:
+					<input type="number" min="0" max="@Model.Count()" id="find_student_by_id" name="student_finder" value="0" />
+				</label>
+                <br id="break_at_500" />
 				<a asp-action="Create" class="create_button">Adaugă!</a>
 				<a asp-controller="Home" asp-action="Index" class="create_button">Înapoi</a>
 			</div>
@@ -191,22 +196,22 @@
                         <th>
                             @Html.DisplayNameFor(model => model.Nume)
                         </th>
-                        <th>
+                        <th class="hide_at_500">
                             @Html.DisplayNameFor(model => model.Prenume)
                         </th>
-                        <th>
+                        <th class = "hide_at_1065">
                             @Html.DisplayNameFor(model => model.Facultate)
                         </th>
-                        <th>
+                        <th class = "hide_at_1065">
                             Vârstă
                         </th>
-                        <th>
+                        <th class = "hide_at_890">
                             Adresă
                         </th>
-                        <th>
+                        <th class = "hide_at_740">
                             E-mail
                         </th>
-                        <th>
+                        <th class = "hide_at_890">
                             An Fac.
                         </th>
 						<th>

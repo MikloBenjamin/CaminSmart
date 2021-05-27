@@ -31,6 +31,7 @@
             pag = 0;
 			content = $("#data-camere");
             listaCamere = @serializer;
+            $("#find_student_by_id").attr({ "max": listaCamere[listaCamere.length - 1].idCamera });
             loadMore();
 			$("#less").css({ "display": "none" });
             $("#more").click(function (event) {
@@ -128,6 +129,8 @@
                 temprowContent = displayCamera(findcamera(camera_id));
                 $("#tempRow").append(temprowContent.substr(4, temprowContent.length - 5));
                 $("#tempRow").css({ "display": "table-row" });
+			} else {
+				showRows();
 			}
         }
 
@@ -150,14 +153,17 @@
 
 <div class="container-fluid d-flex justify-content-center mb-auto">
     <div class="card w-75">
-        <div class="card-header header-elements-inline">
+        <div class="card-header header-elements-inline" id="hcontent-camera">
             <h5 style="font-family:Garamond,serif;font-size: 40px">Camere</h5>
-            <div class="mb-2">
-                <label for="camere_finder">Caută după ID Cameră: </label>
-                <input type="number" min="0" max="@Model.Count()" id="find_camere_by_id" name="camere_finder" value="0" />
-                <a asp-action="Create" class="create_button">Adaugă!</a>
-                <a asp-controller="Home" asp-action="Index" class="create_button">Înapoi</a>
-            </div>
+			<div class="mb-2">
+				<label for="camere_finder">
+					Caută după ID Cameră:
+					<input type="number" min="0" max="@Model.Count()" id="find_camere_by_id" name="camere_finder" value="0" />
+				</label>
+				<br id="break_at_820" />
+				<a asp-action="Create" class="create_button">Adaugă!</a>
+				<a asp-controller="Home" asp-action="Index" class="create_button">Înapoi</a>
+			</div>
         </div>
 
         <div class="table-responsive">

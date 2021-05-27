@@ -48,7 +48,7 @@ namespace AplicatieCamine
             GlobalVariables.isSetUp = true;
         }
 
-        public IActionResult Home()
+        public IActionResult Home(int? id)
 		{
             if(GlobalVariables.isSetUp == false)
 			{

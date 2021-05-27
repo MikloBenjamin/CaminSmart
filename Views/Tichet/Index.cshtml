@@ -41,22 +41,24 @@
                 "normal" : {
                     "lista" : @serializer,
                     "pagina" : 1,
-                    "pozitie" : 0
+                    "pozitie": 0,
+                    "id_list" : []
                 }, 
                 "nerezolvat" : {
                     "lista" : @filtered,
                     "pagina" : 1,
-                    "pozitie" : 0
+					"pozitie": 0,
+					"id_list": []
                 },
                 "important" : {
                     "lista" : @important,
                     "pagina" : 1,
-                    "pozitie" : 0
+					"pozitie": 0
                 },
                 "important_nerezolvat" : {
                     "lista" : @importantNerezolvat,
                     "pagina" : 1,
-                    "pozitie" : 0
+					"pozitie": 0
                 }
             }
 
@@ -104,7 +106,7 @@
             }
             listaTichete = filtered_objects[current_object]["lista"];
             filtered_objects[current_object]["pozitie"] = (filtered_objects[current_object]["pagina"] - 1) * 6;
-            console.log("pagina in imprez: " + filtered_objects[current_object]["pagina"]);
+            $("#find_tichet_by_id").attr({ "max": listaTichete[listaTichete.length - 1].idTichet });
             loadInitial();
         }
 
@@ -117,7 +119,6 @@
 
         function loadInitial(){
             emptyContent();
-            console.log("pagina in loadInitial: " + filtered_objects[current_object]["pagina"]);
             if(filtered_objects[current_object]["pagina"] <= 1) { 
                 $("#less").css({ "display": "none" });
             } else {
@@ -141,7 +142,6 @@
         function loadMore() {
 			emptyContent();
             filtered_objects[current_object]["pagina"] += 1;
-            console.log("pagina in loadMore: " + filtered_objects[current_object]["pagina"]);
 			if (filtered_objects[current_object]["pagina"] > 1) {
 				$("#less").css({ "display": "inline-block" });
 			}
@@ -158,7 +158,6 @@
         function loadLess() {
             emptyContent();
             filtered_objects[current_object]["pagina"] -= 1;
-            console.log("pagina in loadLess: " + filtered_objects[current_object]["pagina"]);
             if(filtered_objects[current_object]["pagina"] <= 1) { 
                 $("#less").css({ "display": "none" });
             }
@@ -182,14 +181,14 @@
             important = (tichet["tipTichet"] === false ? "<b style=\"color:red;\"> NU </b>" : "<b style=\"color:green;\"> DA </b>");
             row = "<tr>";
             row += "<td>" + tichet.idTichet + "</td>";
-            row += "<td>" + tichet.dataEmitere.substr(0, 9) + "</td>";
-            row += "<td>" + (tichet.dateRezolvare != null ? tichet.dateRezolvare.substr(0, 9) : "-----") + "</td>";
-            row += "<td>" + statusTichet + "</td>";
+			row += "<td class = \"hide_at_800\">" + tichet.dataEmitere.substr(0, 9) + "</td>";
+            row += "<td class = \"hide_at_985\">" + (tichet.dateRezolvare != null ? tichet.dateRezolvare.substr(0, 9) : "-----") + "</td>";
+			row += "<td class = \"hide_at_800\">" + statusTichet + "</td>";
             row += "<td>" + tichet.detalii + "</td>";
             row += "<td>" + important + "</td>";
-            row += "<td>" + tichet.idStudent + "</td>";
-            row += "<td>" + tichet.idCamera + "</td>";
-            row += "<td>" + (tichet.feedback != null ? tichet.feedback : "<u> Niciun feedback! </u>") + "</td>";
+			row += "<td class = \"hide_at_800\">" + tichet.idStudent + "</td>";
+			row += "<td class=\"hide_at_500\">" + tichet.idCamera + "</td>";
+			row += "<td class = \"hide_at_985\">" + (tichet.feedback != null ? tichet.feedback : "<u> Niciun feedback! </u>") + "</td>";
             row += "<td><a href=\"/Tichet/Edit/" + tichet.idTichet + "\">Editează</a> | ";
             row += "<a href=\"/Tichet/Details/" + tichet.idTichet + "\">Detalii</a> | ";
             row += "<a href=\"/Tichet/Delete/" + tichet.idTichet + "\">Șterge</a> </td> </tr>";
@@ -211,11 +210,13 @@
             }
             if (!found) {
                 temprowContent = findTichet(tichet_id);
-                if(temprowContent != undefined){
+                if (temprowContent != undefined) {
                     temprowContent = displayTichet(temprowContent);
                     $("#tempRow").append(temprowContent.substr(4, temprowContent.length - 5));
                     $("#tempRow").css({ "display": "table-row" });
-                }
+                } else {
+                    showRows();
+				}
 			}
         }
 
@@ -252,16 +253,20 @@
 
 <div class="container-fluid d-flex justify-content-center mb-auto">
     <div class="card">
-        <div class="card-header header-elements-inline">
+        <div class="card-header header-elements-inline" id="hcontent">
             <h5 style="font-family:Garamond,serif; font-size: 40px">Tichet</h5>
-            <div class="mb-2">
-                <label for="tichet_finder">Caută după ID Tichet: </label>
-                <input type="number" min="0" max="@Model.Count()" id="find_tichet_by_id" name="tichet_finder" value="0" />
-                <label for="checker">Importante:  </label> <input type="checkbox" name="checker" id="impTichets" />
-                <label for="checker">Nerezolvate:  </label> <input type="checkbox" name="checker" id="filterTichets" />
-                <a asp-action="Create" class="create_button">Adaugă!</a>
-                <a asp-controller="Home" asp-action="Index" class="create_button">Înapoi</a>
-            </div>
+			<div class="mb-2" >
+				<label for="tichet_finder">
+					Caută după ID Tichet:
+					<input type="number" min="0" max="@Model.Count()" id="find_tichet_by_id" name="tichet_finder" value="0" />
+				</label>
+				<br class="break_at_820" />
+				<label for="checker">Importante:   <input type="checkbox" name="checker" id="impTichets" /></label>
+				<label for="checker">Nerezolvate:   <input type="checkbox" name="checker" id="filterTichets" /></label>
+				<br class="break_at_820" />
+				<a asp-action="Create" class="create_button">Adaugă!</a>
+				<a asp-controller="Student" asp-action="Home" class="create_button">Înapoi</a>
+			</div>
         </div>
 
         <div class="table-responsive">
@@ -272,13 +277,13 @@
                         <th>
                             ID Tichet
                         </th>
-                        <th>
+                        <th class="hide_at_800">
                             Data Emiterii
                         </th>
-                        <th>
+                        <th class="hide_at_985">
                             Data Rezolvare
                         </th>
-                        <th>
+                        <th class="hide_at_800">
                             Rezolvat?
                         </th>
                         <th>
@@ -287,13 +292,13 @@
                         <th>
                             Important?
                         </th>
-                        <th>
+                        <th class="hide_at_800">
                             ID Student
                         </th>
-                        <th>
+                        <th class="hide_at_500">
                             ID Cameră
                         </th>
-                        <th>
+                        <th class="hide_at_985">
                             @Html.DisplayNameFor(model => model.Feedback)
                         </th>
                         <th></th>
