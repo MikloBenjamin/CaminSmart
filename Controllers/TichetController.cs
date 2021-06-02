@@ -152,8 +152,10 @@ namespace AplicatieCamine
                 tichet.IdCamera = (int)stid.First().IdCamera;
                 if(tichet.Detalii != null && tichet.IdCamera != -1)
 				{
-                    if(file != null)
+                    System.Diagnostics.Debug.WriteLine("We are in case when we can create tichet");
+                    if (file != null)
 					{
+                        System.Diagnostics.Debug.WriteLine("We are in case when file != null");
                         string[] user = User.Identity.Name.Split("@")[0].Split(".");
                         user[1] = user[1][0..^2];
                         string idt = id_tichet.ToString();
@@ -180,11 +182,15 @@ namespace AplicatieCamine
         {
             if (ModelState.IsValid)
             {
+                System.Diagnostics.Debug.WriteLine("We are in case when we can create tichet");
                 if (file != null)
                 {
+                    System.Diagnostics.Debug.WriteLine("We are in case when file != null");
                     string[] user = User.Identity.Name.Split("@")[0].Split(".");
+                    user[1] = user[1][0..^2];
                     string idt = id_tichet.ToString();
-                    string file_name = user[1] + "_" + user[0] + "_" + idt + "." + file.Name.Split(".")[1];
+                    string file_name = user[1] + "_" + user[0] + "_" + idt + "." + file.FileName.Split(".")[1];
+                    System.Diagnostics.Debug.WriteLine("File name is " + file_name);
                     tichet.FileName = file_name;
                     await Add_Image(file, file_name);
                 }
@@ -241,8 +247,10 @@ namespace AplicatieCamine
                     var from = new EmailAddress("florin.marut99@e-uvt.ro", "Florin");
                     var to = new EmailAddress(email_student, "Florin");
                     var subject = "Administratorul a modificat tichetul tau!";
-                    var plainTextContent = "Tichetul cu ID-ul " + tichet.IdTichet + " a fost actualizat!";
-                    var htmlContent = "<strong>Tichetul cu ID-ul " + tichet.IdTichet + " a fost actualizat!</strong>";
+                    var plainTextContent = "Tichetul cu ID-ul " + tichet.IdTichet + @" a fost actualizat!\
+                                           Verifica tichetul aici: https://localhost:44383/Tichet/Details";
+                    var htmlContent = "<strong>Tichetul cu ID-ul " + tichet.IdTichet + " a fost actualizat!</strong><br>";
+                    htmlContent += "Verifica tichetul aici: <a href=\"https://localhost:44383/Tichet/Details/" + tichet.IdTichet + "\">https://localhost:44383/Tichet/Details/" + tichet.IdTichet + "</a>";
                     var msg = MailHelper.CreateSingleEmail(
                         from,
                         to,

@@ -22,7 +22,7 @@ namespace AplicatieCamine
 		public ApplicantController(DBSistemContext context)
         {
             _context = context;
-            var applicants = _context.Applicant.Select(a => a);
+            var applicants = _context.Applicant.Select(a => a).AsEnumerable();
             idAppl = 1;
             if (applicants.Count() > 0)
             {
@@ -64,8 +64,16 @@ namespace AplicatieCamine
 				var from = new EmailAddress("florin.marut99@e-uvt.ro", "Florin");
 				var to = new EmailAddress(apl.Email, apl.Prenume);
 				var subject = "Cazarea ta a fost înregistrată cu succes!";
-				var plainTextContent = "Salut, te informăm ca te-ai cazat cu success, blah, blah, blah...";
-				var htmlContent = "<strong>Salut, te informăm ca te-ai cazat cu success, blah, blah, blah...</strong>";
+				var plainTextContent = @"Buna, drag Student! 
+							Te informam ca te-ai inregistrat cu succes pe platforma Managment in camine si iti multumim ca ai aplicat pentru un loc in camin.
+							Vom reveni cat de curand cu mai multe detalii despre statusul tau de cazare!
+							Numai Bine!
+							Asociatia Managementul in Camine UVT";
+				var htmlContent = @"<b>Buna, drag Student!</b> <br>
+							Te informam ca te-ai inregistrat cu succes pe platforma Managment in camine si iti multumim ca ai aplicat pentru un loc in camin. <br>
+							Vom reveni cat de curand cu mai multe detalii despre statusul tau de cazare! <br>
+							Numai Bine! <br>
+							Asociatia Managementul in Camine UVT";
 				var msg = MailHelper.CreateSingleEmail(
 					from,
 					to,
@@ -74,7 +82,6 @@ namespace AplicatieCamine
 					htmlContent
 					);
 				await client.SendEmailAsync(msg);
-				System.Diagnostics.Debug.WriteLine("Email successfully sent!");
 				return RedirectToAction("Home", "Student");
 			}
 			return View();
@@ -131,9 +138,30 @@ namespace AplicatieCamine
 			if (aplc.Count() > 0)
 			{
 				_context.Remove(aplc.First());
+				var client = new SendGridClient(GlobalVariables.SendGridApiKey);
+				var from = new EmailAddress("florin.marut99@e-uvt.ro", "Florin");
+				var to = new EmailAddress(aplc.First().Email, aplc.First().Prenume);
+				var subject = "Cazare REFUZATA!";
+				var plainTextContent = @"Buna, drag Student! 
+								Ne cerem scuze pentru feedback-ul negativ, dar din pacate nu ai fost acceptat pentru locul in camin!
+								Numai Bine!
+								Asociatia Managementul in Camine UVT";
+				var htmlContent = @"<b>Buna, drag Student!</b><br> 
+								Ne cerem scuze pentru feedback-ul negativ, dar din pacate nu ai fost acceptat pentru locul in camin!<br>
+								Numai Bine!<br>
+								Asociatia Managementul in Camine UVT";
+				var msg = MailHelper.CreateSingleEmail(
+					from,
+					to,
+					subject,
+					plainTextContent,
+					htmlContent
+					);
+				await client.SendEmailAsync(msg);
 			}
 			await _context.SaveChangesAsync();
 			GlobalVariables.BlobClient.GetBlobContainerClient("inscrieri").DeleteBlob(applNameID);
+
 			return RedirectToAction("Applicants");
 		}
 	}

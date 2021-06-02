@@ -11,7 +11,8 @@ using Azure.Storage.Blobs;
 using Azure.Storage.Blobs.Models;
 using Microsoft.AspNetCore.Hosting;
 using AplicatieCamine.Models;
-
+using SendGrid;
+using SendGrid.Helpers.Mail;
 namespace AplicatieCamine
 {
     public class StudentController : Controller
@@ -33,6 +34,7 @@ namespace AplicatieCamine
                 System.Diagnostics.Debug.WriteLine("ID_STUDENT = " + id_student);
                 System.Diagnostics.Debug.WriteLine("CONTEXT STUDENT COUNT = " + _context.Student.Count());
 			}
+
             GlobalVariables.IsAdmin = true;
 
             if (!char.IsDigit(User.Identity.Name.Split("@")[0][^1]))
@@ -63,9 +65,9 @@ namespace AplicatieCamine
             return View(await _context.Student.Include(s => s.IdCameraNavigation).ToListAsync());
         }
 
-        public IActionResult Status()
+        public IActionResult Status(int ?id)
 		{
-            if(GlobalVariables.Student != null)
+            if(GlobalVariables.Student != null || id != null)
 			{
                 return View(GlobalVariables.Student);
 			}
@@ -163,6 +165,7 @@ namespace AplicatieCamine
                 IdCamera = -1
             };
             var camine = _context.Camine.ToList();
+            int idCamin = -1, nrCamera = -1;
             foreach (var camin in camine)
             {
                 bool found = false;
@@ -173,6 +176,8 @@ namespace AplicatieCamine
                     {
                         found = true;
                         student.IdCamera = camera.IdCamera;
+                        nrCamera = camera.NrCamera;
+                        idCamin = camin.IdCamin;
                         break;
                     }
                 }
@@ -188,6 +193,28 @@ namespace AplicatieCamine
                 _context.Add(student);
                 await _context.SaveChangesAsync();
                 await DeleteApplicant(nume + "_" + prenume + "_" + id, id);
+                var client = new SendGridClient(GlobalVariables.SendGridApiKey);
+                var from = new EmailAddress("florin.marut99@e-uvt.ro", "Florin");
+                var to = new EmailAddress(student.Email, student.Prenume);
+                var subject = "Cazare ACCEPTATA!";
+                var plainTextContent = @"Buna, drag Student! 
+								Am venit cu vesti bune, ai fost ACCEPTAT in caminul " + idCamin.ToString() + " si camera " + nrCamera.ToString() +  @"
+								Te rog sa verifici statusul tau de cazare pe urmatorul link: " + "https://localhost:44383/Student/Status/" + student.IdStudent.ToString() + @"
+                                Numai Bine!
+								Asociatia Managementul in Camine UVT";
+                var htmlContent = @"<b>Buna, drag Student!</b> <br>
+								Am venit cu vesti bune, ai fost <b>ACCEPTAT</b> in caminul <b>" + idCamin.ToString() + "</b> si camera <b>" + nrCamera.ToString() + "</b><br>";
+					htmlContent += "Te rog sa verifici statusul tau de cazare pe urmatorul link: <a href = \"https://localhost:44383/Student/Status/" + student.IdStudent.ToString() + "\" target = \"_blank\">https://localhost:44383/Student/Status/" + student.IdStudent.ToString() + @"</a><br>
+                                Numai Bine!<br>
+								Asociatia Managementul in Camine UVT";
+                var msg = MailHelper.CreateSingleEmail(
+                    from,
+                    to,
+                    subject,
+                    plainTextContent,
+                    htmlContent
+                    );
+                await client.SendEmailAsync(msg);
                 string controller = "Applicant", action = "Applicants";
                 return RedirectToAction("UpdateNrStudentCazati", "Camere", new { id = (int)student.IdCamera, raction = action, rcontroller = controller });
             }
@@ -275,13 +302,16 @@ namespace AplicatieCamine
             var tichete = await _context.Tichet.Where(entry => entry.IdStudent == student.IdStudent).ToListAsync();
             foreach (var tichet in tichete)
             {
+                System.Diagnostics.Debug.WriteLine(tichet.FileName);
                 _context.Tichet.Remove(tichet);
+                await GlobalVariables.BlobClient.GetBlobContainerClient("tichete").DeleteBlobIfExistsAsync(tichet.FileName);
             }
             var camera = _context.Camere.Where(entry => entry.IdCamera == student.IdCamera).First();
             camera.NrStudentiCazati -= 1;
             _context.Camere.Update(camera);
             _context.Student.Remove(student);
             await _context.SaveChangesAsync();
+            CleanServer();
             return RedirectToAction(nameof(Index));
         }
 
